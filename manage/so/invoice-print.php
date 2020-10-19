@@ -315,7 +315,7 @@
                     echo substr($json_result["paydate"][0],8).'/'.substr($json_result["paydate"][0],5,2).'/'.substr($json_result["paydate"][0],0,4);
                     ?><br>
                     วันที่จัดส่ง : <?php                    
-                    echo substr($json_result["devdate"][0],8).'/'.substr($json_result["devdate"][0],5,2).'/'.substr($json_result["devdate"][0],0,4);
+                    echo substr($json_result["sodate"][0],8).'/'.substr($json_result["sodate"][0],5,2).'/'.substr($json_result["sodate"][0],0,4);
                     ?><br><br>
                 </div>
             </div>

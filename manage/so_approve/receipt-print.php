@@ -138,6 +138,10 @@
     include_once('../../conn.php');
     include_once('../config.php');
     include_once ROOT .'/index_css.php';
+
+    $border= '1px 1px';
+    $border_td = '0px 1px';
+    $noborder = '0px 0px';
     ?>
 </head>
 <?php
@@ -272,7 +276,7 @@
     <!-- info row -->
     <div class="row" >
         <div class="col-sm-7">
-            <div class="panel panel-default">
+            <div class="panel panel-default" style="border: solid #000 !important;border-width: <?php echo $border;?> !important;">
                 <div class="panel-body" style="padding:2px 10px;">
                     <font size="-1">
                         รหัสลูกค้า : <?php
@@ -304,7 +308,7 @@
             ?>
         <!-- /.col -->
         <div class="col-sm-5">
-            <div class="panel panel-default">
+            <div class="panel panel-default" style="border: solid #000 !important;border-width: <?php echo $border;?> !important;">
                 <div class="panel-body" style="padding:2px 10px;">
                     เลขที่ใบส่งของ : <?php
                     echo $json_result["invoice"][0];
@@ -342,18 +346,18 @@
     <div class="row" >
         <div class="col-xs-12 table-responsive">
             <div class="panel panel-default" >
-                <table class="table table-bordered">
+                <table class="table table-bordered" style="border: solid #000 !important;border-width: <?php echo $border;?> !important;">
                     <thead>
-                        <tr>
-                            <th style="width:5%;text-align:center;">No.</th>
-                            <th style="width:10%;text-align:center;">รหัสสินค้า</th>
-                            <th style="text-align:center;">รายการสินค้า</th>
-                            <th style="width:8%;text-align:center;">จำนวน</th>
-                            <th style="text-align:center;">หน่วย</th>
-                            <th style="text-align:center;">ราคา</th>
-                            <th style="text-align:center;">ส่วนลด</th>
-                            <th style="text-align:center;">ขาย</th>
-                            <th style="text-align:center;">จำนวนเงิน</th>
+                        <tr style="border:solid #000!important;border-width: <?php echo $border;?> !important;">
+                            <th style="width:5%;text-align:center;border:solid #000!important;border-width: <?php echo $border;?> !important;">No.</th>
+                            <th style="width:10%;text-align:center;border:solid #000!important;border-width: <?php echo $border;?> !important;">รหัสสินค้า</th>
+                            <th style="text-align:center;border:solid #000!important;border-width: <?php echo $border;?> !important;">รายการสินค้า</th>
+                            <th style="width:8%;text-align:center;border:solid #000!important;border-width: <?php echo $border;?> !important;">จำนวน</th>
+                            <th style="text-align:center;border:solid #000!important;border-width: <?php echo $border;?> !important;">หน่วย</th>
+                            <th style="text-align:center;border:solid #000!important;border-width: <?php echo $border;?> !important;">ราคา</th>
+                            <th style="text-align:center;border:solid #000!important;border-width: <?php echo $border;?> !important;">ส่วนลด</th>
+                            <th style="text-align:center;border:solid #000!important;border-width: <?php echo $border;?> !important;">ขาย</th>
+                            <th style="text-align:center;border:solid #000!important;border-width: <?php echo $border;?> !important;">จำนวนเงิน</th>
                         </tr>
                     </thead>
                     <tbody style="margin: 0;padding: 0;">
@@ -362,15 +366,15 @@
                             $discount=0;
                             $subtotal=0;
                             while($row = $query->fetch_assoc()) {
-                                echo '<tr><td style="padding-top:0px;padding-bottom:0px;text-align:center;">'.$row["sono"].'</td>
-                                <td style="padding-top:0px;padding-bottom:0px;text-align:center;">'.$row["stcode"].'</td>
-                                <td style="padding-top:0px;padding-bottom:0px;text-align:left;">'.$row["stname1"].'</td>
-                                <td style="padding-top:0px;padding-bottom:0px;text-align:center;">'.$row["amount"].'</td>
-                                <td style="padding-top:0px;padding-bottom:0px;text-align:center;">'.$row["unit"].'</td>
-                                <td style="padding-top:0px;padding-bottom:0px;text-align:right;">'.$row["price"].'</td>
-                                <td style="padding-top:0px;padding-bottom:0px;text-align:center;">'.$row["discount"].' %'.'</td>
-                                <td style="padding-top:0px;padding-bottom:0px;text-align:right;">'.($row["price"]-(($row["price"]*($row["discount"])/100))).'</td>
-                                <td style="padding-top:0px;padding-bottom:0px;text-align:right;">'.number_format((($row["amount"]*$row["price"])-((($row["amount"]*$row["price"])*($row["discount"])/100))),2).'</td></tr>';
+                                echo '<tr><td style="padding-top:0px;padding-bottom:0px;text-align:center;border: solid #000 !important;border-width: '.$border_td.' !important;">'.$row["sono"].'</td>
+                                <td style="padding-top:0px;padding-bottom:0px;text-align:center;border: solid #000 !important;border-width: '.$border_td.' !important;">'.$row["stcode"].'</td>
+                                <td style="padding-top:0px;padding-bottom:0px;text-align:left;border: solid #000 !important;border-width: '.$border_td.' !important;">'.$row["stname1"].'</td>
+                                <td style="padding-top:0px;padding-bottom:0px;text-align:center;border: solid #000 !important;border-width: '.$border_td.' !important;">'.$row["amount"].'</td>
+                                <td style="padding-top:0px;padding-bottom:0px;text-align:center;border: solid #000 !important;border-width: '.$border_td.' !important;">'.$row["unit"].'</td>
+                                <td style="padding-top:0px;padding-bottom:0px;text-align:right;border: solid #000 !important;border-width: '.$border_td.' !important;">'.$row["price"].'</td>
+                                <td style="padding-top:0px;padding-bottom:0px;text-align:center;border: solid #000 !important;border-width: '.$border_td.' !important;">'.$row["discount"].' %'.'</td>
+                                <td style="padding-top:0px;padding-bottom:0px;text-align:right;border: solid #000 !important;border-width: '.$border_td.' !important;">'.($row["price"]-(($row["price"]*($row["discount"])/100))).'</td>
+                                <td style="padding-top:0px;padding-bottom:0px;text-align:right;border: solid #000 !important;border-width: '.$border_td.' !important;">'.number_format((($row["amount"]*$row["price"])-((($row["amount"]*$row["price"])*($row["discount"])/100))),2).'</td></tr>';
                                 // $total++;
                                 $total+=($row["price"]*$row["amount"]);
                                 $discount+=(((($row["amount"]*$row["price"])*($row["discount"])/100)));
@@ -380,15 +384,15 @@
                             
 
                             while($row1 = $query1->fetch_assoc()) {
-                                echo '<tr><td style="padding-top:0px;padding-bottom:0px;text-align:center;"></td>
-                                <td style="padding-top:0px;padding-bottom:0px;text-align:center;">'.$row1["stcode"].'</td>
-                                <td style="padding-top:0px;padding-bottom:0px;text-align:left;">'.$row1["stname1"].'</td>
-                                <td style="padding-top:0px;padding-bottom:0px;text-align:center;">'.$row1["amount"].'</td>
-                                <td style="padding-top:0px;padding-bottom:0px;text-align:center;">'.$row1["unit"].'</td>
-                                <td style="padding-top:0px;padding-bottom:0px;text-align:right;"></td>
-                                <td style="padding-top:0px;padding-bottom:0px;text-align:center;"></td>
-                                <td style="padding-top:0px;padding-bottom:0px;text-align:right;"></td>
-                                <td style="padding-top:0px;padding-bottom:0px;text-align:right;"></td></tr>';
+                                echo '<tr><td style="padding-top:0px;padding-bottom:0px;text-align:center;border: solid #000 !important;border-width: '.$border_td.' !important;"></td>
+                                <td style="padding-top:0px;padding-bottom:0px;text-align:center;border: solid #000 !important;border-width: '.$border_td.' !important;">'.$row1["stcode"].'</td>
+                                <td style="padding-top:0px;padding-bottom:0px;text-align:left;border: solid #000 !important;border-width: '.$border_td.' !important;">'.$row1["stname1"].'</td>
+                                <td style="padding-top:0px;padding-bottom:0px;text-align:center;border: solid #000 !important;border-width: '.$border_td.' !important;">'.$row1["amount"].'</td>
+                                <td style="padding-top:0px;padding-bottom:0px;text-align:center;border: solid #000 !important;border-width: '.$border_td.' !important;">'.$row1["unit"].'</td>
+                                <td style="padding-top:0px;padding-bottom:0px;text-align:right;border: solid #000 !important;border-width: '.$border_td.' !important;"></td>
+                                <td style="padding-top:0px;padding-bottom:0px;text-align:center;border: solid #000 !important;border-width: '.$border_td.' !important;"></td>
+                                <td style="padding-top:0px;padding-bottom:0px;text-align:right;border: solid #000 !important;border-width: '.$border_td.' !important;"></td>
+                                <td style="padding-top:0px;padding-bottom:0px;text-align:right;border: solid #000 !important;border-width: '.$border_td.' !important;"></td></tr>';
                                 // $total++;
                                 $total+=($row1["price"]*$row1["amount"]);
                                 $discount+=(((($row1["amount"]*$row1["price"])*($row1["discount"])/100)));
@@ -399,15 +403,15 @@
                             for($i=(mysqli_num_rows($query)+mysqli_num_rows($query1));$i<14;$i++)
                             {
                                 echo '<tr>
-                                <td style="padding:12px;"></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td style="padding:12px;border: solid #000 !important;border-width: '.$border_td.' !important;"></td>
+                                <td style="border: solid #000 !important;border-width: '.$border_td.' !important;"></td>
+                                <td style="border: solid #000 !important;border-width: '.$border_td.' !important;"></td>
+                                <td style="border: solid #000 !important;border-width: '.$border_td.' !important;"></td>
+                                <td style="border: solid #000 !important;border-width: '.$border_td.' !important;"></td>
+                                <td style="border: solid #000 !important;border-width: '.$border_td.' !important;"></td>
+                                <td style="border: solid #000 !important;border-width: '.$border_td.' !important;"></td>
+                                <td style="border: solid #000 !important;border-width: '.$border_td.' !important;"></td>
+                                <td style="border: solid #000 !important;border-width: '.$border_td.' !important;"></td>
                             </tr>';
 
                                 
@@ -418,12 +422,12 @@
                                 $vat = 0;
                             ?>
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <td style="text-align:left;" colspan="3">หมายเหตุ/Remark <br><?php
+                    <tfoot style="border: solid #000 !important;border-width: <?php echo $border;?> !important;">
+                        <tr style="border: solid #000 !important;border-width: <?php echo $border;?> !important;">
+                            <td style="text-align:left;border: solid #000 !important;border-width: <?php echo $border;?> !important;" colspan="3">หมายเหตุ/Remark <br><?php
                     echo $json_result["remark"][0];
                     ?><br><br></td>
-                            <td style="text-align:left;" colspan="6">ราคาสินค้า / TOTAL <span
+                            <td style="text-align:left;border: solid #000 !important;border-width: <?php echo $border;?> !important;" colspan="6">ราคาสินค้า / TOTAL <span
                                     class="total"><?php echo number_format($subtotal-($vat),2);?></span>
                                 <br>ภาษีมูลค่าเพิ่ม / VAT<span class="total"><?php echo number_format($vat,2);?></span>
                                 <br>จำนวนเงินรวมทั้งสิ้น<span
@@ -432,8 +436,8 @@
 
                         </tr>
                         <tr style="font-size:10px;text-align:left;">
-                            <td><br>Note: </td>
-                            <td colspan="8">
+                            <td style="border: solid #000 !important;border-width: <?php echo $noborder;?> !important;"><br>Note: </td>
+                            <td colspan="8" style="border: solid #000 !important;border-width: <?php echo $noborder;?> !important;">
                             <br>
                                 - ใบเสร็จรับเงินนี้ จะถือว่าเป็นการถูกต้องและสมบูรณ์ต่อเมื่อ มีลายเซ็นต์ของผู้รับเงินและผู้อนุมัติ และได้รับเงินเรียบร้อยแล้ว<br>
                                 &nbsp; กรณีชำระเงินเป็นเช็ค ใบเสร็จรับเงินจะสมบูรณ์ต่อเมื่อเรียกเก็บเงินตามเช็คได้เรียบร้อยแล้ว
@@ -442,14 +446,14 @@
                             </td>
                         </tr>
                         <tr style="text-align:center;">
-                            <td colspan="3">
+                            <td colspan="3" style="border: solid #000 !important;border-width: <?php echo $noborder;?> !important;">
                                 <!-- <br>........................................<br>(ผู้รับสินค้า) -->
                             </td>
-                            <td colspan="3">
+                            <td colspan="3" style="border: solid #000 !important;border-width: <?php echo $noborder;?> !important;">
                                 <br>ผู้รับเงิน ........................................<br>
                                 <span style="margin-top:5px;">วันที่ ........./........../...........</span>
                             </td>
-                            <td colspan="3">                            
+                            <td colspan="3" style="border: solid #000 !important;border-width: <?php echo $noborder;?> !important;">                            
                             <br>ผู้อนุมัติ ........................................<br>
                             <span style="margin-top:5px;">วันที่ ........./........../...........</span>
                             </td>

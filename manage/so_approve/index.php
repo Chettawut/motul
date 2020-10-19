@@ -319,12 +319,12 @@ if (!isset($_SESSION['loggedin'])) {
 
                                 <div class="form-row">
                                     <div class="form-group col-md-4">
-                                        <label for="recipient-name" class="col-form-label">วันที่สั่งซื้อ</label>
+                                        <label for="recipient-name" class="col-form-label">วันที่สั่งขาย</label>
                                         <input type="date" class="form-control" size="4" name="editsodate"
                                             id="editsodate" disabled>
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <label for="recipient-name" class="col-form-label">วันที่นัดส่งของ</label>
+                                        <label for="recipient-name" class="col-form-label">วันที่จัดส่ง</label>
                                         <input type="date" class="form-control" name="editdeldate" id="editdeldate"
                                             disabled>
                                     </div>

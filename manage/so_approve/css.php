@@ -1,6 +1,8 @@
 
 <style>
-   table[name=tableSO]  {
+
+
+table[name=tableSO]  {
     border-top: 1px solid #00BFFF;
     
 }

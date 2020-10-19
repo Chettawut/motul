@@ -617,7 +617,7 @@ $(function() {
                     "&discount=" + discount + "&stcode2=" + stcode2 + "&amount2=" + amount2 +
                     "&unit2=" + unit2 +
                     "&places2=" + places2 +
-                    "&salecode=" + <?php echo $_SESSION['salecode'];?>,
+                    "&salecode=" + '<?php echo $_SESSION['salecode'];?>',
                 success: function(result) {
                     if (result.status == 1) {
                         alert(result.message);
