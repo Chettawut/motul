@@ -21,7 +21,7 @@ $(function() {
                     result.amount2[count] + '</td><td style="text-align:right">' +
                     result.piece2[count] + '</td><td style="text-align:right">' +
                     result.amount3[count] + '</td><td style="text-align:right">' +
-                    result.piece3[count] + '</td><td style="text-align:center">' + result.unit[count] + '</td></tr>');
+                    result.piece3[count] + '</td></tr>');
             }
 
             var table = $('#tableStock').DataTable({

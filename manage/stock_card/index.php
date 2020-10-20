@@ -76,7 +76,7 @@ if (!isset($_SESSION['loggedin'])) {
                                                     <th width="8%" style="text-align:center">เศษคลังB</th>
                                                     <th width="8%" style="text-align:center">ลังคลังC</th>
                                                     <th width="8%" style="text-align:center">เศษคลังC</th>
-                                                    <th width="10%" style="text-align:center">หน่วย</th>
+                                                    
 
                                                 </tr>
                                             </thead>

@@ -4,16 +4,17 @@ $(function() {
     $.ajax({
         type: "POST",
         url: "ajax/get_customer.php",
-        //    data: $("#frmMain").serialize(),
+        data: "&type=" + '<?php echo $_SESSION['type'];?>' +
+            "&salecode=" + '<?php echo $_SESSION['salecode'];?>',
         success: function(result) {
             var type;
             for (count = 0; count < result.cuscode.length; count++) {
 
                 var status = '';
-                if(result.status[count]=='Y')
-                status = 'เปิดใช้งาน'
+                if (result.status[count] == 'Y')
+                    status = 'เปิดใช้งาน'
                 else
-                status = 'ปิดใช้งาน'
+                    status = 'ปิดใช้งาน'
 
                 $('#tableCustomer').append(
                     '<tr data-toggle="modal" data-target="#modelCustomerEdit" id="' + result
@@ -22,7 +23,8 @@ $(function() {
                         count] + '">.<td>' + result.cuscode[count] + '</td><td>' +
                     result.cusname[count] + '</td><td style="text-align:center">' +
                     result.province[count] + '</td><td style="text-align:left">' +
-                    result.idno[count] + '</td><td  style="text-align:center">' + status + '</td></tr>');
+                    result.idno[count] + '</td><td  style="text-align:center">' + status +
+                    '</td></tr>');
             }
 
             var table = $('#tableCustomer').DataTable({
@@ -35,11 +37,10 @@ $(function() {
                 maxlength: 60
             });
 
-            
 
         }
     });
-   
+
     $.ajax({
         type: "POST",
         url: "ajax/get_province.php",
@@ -47,22 +48,24 @@ $(function() {
         success: function(result) {
 
             for (count = 0; count < result.code.length; count++) {
-            
+
                 $('#table_id tbody').append(
                     '<tr data-toggle="modal" data-dismiss="modal"  id="' + result
                     .shortname[
-                        count] + '" onClick="onClick_tr(this.id,\'' + result.name[count] + '\');"><td>' + result.code[count] + '</td><td>' +
+                        count] + '" onClick="onClick_tr(this.id,\'' + result.name[count] +
+                    '\');"><td>' + result.code[count] + '</td><td>' +
                     result.name[count] + '</td><td>' +
                     result.shortname[count] + '</td></tr>');
 
-                
+
             }
 
             $('#table_id').DataTable({
-                "dom": '<"pull-left"f>rt<"bottom"p><"clear">',"ordering": true
+                "dom": '<"pull-left"f>rt<"bottom"p><"clear">',
+                "ordering": true
             });
 
-            
+
             $(".dataTables_filter input[type='search']").attr({
                 size: 40,
                 maxlength: 40
@@ -73,11 +76,11 @@ $(function() {
 })
 
 
-function onClick_tr(id,name) {
+function onClick_tr(id, name) {
     $('#cuscode2').val(id);
     $('#province').val(name);
-    
-    
+
+
 }
 
 $('#modelCustomerEdit').on('show.bs.modal', function(event) {
@@ -90,7 +93,7 @@ $('#modelCustomerEdit').on('show.bs.modal', function(event) {
         url: "ajax/getsup_customer.php",
         data: "idcode=" + recipient,
         success: function(result) {
-            modal.find('.modal-body #code').val(result.code);            
+            modal.find('.modal-body #code').val(result.code);
             modal.find('.modal-body #editcuscode').val(result.cuscode);
             modal.find('.modal-body #editcusname').val(result.cusname);
             modal.find('.modal-body #editidno').val(result.idno);
@@ -105,7 +108,7 @@ $('#modelCustomerEdit').on('show.bs.modal', function(event) {
             modal.find('.modal-body #editemail').val(result.email);
             modal.find('.modal-body #editstatus').val(result.status);
 
-           
+
         }
     });
 });
@@ -120,10 +123,12 @@ $("#frmAddCustomer").submit(function(e) {
     $(':disabled').each(function(e) {
         $(this).removeAttr('disabled');
     })
+
     $.ajax({
         type: "POST",
         url: "ajax/add_customer.php",
-        data: $("#frmAddCustomer").serialize(),
+        data: $("#frmAddCustomer").serialize() +
+            "&salecode=" + '<?php echo $_SESSION['salecode'];?>',
         success: function(result) {
             if (result.status == 1) // Success
             {
@@ -148,7 +153,7 @@ $("#frmEditCustomer").submit(function(e) {
         url: "ajax/edit_customer.php",
         data: $("#frmEditCustomer").serialize(),
         success: function(result) {
-            
+
             if (result.status == 1) // Success
             {
                 alert(result.message);
@@ -159,5 +164,4 @@ $("#frmEditCustomer").submit(function(e) {
     });
 
 });
-
 </script>
