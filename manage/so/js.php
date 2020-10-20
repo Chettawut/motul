@@ -369,7 +369,8 @@ $(function() {
     $.ajax({
         type: "POST",
         url: "ajax/get_customer.php",
-
+        data: "&type=" + '<?php echo $_SESSION['type'];?>' +
+            "&salecode=" + '<?php echo $_SESSION['salecode'];?>',
         success: function(result) {
 
             for (count = 0; count < result.code.length; count++) {
