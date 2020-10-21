@@ -50,6 +50,14 @@ $.widget.bridge('uibutton', $.ui.button);
 <script src="<?php echo PATH_JS; ?>/AdminLTE-2.4.10/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo PATH_JS; ?>/AdminLTE-2.4.10/dist/js/demo.js"></script>
+
+<!-- FusionCharts -->
+<script src="<?php echo PATH_JS; ?>/FusionCharts/js/fusioncharts.js"></script>
+<!-- jQuery-FusionCharts -->
+<script src="<?php echo PATH_JS; ?>/FusionCharts/integrations/jquery/js/jquery-fusioncharts.js"></script>
+<!-- Fusion Theme -->
+<script src="<?php echo PATH_JS; ?>/FusionCharts/js/themes/fusioncharts.theme.fusion.js"></script>
+
 <script>
 
 // if(sessionStorage.getItem("type")=='02')
