@@ -6,34 +6,64 @@ $(function() {
         url: "ajax/get_stock.php",
         //    data: $("#frmMain").serialize(),
         success: function(result) {
+            $.ajax({
+                type: "POST",
+                url: "ajax/get_places.php",
 
-            for (count = 0; count < result.stcode.length; count++) {
+                success: function(result1) {
 
+                    // result1.places[count];
+                    var table = '';
+                    for (count = 0; count < result.stcode.length; count++) {
 
-                $('#tableStock').append(
-                    '<tr data-toggle="modal" data-target="#modelStockEdit" id="' + result
-                    .stcode[
-                        count] + '" data-whatever="' + result.code[
-                        count] + '">.<td>' + result.stcode[count] + '</td><td>' +
-                    result.stname1[count] + '</td><td style="text-align:right">' +
-                    result.amount1[count] + '</td><td style="text-align:right">' +
-                    result.piece1[count] + '</td><td style="text-align:right">' +
-                    result.amount2[count] + '</td><td style="text-align:right">' +
-                    result.piece2[count] + '</td><td style="text-align:right">' +
-                    result.amount3[count] + '</td><td style="text-align:right">' +
-                    result.piece3[count] + '</td></tr>');
-            }
+                        table +=
+                            '<tr data-toggle="modal" data-target="#modelStockEdit" id="' +
+                            result.stcode[count] + '" data-whatever="' + result
+                            .code[count] + '"><td>' + result.stcode[count] +
+                            '</td><td>' +
+                            result.stname1[count] +
+                            '</td><td style="text-align:right">' +
+                                result.amount1[count] +
+                                '</td><td style="text-align:right">' +
+                                result.piece1[count] +
+                                '</td><td style="text-align:right">' +
+                                result.amount2[count] +
+                                '</td><td style="text-align:right">' +
+                                result.piece2[count] +
+                                '</td><td style="text-align:right">' +
+                                result.amount3[count] +
+                                '</td><td style="text-align:right">' +
+                                result.piece3[count] +
+                                '</td>';
 
-            var table = $('#tableStock').DataTable({
-                "dom": '<"pull-right"f>rt<"bottom"p><"clear">',"ordering": false
+                        // for (i = 0; i < result1.places.length; i++) {
+                        //     var a=result1.placescode[i];
+                        //     table += '<td style="text-align:right">' +
+                        //         result.amount1[count] +
+                        //         '</td><td style="text-align:right">' +
+                        //         result.piece1[count] +
+                        //         '</td>'
+                        // }
+
+                    }
+                    $('#tableStock').append(table);
+                    var table = $('#tableStock').DataTable({
+                        "dom": '<"pull-right"f>rt<"bottom"p><"clear">',
+                        "ordering": false
+                    });
+
+                    $(".dataTables_filter input[type='search']").attr({
+                        size: 60,
+                        maxlength: 60
+                    });
+                }
             });
 
-            $(".dataTables_filter input[type='search']").attr({
-                size: 60,
-                maxlength: 60
-            });
 
-            
+
+
+
+
 
         }
     });
@@ -52,7 +82,7 @@ $('#modelStockEdit').on('show.bs.modal', function(event) {
         url: "ajax/getsup_stock.php",
         data: "idcode=" + recipient,
         success: function(result) {
-            modal.find('.modal-body #code').val(result.code);            
+            modal.find('.modal-body #code').val(result.code);
             modal.find('.modal-body #editstcode').val(result.stcode);
             modal.find('.modal-body #editstname1').val(result.stname1);
             modal.find('.modal-body #editstorage_id').val(result.storage_id);
@@ -62,7 +92,7 @@ $('#modelStockEdit').on('show.bs.modal', function(event) {
             modal.find('.modal-body #editsellprice').val(result.sellprice);
             modal.find('.modal-body #editstatus').val(result.status);
 
-           
+
         }
     });
 });
@@ -88,9 +118,7 @@ $("#frmAddStock").submit(function(e) {
                 alert(result.message);
                 window.location.reload();
                 // console.log(result.message);
-            }
-            else
-            {
+            } else {
                 alert('รหัสซ้ำ');
             }
         }
@@ -109,7 +137,7 @@ $("#frmEditStock").submit(function(e) {
         url: "ajax/edit_stock.php",
         data: $("#frmEditStock").serialize(),
         success: function(result) {
-            
+
             if (result.status == 1) // Success
             {
                 alert(result.message);
@@ -123,20 +151,20 @@ $("#frmEditStock").submit(function(e) {
 
 $("#btnDeleteUser").click(function() {
 
-$.ajax({
-    type: "POST",
-    url: "ajax/delete_user.php",
-    data: $("#frmEditUser").serialize(),
-    success: function(result) {
-        
-        if (result.status == 1) // Success
-        {
-            alert(result.message);
-            window.location.reload();
-            // console.log(result.message);
+    $.ajax({
+        type: "POST",
+        url: "ajax/delete_user.php",
+        data: $("#frmEditUser").serialize(),
+        success: function(result) {
+
+            if (result.status == 1) // Success
+            {
+                alert(result.message);
+                window.location.reload();
+                // console.log(result.message);
+            }
         }
-    }
-});
+    });
 
 });
 </script>
