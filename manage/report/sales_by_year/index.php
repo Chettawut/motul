@@ -12,7 +12,7 @@ if (!isset($_SESSION['loggedin'])) {
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>ระบบจัดการข้อมูล Unit </title>
+    <title>รายงานใบกำกับภาษีขายรายปี</title>
     <?php include('css.php'); 
     include_once('../../config.php');
     include_once ROOT .'/func.php';
@@ -35,10 +35,10 @@ if (!isset($_SESSION['loggedin'])) {
             <section class="content-header">
                 <h1>
                     รายงาน
-                    <small>reposts</small>
+                    <small>Report</small>
                 </h1>
                 <ol class="breadcrumb">
-                    <li><a href="#"><i class="fa fa-ticket"></i> Unit</a></li>
+                <li><a href="#"><i class="fa fa-bar-chart"></i> Report</a></li>
                 </ol>
             </section>
 
@@ -50,7 +50,7 @@ if (!isset($_SESSION['loggedin'])) {
                         <div class="box" style="background-color:#EAEDED">
                             <div class="box-header">
                                 <i class="fa fa-cube"></i>
-                                <h3 class="box-title">รายการการขายรายปี</h3>
+                                <h3 class="box-title">รายงานใบกำกับภาษีขายรายปี</h3>
                             </div>
                             <!-- /.box-header -->
                             <div class="box-body">
@@ -62,7 +62,7 @@ if (!isset($_SESSION['loggedin'])) {
                                             style="width: 100%;">
                                             <?php 
 												$year=date("Y")+543;
-												for($count=0;$count<10;$count++)
+												for($count=0;$count<5;$count++)
 												echo '<option value="'.$year.'" >ปี '.$year--.'</option>'                    
 											?>
                                         </select>

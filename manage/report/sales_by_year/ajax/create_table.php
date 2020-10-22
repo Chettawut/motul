@@ -9,16 +9,16 @@
     $year = $_POST["year"];
     // $year = '2020';
 
-    $strSQL = "SELECT case when SUBSTRING(c.sodate,1,7) = '2020-01' THEN sum(c.total)  end as total_Jan";
-	$strSQL .= ",case when SUBSTRING(c.sodate,1,7) = '2020-02' then sum(c.total) end as total_Feb,case when SUBSTRING(c.sodate,1,7) = '2020-03' then sum(c.total) end as total_Mar";
-	$strSQL .= ",case when SUBSTRING(c.sodate,1,7) = '2020-04' then sum(c.total) end as total_Apr,case when SUBSTRING(c.sodate,1,7) = '2020-05' then sum(c.total) end as total_May";
-	$strSQL .= ",case when SUBSTRING(c.sodate,1,7) = '2020-06' then sum(c.total) end as total_Jun,case when SUBSTRING(c.sodate,1,7) = '2020-07' then sum(c.total) end as total_Jul";
-	$strSQL .= ",case when SUBSTRING(c.sodate,1,7) = '2020-08' then sum(c.total) end as total_Aug,case when SUBSTRING(c.sodate,1,7) = '2020-09' then sum(c.total) end as total_Sep";
-	$strSQL .= ",case when SUBSTRING(c.sodate,1,7) = '2020-10'  then sum(c.total) end as total_Oct,case when SUBSTRING(c.sodate,1,7) = '2020-11' then sum(c.total) end as total_Nov";
-	$strSQL .= ",case when SUBSTRING(c.sodate,1,7) = '2020-12' then sum(c.total) end as total_Dec";
+    $strSQL = "SELECT case when SUBSTRING(c.sodate,6,2) = '01' THEN sum(c.total)  end as total_Jan";
+	$strSQL .= ",case when SUBSTRING(c.sodate,6,2) = '02' then sum(c.total) end as total_Feb,case when SUBSTRING(c.sodate,6,2) = '03' then sum(c.total) end as total_Mar";
+	$strSQL .= ",case when SUBSTRING(c.sodate,6,2) = '04' then sum(c.total) end as total_Apr,case when SUBSTRING(c.sodate,6,2) = '05' then sum(c.total) end as total_May";
+	$strSQL .= ",case when SUBSTRING(c.sodate,6,2) = '06' then sum(c.total) end as total_Jun,case when SUBSTRING(c.sodate,6,2) = '07' then sum(c.total) end as total_Jul";
+	$strSQL .= ",case when SUBSTRING(c.sodate,6,2) = '08' then sum(c.total) end as total_Aug,case when SUBSTRING(c.sodate,6,2) = '09' then sum(c.total) end as total_Sep";
+	$strSQL .= ",case when SUBSTRING(c.sodate,6,2) = '10'  then sum(c.total) end as total_Oct,case when SUBSTRING(c.sodate,6,2) = '11' then sum(c.total) end as total_Nov";
+	$strSQL .= ",case when SUBSTRING(c.sodate,6,2) = '12' then sum(c.total) end as total_Dec";
 	$strSQL .= " from (SELECT a.socode,b.sodate,sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100)) as total";
     $strSQL .= " FROM sodetail as a inner join somaster as b on (a.socode=b.socode)";
-    $strSQL .= " where b.vat = '".$vat."' and SUBSTRING(b.sodate,1,4)='".$year."' and a.supstatus = '04' GROUP by socode) as c";
+    $strSQL .= " where b.vat = '".$vat."' and SUBSTRING(b.sodate,1,4)='".$year."' and (a.supstatus = '03' or a.supstatus = '04') GROUP by socode) as c";
     
     
     // echo $strSQL;

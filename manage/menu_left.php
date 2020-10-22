@@ -122,6 +122,8 @@ include_once('config.php');
                             อนุมัติขาย</a></li>
                     <li><a href="<?php echo PATH; ?>/stock_card/"><i class="fa fa-book"></i> เช็คยอดพัสดุ</a>
                     </li>
+                    <li><a href="<?php echo PATH; ?>/report/sales_by_year"><i class="fa fa-bar-chart"></i>
+                            รายงานการขาย</a></li>
                 </ul>
 
 
@@ -144,27 +146,6 @@ include_once('config.php');
                             อนุมัติขาย</a></li>
                     <li><a href="<?php echo PATH; ?>/stock_card/"><i class="fa fa-book"></i> เช็คยอดพัสดุ</a>
                     </li>
-                </ul>
-
-
-            </li>
-            <?php 
-                }
-                if($_SESSION['type']=='Admin'||$_SESSION['type']=='Sales'||$_SESSION['type']=='Manager'||$_SESSION['type']=='Store'||$_SESSION['type']=='Sales Leader')
-                {
-                ?>
-            <li class="treeview">
-                <a href="">
-                    <i class="fa fa-bar-chart"></i>
-                    <span>Report</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="<?php echo PATH; ?>/report/sales_by_year"><i class="fa fa-check-circle"></i>
-                            รายงานการขาย</a></li>
-                    
                 </ul>
 
 
