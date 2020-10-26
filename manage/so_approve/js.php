@@ -81,6 +81,7 @@ function onSelectSO(socode) {
             $("#editdeltype").val(result.deltype);
             $("#editinvoice").val(result.invoice);
             $("#editpaycondate").val(result.paycondate);
+            $("#editrecedate").val(result.recedate);
             $("#edittel").val(result.tel);
             $("#editsodate").val(result.sodate);
             $("#editdeldate").val(result.deldate);

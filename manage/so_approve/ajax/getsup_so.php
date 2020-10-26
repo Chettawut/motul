@@ -2,7 +2,7 @@
 	header('Content-Type: application/json');
 	include('../../../conn.php');
 
-	$sql = "SELECT a.socode,a.sodate,a.delcode,a.deltype,a.invoice,a.paycondate,a.deldate,a.paydate,a.payment,a.currency,a.vat,a.remark,c.stcode,c.stname1,a.cuscode,d.cusname,d.idno,d.road,d.subdistrict,d.district,d.province,d.zipcode,d.tel,b.supstatus ";
+	$sql = "SELECT a.socode,a.sodate,a.delcode,a.deltype,a.invoice,a.paycondate,a.deldate,a.paydate,a.recedate,a.payment,a.currency,a.vat,a.remark,c.stcode,c.stname1,a.cuscode,d.cusname,d.idno,d.road,d.subdistrict,d.district,d.province,d.zipcode,d.tel,b.supstatus ";
 	$sql .= "FROM `somaster` as a inner join sodetail as b on (a.socode=b.socode) inner join stock as c on (c.stcode=b.stcode) inner join customer as d on (a.cuscode=d.cuscode) ";
 	$sql .= "where a.socode = '".$_POST['idcode']."'  LIMIT 1";
 	
@@ -19,6 +19,7 @@
 		"invoice" => array(),
 		"paydate" => array(),
 		"paycondate" => array(),
+		"recedate" => array(),
 		"currency" => array(),
 		"vat" => array(),
 		"stcode" => array(),
@@ -46,6 +47,7 @@
 			array_push($json_result['deltype'],$row["deltype"]);
 			array_push($json_result['invoice'],$row["invoice"]);
 			array_push($json_result['paycondate'],$row["paycondate"]);
+			array_push($json_result['recedate'],$row["recedate"]);
 			array_push($json_result['currency'],$row["currency"]);
 			array_push($json_result['vat'],$row["vat"]);
 			array_push($json_result['stcode'],$row["stcode"]);

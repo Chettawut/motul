@@ -147,7 +147,7 @@
 <?php
 	
 
-	$sql = "SELECT a.socode,a.sodate,a.delcode,a.deltype,a.deldate,a.payment,a.invoice,a.invdate,a.paydate,a.paycondate,a.invoice,a.remark,a.currency,a.vat,a.salecode,a.date,a.time,c.stcode,c.stname1,a.cuscode,d.cusname,d.idno,d.road,d.subdistrict,d.district,d.province,d.zipcode,d.tel,d.taxnumber,b.supstatus ";
+	$sql = "SELECT a.socode,a.sodate,a.delcode,a.deltype,a.deldate,a.recedate,a.payment,a.invoice,a.invdate,a.paydate,a.paycondate,a.invoice,a.remark,a.currency,a.vat,a.salecode,a.date,a.time,c.stcode,c.stname1,a.cuscode,d.cusname,d.idno,d.road,d.subdistrict,d.district,d.province,d.zipcode,d.tel,d.taxnumber,b.supstatus ";
 	$sql .= "FROM `somaster` as a inner join sodetail as b on (a.socode=b.socode) inner join stock as c on (c.stcode=b.stcode) inner join customer as d on (a.cuscode=d.cuscode) ";
 	$sql .= "where a.socode = '".$_POST['printsocode']."'  LIMIT 1";
 	// echo $sql;
@@ -169,6 +169,7 @@
 		"time" => array(),
         "remark" => array(),
         "invoice" => array(),
+        "recedate" => array(),
 		"currency" => array(),
 		"vat" => array(),
 		"stcode" => array(),
@@ -197,6 +198,7 @@
             array_push($json_result['paydate'],$row["paydate"]);
             array_push($json_result['paycondate'],$row["paycondate"]);
             array_push($json_result['invoice'],$row["invoice"]);
+            array_push($json_result['recedate'],$row["recedate"]);            
             array_push($json_result['invdate'],$row["invdate"]);            
             array_push($json_result['date'],$row["date"]);
             array_push($json_result['time'],$row["time"]);
@@ -248,7 +250,7 @@
 
             <div class="panel-body">
                 วันที่ : <?php                    
-                    echo substr($json_result["invdate"][0],8).'/'.substr($json_result["invdate"][0],5,2).'/'.substr($json_result["invdate"][0],0,4);
+                    echo substr($json_result["recedate"][0],8).'/'.substr($json_result["recedate"][0],5,2).'/'.substr($json_result["recedate"][0],0,4);
                     ?><br>
                 เลขที่ Invoice : <?php
                     echo $json_result["delcode"][0];

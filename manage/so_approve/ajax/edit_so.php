@@ -4,7 +4,7 @@
     date_default_timezone_set("Asia/Bangkok");
     
     $StrSQL = "UPDATE somaster SET ";
-    $StrSQL .= " delcode='".$_POST["editdelcode"]."' ,deltype='".$_POST["editdeltype"]."' ,paycondate='".$_POST["editpaycondate"]."',invoice='".$_POST["editinvoice"]."' ,vat='".$_POST["editvat"]."' ";
+    $StrSQL .= " delcode='".$_POST["editdelcode"]."' ,deltype='".$_POST["editdeltype"]."' ,paycondate='".$_POST["editpaycondate"]."',recedate='".$_POST["editrecedate"]."',invoice='".$_POST["editinvoice"]."' ,vat='".$_POST["editvat"]."' ";
     $StrSQL .= "WHERE socode='".$_POST["editsocode"]."' ";
     $query = mysqli_query($conn,$StrSQL);
 

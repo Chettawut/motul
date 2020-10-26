@@ -374,18 +374,18 @@ if (!isset($_SESSION['loggedin'])) {
 
                                 <div class="form-row">
 
-                                    <div class="form-group col-md-3">
+                                    <div class="form-group col-md-2">
                                         <label for="recipient-name" class="col-form-label">Invoice Tax</label>
                                         <input type="text" class="form-control" name="editinvoice" id="editinvoice">
                                     </div>
-                                    <div class="form-group col-md-3">
+                                    <div class="form-group col-md-2">
                                         <label for="recipient-name" class="col-form-label">การจัดส่ง</label>
                                         <select class="form-control" name="editdeltype" id="editdeltype">
                                             <option value="บริษัทจัดส่ง">บริษัทจัดส่ง</option>
                                             <option value="รับสินค้าเอง">รับสินค้าเอง</option>
                                         </select>
                                     </div>
-                                    <div class="form-group col-md-3">
+                                    <div class="form-group col-md-2">
                                         <label for="recipient-name" class="col-form-label">Invoice
                                             ใบเสร็จรับเงิน</label>
                                         <input type="text" class="form-control" size="4" name="editdelcode"
@@ -395,6 +395,11 @@ if (!isset($_SESSION['loggedin'])) {
                                         <label for="recipient-name" class="col-form-label">วันที่ชำระเงิน</label>
                                         <input type="date" class="form-control" name="editpaycondate"
                                             id="editpaycondate">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="recipient-name" class="col-form-label">วันที่ออกใบเสร็จ</label>
+                                        <input type="date" class="form-control" name="editrecedate"
+                                            id="editrecedate">
                                     </div>
 
 
