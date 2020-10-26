@@ -8,12 +8,16 @@
     $stcode = explode(',', $_POST['stcode']);
     $unit = explode(',', $_POST['unit']);
     $discount = explode(',', $_POST['discount']);
-    $places = explode(',', $_POST['places']);
     
+    if($_POST["vat"]=='Y')
+    $places = 1;
+    else
+    $places = 2;
+
     $amount2 = explode(',', $_POST['amount2']);
     $stcode2 = explode(',', $_POST['stcode2']);
     $unit2 = explode(',', $_POST['unit2']);
-    $places2 = explode(',', $_POST['places2']);
+    $places2 = 3;
 
     $code='';
     $warehouse=array("","A","B","C");
@@ -23,7 +27,7 @@
 
     foreach ($stcode as $key=> $value) {
         $sql = "SELECT amount FROM stock_level ";
-        $sql .= " WHERE stcode = '". $stcode[$key] ."' and places = '". $places[$key] ."' ";
+        $sql .= " WHERE stcode = '". $stcode[$key] ."' and places = '". $places ."' ";
         $query = mysqli_query($conn,$sql);
         while($row = $query->fetch_assoc()) {
 
@@ -40,7 +44,7 @@
         
             if($row["amount"]<($amount[$key]*$radio))
             {
-                $code .= 'ยอดสต๊อกรหัส '.$stcode[$key].' สต๊อก '.$warehouse[$places[$key]].' ไม่เพียงพอ                                                    ';
+                $code .= 'ยอดสต๊อกรหัส '.$stcode[$key].' สต๊อก '.$warehouse[$places].' ไม่เพียงพอ                                                    ';
                 $check = 0;
             }
         }
@@ -51,7 +55,7 @@
 
     foreach ($stcode2 as $key2=> $value2) {
         $sql = "SELECT amount FROM stock_level ";
-        $sql .= " WHERE stcode = '". $stcode2[$key2] ."' and places = '". $places2[$key2] ."' ";
+        $sql .= " WHERE stcode = '". $stcode2[$key2] ."' and places = '". $places2 ."' ";
         $query = mysqli_query($conn,$sql);
         while($row = $query->fetch_assoc())
         {
@@ -69,7 +73,7 @@
 
             if($row["amount"]<($amount2[$key2]*$radio))
             {
-                $code .= 'ยอดสต๊อกรหัส '.$stcode2[$key2].' สต๊อก '.$warehouse[$places2[$key2]].' ไม่เพียงพอ                                                    ';
+                $code .= 'ยอดสต๊อกรหัส '.$stcode2[$key2].' สต๊อก '.$warehouse[$places2].' ไม่เพียงพอ                                                    ';
                 // $code = $row["amount"].' '.$amount[$key].' '.$socode;
                 $check = 0;
             }
@@ -107,7 +111,7 @@
                 //pono ต้องอยู่ท้ายตลอด
                 $StrSQL .= ", sono)";
                 $StrSQL .= "VALUES (";
-                $StrSQL .= "'".$socode."', '". $stcode[$key] ."', '". $price[$key] ."', '". $unit[$key] ."' , '". $amount[$key] ."' , '01', '". $discount[$key] ."', '0', '". $places[$key] ."' ";            
+                $StrSQL .= "'".$socode."', '". $stcode[$key] ."', '". $price[$key] ."', '". $unit[$key] ."' , '". $amount[$key] ."' , '01', '". $discount[$key] ."', '0', '". $places ."' ";            
                 $StrSQL .= ", '". ++$key ."' ) ";
                 $query = mysqli_query($conn,$StrSQL);
                 }
@@ -121,7 +125,7 @@
                     //rrno ต้องอยู่ท้ายตลอด
                     $StrSQL .= ", sono)";
                     $StrSQL .= "VALUES (";
-                    $StrSQL .= "'".$socode."', '". $stcode2[$key2] ."', '0', '". $unit2[$key2] ."' , '". $amount2[$key2] ."', '01', '1', '". $places2[$key2] ."' ";            
+                    $StrSQL .= "'".$socode."', '". $stcode2[$key2] ."', '0', '". $unit2[$key2] ."' , '". $amount2[$key2] ."', '01', '1', '". $places2 ."' ";            
                     $StrSQL .= ", '". ++$key2 ."' ) ";
                     $query2 = mysqli_query($conn,$StrSQL);
                     }

@@ -316,8 +316,8 @@
                     วันที่ส่งของ : <?php
                     echo substr($json_result["invdate"][0],8).'/'.substr($json_result["invdate"][0],5,2).'/'.substr($json_result["invdate"][0],0,4);
                     ?><br>
-                    วันที่กำหนดชำระเงิน : <?php
-                    echo substr($json_result["paydate"][0],8).'/'.substr($json_result["paydate"][0],5,2).'/'.substr($json_result["paydate"][0],0,4);
+                    วันที่ชำระเงิน : <?php
+                    echo substr($json_result["paycondate"][0],8).'/'.substr($json_result["paycondate"][0],5,2).'/'.substr($json_result["paycondate"][0],0,4);
                     ?><br>
                     การจัดส่ง : <?php
                     echo $json_result["deltype"][0];

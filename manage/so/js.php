@@ -588,9 +588,6 @@ $(function() {
         $('#tableSODetail tbody tr').each(function(key) {
             discount.push($(this).find("td #discount1" + (++key)).val());
         });
-        $('#tableSODetail tbody tr').each(function(key) {
-            places.push($(this).find("td #places1" + (++key)).val());
-        });
 
         $('#tableSOGiveaway tbody tr').each(function() {
             stcode2.push($(this).attr("id"));
@@ -600,9 +597,6 @@ $(function() {
         });
         $('#tableSOGiveaway tbody tr').each(function(key) {
             unit2.push($(this).find("td #unit2" + (++key)).val());
-        });
-        $('#tableSOGiveaway tbody tr').each(function(key) {
-            places2.push($(this).find("td #places2" + (++key)).val());
         });
 
         if (stcode != 0) {
@@ -616,10 +610,8 @@ $(function() {
                 data: $("#frmSO").serialize() + "&amount=" + amount + "&stcode=" + stcode +
                     "&unit=" + unit +
                     "&price=" + price +
-                    "&places=" + places +
                     "&discount=" + discount + "&stcode2=" + stcode2 + "&amount2=" + amount2 +
                     "&unit2=" + unit2 +
-                    "&places2=" + places2 +
                     "&salecode=" + '<?php echo $_SESSION['salecode'];?>',
                 success: function(result) {
                     if (result.status == 1) {
@@ -792,10 +784,7 @@ $(function() {
                             '" value="0"><div class="input-group-addon">%</div></div></td><td ><p name="total1" id="total1' +
                             $('#tableSODetail tr')
                             .length +
-                            '" class="form-control-static" style="text-align:right">0</p></td><td><select class="form-control" style="text-align:left" name="places1" id="places1' +
-                            $('#tableSODetail tr').length + '" >' +
-                            option +
-                            '</select></td></tr>'
+                            '" class="form-control-static" style="text-align:right">0</p></td></tr>'
                         );
 
 
@@ -915,17 +904,14 @@ $(function() {
                             '</p></td><td><p class="form-control-static" style="text-align:left">' +
                             result
                             .stname1 +
-                            '</p></td><td><div class="input-group"><input type="text" class="form-control" style="text-align:center" name="unit2" id="unit2' +
+                            '</p></td><td><input type="number" style="text-align:right" class="form-control" name="amount2"  id="amount2' +
+                            $('#tableSOGiveaway tr').length +
+                            '" value="0"></td><td><div class="input-group"><input type="text" class="form-control" style="text-align:center" name="unit2" id="unit2' +
                             $('#tableSOGiveaway tr').length + '" value="' +
                             result.unit +
                             '" disabled><span class="input-group-btn"><button class="btn btn-default" data-toggle="modal" data-target="#modal_unit2" data-whatever="' +
                             $('#tableSOGiveaway tr').length +
-                            ',tableSOGiveaway" type="button"><span class="fa fa-search"></span></button></span></div></td><td><input type="number" style="text-align:right" class="form-control" name="amount2"  id="amount2' +
-                            $('#tableSOGiveaway tr').length +
-                            '" value="0"></td><td><select class="form-control" style="text-align:left" name="places2" id="places2' +
-                            $('#tableSOGiveaway tr').length + '" >' +
-                            option +
-                            '</select></td></tr>'
+                            ',tableSOGiveaway" type="button"><span class="fa fa-search"></span></button></span></div></td></tr>'
                         );
 
                         var row = $('#tableSOGiveaway tbody tr').length;

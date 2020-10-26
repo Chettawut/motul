@@ -241,7 +241,7 @@ if (!isset($_SESSION['loggedin'])) {
                                                     <th style="width:9%;text-align:center">ราคาขาย</th>
                                                     <th style="width:10%;text-align:center">ส่วนลด</th>
                                                     <th style="width:10%;text-align:center">จำนวนเงิน</th>
-                                                    <th style="width:15%;text-align:center">คลังสินค้า</th>
+                                                    
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -257,9 +257,10 @@ if (!isset($_SESSION['loggedin'])) {
                                                     <th style="width:5%;text-align:center">ลำดับ</th>
                                                     <th style="width:10%;text-align:center">รหัสสินค้า</th>
                                                     <th style="width:30%;text-align:left">รายการสินค้า</th>
-                                                    <th style="width:15%;text-align:center">หน่วย</th>
                                                     <th style="width:10%;text-align:center">จำนวน</th>
-                                                    <th style="width:15%;text-align:center">คลังสินค้า</th>
+                                                    <th style="width:15%;text-align:center">หน่วย</th>
+                                                    
+                                                    
                                                 </tr>
                                             </thead>
                                             <tbody>
