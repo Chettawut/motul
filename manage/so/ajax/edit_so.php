@@ -8,12 +8,10 @@
     $stcode = explode(',', $_POST['stcode']);
     $unit = explode(',', $_POST['unit']);
     $discount = explode(',', $_POST['discount']);
-    $places = explode(',', $_POST['places']);
     
     $amount2 = explode(',', $_POST['amount2']);
     $stcode2 = explode(',', $_POST['stcode2']);
     $unit2 = explode(',', $_POST['unit2']);
-    $places2 = explode(',', $_POST['places2']);
     
     $StrSQL = "UPDATE somaster SET date = '".date("Y-m-d")."', time='".date("H:i:s")."' ";
     $StrSQL .= ",deldate='".$_POST["editdeldate"]."' ,sodate='".$_POST["editsodate"]."',payment='".$_POST["editpayment"]."' ,paydate='".$_POST["editpaydate"]."',currency='".$_POST["editcurrency"]."' ,vat='".$_POST["editvat"]."',remark='".$_POST["editremark"]."' ";
@@ -24,7 +22,7 @@
     if($query) {
         foreach ($stcode as $key=> $value) {
             
-            $StrSQL = "UPDATE sodetail SET stcode='". $stcode[$key] ."' ,price ='". $price[$key] ."', unit ='". $unit[$key] ."', amount ='". $amount[$key] ."', discount = '". $discount[$key] ."',places = '". $places[$key] ."' ";
+            $StrSQL = "UPDATE sodetail SET stcode='". $stcode[$key] ."' ,price ='". $price[$key] ."', unit ='". $unit[$key] ."', amount ='". $amount[$key] ."', discount = '". $discount[$key] ."' ";
             $StrSQL .= "WHERE socode='".$_POST["editsocode"]."' and sono= '". ++$key ."' and giveaway = '0' ";
             
             $query = mysqli_query($conn,$StrSQL);
@@ -33,7 +31,7 @@
                 if($stcode2[$key2]!='')
                 {
 
-                    $StrSQL = "UPDATE sodetail SET stcode='". $stcode2[$key2] ."' , unit ='". $unit2[$key2] ."', amount ='". $amount2[$key2] ."', places = '". $places2[$key2] ."' ";
+                    $StrSQL = "UPDATE sodetail SET stcode='". $stcode2[$key2] ."' , unit ='". $unit2[$key2] ."', amount ='". $amount2[$key2] ."' ";
                     $StrSQL .= "WHERE socode='".$_POST["editsocode"]."' and sono= '". ++$key2 ."' and giveaway = '1' ";
                     
                     $query = mysqli_query($conn,$StrSQL);

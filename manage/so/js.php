@@ -674,9 +674,6 @@ $(function() {
         $('#tableEditSODetail tbody tr').each(function(key) {
             discount.push($(this).find("td #discount1" + (++key)).val());
         });
-        $('#tableEditSODetail tbody tr').each(function(key) {
-            places.push($(this).find("td #places1" + (++key)).val());
-        });
 
         $('#tableEditSOGiveaway tbody tr').each(function() {
             stcode2.push($(this).attr("id"));
@@ -686,9 +683,6 @@ $(function() {
         });
         $('#tableEditSOGiveaway tbody tr').each(function(key) {
             unit2.push($(this).find("td #unit2" + (++key)).val());
-        });
-        $('#tableEditSOGiveaway tbody tr').each(function(key) {
-            places2.push($(this).find("td #places2" + (++key)).val());
         });
 
 

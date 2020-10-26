@@ -376,7 +376,15 @@ if (!isset($_SESSION['loggedin'])) {
 
                                     <div class="form-group col-md-2">
                                         <label for="recipient-name" class="col-form-label">Invoice Tax</label>
+                                        <div class="input-group">
                                         <input type="text" class="form-control" name="editinvoice" id="editinvoice">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" data-toggle="modal"
+                                                        data-target="#modal_invoice" type="button"><span
+                                                            class="fa fa-list"></span></button>
+                                                </span>
+                                            </div>
+                                        
                                     </div>
                                     <div class="form-group col-md-2">
                                         <label for="recipient-name" class="col-form-label">การจัดส่ง</label>
@@ -485,6 +493,49 @@ if (!isset($_SESSION['loggedin'])) {
                                                 <th>ลำดับ</th>
                                                 <th>รหัสลูกค้า</th>
                                                 <th>ชื่อลูกค้า</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal table_id -->
+        <div class="modal fade bs-example-modal-lg" id="modal_invoice" tabindex="-1" role="dialog"
+            aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <table id="table_invoice" name="table_invoice" class="table table-bordered table-striped">
+                                        <thead style=" background-color:#D6EAF8;">
+                                            <tr>
+                                                <th>Invoice Tax</th>
+                                                <th>เลขที่ใบขาย</th>
+                                                <th>วันที่ขาย</th>
+                                                <th></th>
 
                                             </tr>
                                         </thead>

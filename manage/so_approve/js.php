@@ -284,27 +284,26 @@ $(function() {
 
     $.ajax({
         type: "POST",
-        url: "ajax/get_customer.php",
+        url: "ajax/get_invoice_no.php",
 
         success: function(result) {
 
-            for (count = 0; count < result.code.length; count++) {
+            for (count = 0; count < result.socode.length; count++) {
 
-                $('#table_id tbody').append(
+                $('#table_invoice tbody').append(
                     '<tr data-toggle="modal" data-dismiss="modal"  id="' + result
-                    .cuscode[count] + '" onClick="onClick_tr(this.id,\'' + result.cusname[
-                        count] + '\',\'' + result.address[count] + '\',\'' + result.tel[count] +
-                    '\');"><td>' + result.code[
+                    .socode[count] + '" ><td>' + result.invoice[
                         count] + '</td><td>' +
-                    result.cuscode[count] + '</td><td>' +
-                    result.cusname[count] + '</td></tr>');
+                    result.socode[count] + '</td><td>' +
+                    result.sodate[count] + '</td><td>' +
+                    result.vat[count] + '</td></tr>');
 
 
             }
 
-            $('#table_id').DataTable({
-                "dom": '<"pull-left"f>rt<"bottom"p><"clear">',
-                "ordering": true
+            $('#table_invoice').DataTable({
+                "dom": 't<"bottom"p><"clear">',
+                "order": [[ 0, "desc" ]]
             });
 
 
