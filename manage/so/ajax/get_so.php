@@ -5,6 +5,8 @@
 	$sql = "SELECT a.socode,a.sodate,c.stcode,c.stname1,a.cuscode,d.cusname,b.supstatus FROM `somaster` as a inner join sodetail as b on (a.socode=b.socode) inner join stock as c on (c.stcode=b.stcode) inner join customer as d on (a.cuscode=d.cuscode) ";
 	// $sql .= " where b.supstatus = '01'";
 	$sql .= " where b.giveaway = 0 ";
+	if($_POST["type"]=='Sales')
+	$sql .= " and a.salecode = '".$_POST["salecode"]."'  ";
 	$sql .= " ORDER BY sodate desc,socode desc";
 	$query = mysqli_query($conn,$sql);
 

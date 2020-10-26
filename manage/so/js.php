@@ -306,6 +306,8 @@ function getSO() {
     $.ajax({
         type: "POST",
         url: "ajax/get_so.php",
+        data: "&type=" + '<?php echo $_SESSION['type'];?>' +
+            "&salecode=" + '<?php echo $_SESSION['salecode'];?>',
         success: function(result) {
             var supstatus, suptitle;
 
