@@ -135,7 +135,7 @@ function onSelectSO(socode) {
     $("#printsocode").val(socode);
 
     if( $("#"+socode+" td:eq(5)").text() == "รออนุมัติขาย" ){        
-        enabledSupSO(); 
+        // enabledSupSO(); 
         $("#btnEdit").show();
     }else{
         disabledSupSO(); 
@@ -241,7 +241,7 @@ function onSelectSO(socode) {
                             '"><div class="input-group-addon">%</div></div></td><td ><p name="total1" id="total1' +
                             result.sono[count] +
                             '" class="form-control-static" style="text-align:right">0</p></td><td><select class="form-control" style="text-align:left" name="places1" id="places1' +
-                            $('#tableEditSODetail tr').length + '" >' +
+                            $('#tableEditSODetail tr').length + '" disabled>' +
                             option +
                             '</select></td></tr>'
                         );
@@ -273,17 +273,17 @@ function onSelectSO(socode) {
                             '</p></td><td><p class="form-control-static" style="text-align:left">' +
                             result
                             .stname1[count] +
-                            '</p></td><td><div class="input-group"><input type="text" class="form-control" style="text-align:center" name="unit2" id="unit2' +
+                            '</p></td><td><input type="number" style="text-align:right" class="form-control" name="amount2"  id="amount2' +
+                            $('#tableEditSOGiveaway tr').length +
+                            '" value="' +
+                            result.amount[count] +
+                            '"></td><td><div class="input-group"><input type="text" class="form-control" style="text-align:center" name="unit2" id="unit2' +
                             $('#tableEditSOGiveaway tr').length + '" value="' +
                             result.unit[count] +
                             '" disabled><span class="input-group-btn"><button class="btn btn-default" data-toggle="modal" data-target="#modal_unit2" data-whatever="' +
                             $('#tableEditSOGiveaway tr').length +
-                            ',tableEditSOGiveaway," type="button"><span class="fa fa-search"></span></button></span></div></td><td><input type="number" style="text-align:right" class="form-control" name="amount2"  id="amount2' +
-                            $('#tableEditSOGiveaway tr').length +
-                            '" value="' +
-                            result.amount[count] +
-                            '"></td><td><select class="form-control" style="text-align:left" name="places2" id="places2' +
-                            $('#tableEditSOGiveaway tr').length + '" >' +
+                            ',tableEditSOGiveaway," type="button"><span class="fa fa-search"></span></button></span></div></td><td><select class="form-control" style="text-align:left" name="places2" id="places2' +
+                            $('#tableEditSOGiveaway tr').length + '" disabled>' +
                             option +
                             '</select></td></tr>'
                         );

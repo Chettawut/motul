@@ -415,9 +415,7 @@
                     </tbody>
                     <tfoot style="border: solid #000 !important;border-width: <?php echo $border;?> !important;">
                         <tr style="border: solid #000 !important;border-width: <?php echo $border;?> !important;">
-                            <td style="text-align:left;border: solid #000 !important;border-width: <?php echo $border;?> !important;" colspan="3">หมายเหตุ/Remark <br><?php
-                    echo $json_result["remark"][0];
-                    ?><br><br></td>
+                            <td style="text-align:left;border: solid #000 !important;border-width: <?php echo $border;?> !important;" colspan="3">หมายเหตุ/Remark <br><br><br></td>
                             <td style="text-align:left;border: solid #000 !important;border-width: <?php echo $border;?> !important;" colspan="6">ราคาสินค้า / TOTAL <span
                                     class="total"><?php echo number_format($subtotal-($vat),2);?></span>
                                 <br>ภาษีมูลค่าเพิ่ม / VAT<span class="total"><?php echo number_format($vat,2);?></span>
