@@ -77,18 +77,23 @@ if (!isset($_SESSION['loggedin'])) {
                                     <thead>
                                         <tr>
                                             <th>ลำดับที่</th>
-                                            <th>วันที่</th>
+                                            <th style="text-align:center;">วันที่</th>
                                             <th>เลขที่เอกสาร</th>
                                             <th>ชื่อเจ้าหนี้</th>
                                             <th>มูลค่าสินค้า</th>
-                                            <th>ภาษี</th>
-                                            <th>รวมเงิน</th>
+                                            <?php if($_GET['vat']=='Y')
+                                            {
+                                                echo'<th>ภาษี</th>';
+                                                echo'<th>รวมเงิน</th>';
+                                            }                                      
+                                            
+                                            ?>
                                             <th>หมายเหตุ</th>
                                         </tr>
                                     </thead>
                                     <tbody>
         <?php
-        $sql = "SELECT a.socode,b.sodate,c.cusname,sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))-sum(((((a.amount*a.price)-((a.amount*a.price)*a.discount/100))*100)/107)*7/100) as price,sum(((((a.amount*a.price)-((a.amount*a.price)*a.discount/100))*100)/107)*7/100) as vat,sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100)) as total,remark ";        
+        $sql = "SELECT a.socode,b.sodate,b.invoice,b.invdate,c.cusname,sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))-sum(((((a.amount*a.price)-((a.amount*a.price)*a.discount/100))*100)/107)*7/100) as price,sum(((((a.amount*a.price)-((a.amount*a.price)*a.discount/100))*100)/107)*7/100) as vat,sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100)) as total,remark ";        
         $sql .= " FROM sodetail as a inner join somaster as b on (a.socode=b.socode) inner join customer as c on (b.cuscode=c.cuscode) ";
         $sql .= " where b.vat = '".$_GET['vat']."' and SUBSTRING(b.sodate,1,4)='".$_GET['year']."' and SUBSTRING(b.sodate,6,2) = '".$_GET['month']."' and (a.supstatus = '03' or a.supstatus = '04')";
         $sql .= " GROUP by a.socode";
@@ -99,12 +104,15 @@ if (!isset($_SESSION['loggedin'])) {
         {
         echo '<tr>';
         echo '<td>'.$numrow.'</td>';
-        echo '<td>'.$row["sodate"].'</td>';
-        echo '<td>'.$row["socode"].'</td>';
+        echo '<td style="text-align:center;">'.$row["invdate"].'</td>';
+        echo '<td>'.$row["invoice"].'</td>';
         echo '<td>'.$row["cusname"].'</td>';
         echo '<td>'.number_format($row["price"],2).'</td>';
+        if($_GET['vat']=='Y')
+        {
         echo '<td>'.number_format($row["vat"],2).'</td>';
         echo '<td>'.number_format($row["total"],2).'</td>';
+        }
         echo '<td></td>';
         echo '</tr>';
         $numrow++;
@@ -118,8 +126,11 @@ if (!isset($_SESSION['loggedin'])) {
         echo '<th></th>';
         echo '<th>รวม</th>';
         echo '<th>'.number_format($totalprice,2).'</th>';
+        if($_GET['vat']=='Y')
+        {
         echo '<th>'.number_format($totalvat,2).'</th>';
         echo '<th>'.number_format($totaltotal,2).'</th>';
+    }
         echo '<th></th>';
         echo '</tr></tfoot>';
         ?>

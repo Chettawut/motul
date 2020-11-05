@@ -6,15 +6,15 @@ function onClick_tr(id, supname, address, tel) {
     $('#tel').val(tel.substring(0, 3) + '-' + tel.substring(3));
 }
 
-function onClick_unit(unit,target) {
+function onClick_unit(unit, target) {
 
     var row = target.split(',')[0];
     var id = target.split(',')[1];
     var stcode = target.split(',')[2];
     // alert(target + ' ' + stcode);
     // console.log($('#amount1' + row).val() + ' ' + stcode);
-    
-    
+
+
     $.ajax({
         type: "POST",
         url: "ajax/cal_stock.php",
@@ -22,11 +22,11 @@ function onClick_unit(unit,target) {
         success: function(result) {
 
             $('#unit1' + row).val(unit);
-            if(unit=='ลัง')
-            $('#price1' + row).val(result.ratio*result.sellprice);
+            if (unit == 'ลัง')
+                $('#price1' + row).val(result.ratio * result.sellprice);
             else
-            $('#price1' + row).val(result.sellprice);
-            
+                $('#price1' + row).val(result.sellprice);
+
         }
     });
 
@@ -51,7 +51,7 @@ function onClick_unit2(unit, target) {
     //         $('#price1' + row).val(result.ratio*result.sellprice);
     //         else
     //         $('#price1' + row).val(result.sellprice);
-            
+
     //     }
     // });
 
@@ -134,19 +134,19 @@ function onSelectSO(socode) {
     $("#tableEditSODetail").show();
     $("#printsocode").val(socode);
 
-    if( $("#"+socode+" td:eq(5)").text() == "รออนุมัติขาย" ){        
+    if ($("#" + socode + " td:eq(5)").text() == "รออนุมัติขาย") {
         // enabledSupSO(); 
         $("#btnEdit").show();
-    }else{
-        disabledSupSO(); 
-        $("#btnEdit").hide();        
+    } else {
+        disabledSupSO();
+        $("#btnEdit").hide();
     }
 
-    if($("#"+socode+" td:eq(5)").text()=="ยกเลิกการใช้งาน")
+    if ($("#" + socode + " td:eq(5)").text() == "ยกเลิกการใช้งาน")
         $("#btnPrint").hide();
     else
         $("#btnPrint").show();
-    
+
     $.ajax({
         type: "POST",
         url: "ajax/getsup_so.php",
@@ -170,7 +170,8 @@ function onSelectSO(socode) {
         }
     });
 
-    if(($("#"+socode+" td:eq(5)").text() != "สมบูรณ์")&&($("#"+socode+" td:eq(5)").text() != "ยกเลิกการใช้งาน"))
+    if (($("#" + socode + " td:eq(5)").text() != "สมบูรณ์") && ($("#" + socode + " td:eq(5)").text() !=
+            "ยกเลิกการใช้งาน"))
         $("#btnCancle").show();
     else
         $("#btnCancle").hide();
@@ -246,7 +247,8 @@ function onSelectSO(socode) {
                             '</select></td></tr>'
                         );
                         getTotal(result.sono[count]);
-                        $('#places1' + $('#tableEditSODetail tbody tr').length).val(result.places[count]);                   
+                        $('#places1' + $('#tableEditSODetail tbody tr').length).val(result
+                            .places[count]);
 
                     }
 
@@ -287,7 +289,8 @@ function onSelectSO(socode) {
                             option +
                             '</select></td></tr>'
                         );
-                        $('#places2' + $('#tableEditSOGiveaway tbody tr').length).val(result.places[count]);                   
+                        $('#places2' + $('#tableEditSOGiveaway tbody tr').length).val(result
+                            .places[count]);
                         // getTotal(result.rrno[count]);
 
                     }
@@ -313,7 +316,7 @@ function getSO() {
 
             for (count = 0; count < result.socode.length; count++) {
 
-                
+
                 if (result.supstatus[count] == '01') {
                     supstatus = 'รออนุมัติขาย'
                     suptitle = 'รออนุมัติขาย'
@@ -333,10 +336,10 @@ function getSO() {
                     supstatus = 'ยังส่งของไม่ครบ'
                     suptitle = 'ยังส่งของไม่ครบ'
                 }
-                sodate =  result
-                    .sodate[count].substring(8)+'-'+ result
-                    .sodate[count].substring(5,7)+'-'+result
-                    .sodate[count].substring(0,4);
+                sodate = result
+                    .sodate[count].substring(8) + '-' + result
+                    .sodate[count].substring(5, 7) + '-' + result
+                    .sodate[count].substring(0, 4);
 
                 $('#tableSO').append(
                     '<tr id="' + result.socode[
@@ -603,7 +606,7 @@ $(function() {
             $(':disabled').each(function(event) {
                 $(this).removeAttr('disabled');
             });
-            
+
             $.ajax({
                 type: "POST",
                 url: "ajax/add_so.php",
@@ -621,12 +624,12 @@ $(function() {
                     } else {
                         alert(result.message);
 
-                        $("#socode").prop( "disabled",true);
-                        $("#cuscode").prop( "disabled",true);
-                        $("#tdname").prop( "disabled",true);
-                        $("#tel").prop( "disabled",true);
-                        $("#address").prop( "disabled",true);
-                        
+                        $("#socode").prop("disabled", true);
+                        $("#cuscode").prop("disabled", true);
+                        $("#tdname").prop("disabled", true);
+                        $("#tel").prop("disabled", true);
+                        $("#address").prop("disabled", true);
+
                         // console.log(result.message);
                     }
                 }
@@ -640,7 +643,7 @@ $(function() {
     $("#frmEditSO").submit(function(event) {
         event.preventDefault();
 
-        
+
 
         var amount = [];
         var stcode = [];
@@ -690,12 +693,12 @@ $(function() {
             type: "POST",
             url: "ajax/edit_so.php",
             data: $("#frmEditSO").serialize() + "&amount=" + amount + "&stcode=" + stcode +
-                    "&unit=" + unit +
-                    "&price=" + price +
-                    "&places=" + places +
-                    "&discount=" + discount + "&stcode2=" + stcode2 + "&amount2=" + amount2 +
-                    "&unit2=" + unit2 +
-                    "&places2=" + places2,
+                "&unit=" + unit +
+                "&price=" + price +
+                "&places=" + places +
+                "&discount=" + discount + "&stcode2=" + stcode2 + "&amount2=" + amount2 +
+                "&unit2=" + unit2 +
+                "&places2=" + places2,
             success: function(result) {
                 if (result.status == 1) {
                     alert(result.message);
@@ -787,11 +790,11 @@ $(function() {
                         $('#amount1' + row).change(function() {
                             $('#total1' + row).html(formatMoney(($(
                                     '#amount1' + row)
-                            .val() *
+                                .val() *
                                 $('#price1' +
                                     row).val()) - ((($(
                                     '#amount1' + row
-                                    )
+                                )
                                 .val() *
                                 $(
                                     '#price1' + row)
@@ -803,11 +806,11 @@ $(function() {
                         $('#price1' + row).change(function() {
                             $('#total1' + row).html(formatMoney(($(
                                     '#amount1' + row)
-                            .val() *
+                                .val() *
                                 $('#price1' +
                                     row).val()) - ((($(
                                     '#amount1' + row
-                                    )
+                                )
                                 .val() *
                                 $(
                                     '#price1' + row)
@@ -819,11 +822,11 @@ $(function() {
                         $('#discount1' + row).change(function() {
                             $('#total1' + row).html(formatMoney(($(
                                     '#amount1' + row)
-                            .val() *
+                                .val() *
                                 $('#price1' +
                                     row).val()) - ((($(
                                     '#amount1' + row
-                                    )
+                                )
                                 .val() *
                                 $(
                                     '#price1' + row)
@@ -835,11 +838,158 @@ $(function() {
                         $('input[type=text]').on('keydown', function(e) {
                             $('#total1' + row).html(formatMoney(($(
                                     '#amount1' + row)
-                            .val() *
+                                .val() *
                                 $('#price1' +
                                     row).val()) - ((($(
                                     '#amount1' + row
-                                    )
+                                )
+                                .val() *
+                                $(
+                                    '#price1' + row)
+                                .val()) * $(
+                                '#discount1' +
+                                row).val()) / 100), 2));
+                        });
+
+
+                    }
+                });
+            }
+        });
+
+
+    });
+
+    // เพิ่ม po detail เมื่อเลือกสต๊อก
+    $("#table_stock2").delegate('tr', 'click', function() {
+        var id = $(this).attr("id");
+        $('#btnClearSOdetail').show();
+
+        var option = '';
+        $.ajax({
+            type: "POST",
+            url: "ajax/get_places.php",
+
+            success: function(result) {
+
+                for (count = 0; count < result.places.length; count++) {
+
+                    option += '<option value="' + result.placescode[count] + '">' + result
+                        .places[count] + '</option>';
+
+
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "ajax/getsup_stock.php",
+                    data: "idcode=" + id,
+                    success: function(result) {
+
+                        var today = new Date();
+                        var dd = today.getDate() + 7;
+
+                        var mm = today.getMonth() + 1;
+                        var yyyy = today.getFullYear();
+                        if (dd < 10) {
+                            dd = '0' + dd;
+                        }
+
+                        if (mm < 10) {
+                            mm = '0' + mm;
+                        }
+                        today = yyyy + '-' + mm + '-' + dd;
+                        // console.log(today);
+
+                        $('#tableSODetail').append(
+                            '<tr id="' + result.stcode +
+                            '" ><td name="sono" id="sono" ><p class="form-control-static" style="text-align:center">' +
+                            $('#tableSODetail tr').length +
+                            '</p></td><td><p class="form-control-static" style="text-align:center">' +
+                            result
+                            .stcode +
+                            '</p></td><td> <p class="form-control-static" style="text-align:left">' +
+                            result.stname1 +
+                            '</p></td><td><input type="text" class="form-control" name="amount1"  id="amount1' +
+                            $('#tableSODetail tr').length +
+                            '"  value="0"></td><td><div class="input-group"><input type="text" class="form-control" name="unit1" id="unit1' +
+                            $('#tableSODetail tr').length + '" value="' +
+                            result.unit +
+                            '" disabled><span class="input-group-btn"><button class="btn btn-default" data-toggle="modal" data-target="#modal_unit" data-whatever="' +
+                            $('#tableSODetail tr').length +
+                            ',tableSODetail,' +
+                            result
+                            .stcode +
+                            '" type="button"><span class="fa fa-search"></span></button></span></div></td><td><input type="text" class="form-control" name="price1" id="price1' +
+                            $('#tableSODetail tr').length + '" value="' +
+                            result.sellprice +
+                            '"></td><td><div class="input-group"><input type="text" class="form-control" name="discount1" id="discount1' +
+                            $(
+                                '#tableSODetail tr').length +
+                            '" value="0"><div class="input-group-addon">%</div></div></td><td ><p name="total1" id="total1' +
+                            $('#tableSODetail tr')
+                            .length +
+                            '" class="form-control-static" style="text-align:right">0</p></td></tr>'
+                        );
+
+
+                        var row = $('#tableSODetail tbody tr').length;
+
+                        $('#amount1' + row).change(function() {
+                            $('#total1' + row).html(formatMoney(($(
+                                    '#amount1' + row)
+                                .val() *
+                                $('#price1' +
+                                    row).val()) - ((($(
+                                    '#amount1' + row
+                                )
+                                .val() *
+                                $(
+                                    '#price1' + row)
+                                .val()) * $(
+                                '#discount1' +
+                                row).val()) / 100), 2));
+                        });
+
+                        $('#price1' + row).change(function() {
+                            $('#total1' + row).html(formatMoney(($(
+                                    '#amount1' + row)
+                                .val() *
+                                $('#price1' +
+                                    row).val()) - ((($(
+                                    '#amount1' + row
+                                )
+                                .val() *
+                                $(
+                                    '#price1' + row)
+                                .val()) * $(
+                                '#discount1' +
+                                row).val()) / 100), 2));
+                        });
+
+                        $('#discount1' + row).change(function() {
+                            $('#total1' + row).html(formatMoney(($(
+                                    '#amount1' + row)
+                                .val() *
+                                $('#price1' +
+                                    row).val()) - ((($(
+                                    '#amount1' + row
+                                )
+                                .val() *
+                                $(
+                                    '#price1' + row)
+                                .val()) * $(
+                                '#discount1' +
+                                row).val()) / 100), 2));
+                        });
+
+                        $('input[type=text]').on('keydown', function(e) {
+                            $('#total1' + row).html(formatMoney(($(
+                                    '#amount1' + row)
+                                .val() *
+                                $('#price1' +
+                                    row).val()) - ((($(
+                                    '#amount1' + row
+                                )
                                 .val() *
                                 $(
                                     '#price1' + row)
@@ -946,20 +1096,114 @@ $(function() {
     });
 
     
-    // ยกเลิกอนุมัติการขาย
-    $("#btnCancle").click(function (){
-        var so_code = $("#editsocode").val(); 
-        if( confirm("คุณต้องการยกเลิกใบสั่งขาย "+so_code+" หรือไม่") ){
-           $.ajax({
+
+    // เพิ่ม po detail เมื่อเลือกสต๊อก
+    $("#table_giveaway2").delegate('tr', 'click', function() {
+        var target = $(this).attr("id");
+        var id = target.split(',')[0];
+        var row = target.split(',')[1];
+        $('#btnClearSOGiveaway').show();
+        $('#tableSOGiveaway').show();
+        // alert(row+' test '+id);
+        var option = '';
+        $.ajax({
             type: "POST",
-            data: {so_code: so_code, flg:0},
-            url: "ajax/cancle_so.php",
+            url: "ajax/get_places.php",
+
             success: function(result) {
-                alert(result["message"]);
-                window.location.reload();
+
+                for (count = 0; count < result.places.length; count++) {
+
+                    option += '<option value="' + result.placescode[count] + '">' + result
+                        .places[count] + '</option>';
+
+
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: "ajax/getsup_stock.php",
+                    data: "idcode=" + id,
+                    success: function(result) {
+
+                        $('#tableSOGiveaway').append(
+                            '<tr id="' + result.stcode +
+                            '" ><td name="sono" id="sono" ><p class="form-control-static" style="text-align:center">' +
+                            $('#tableSOGiveaway tr').length +
+                            '</p></td><td><p class="form-control-static" name="stcode2" id="stcode2' +
+                            $('#tableSOGiveaway tr').length +
+                            '" style="text-align:center">' +
+                            result
+                            .stcode +
+                            '</p></td><td><p class="form-control-static" style="text-align:left">' +
+                            result
+                            .stname1 +
+                            '</p></td><td><input type="number" style="text-align:right" class="form-control" name="amount2"  id="amount2' +
+                            $('#tableSOGiveaway tr').length +
+                            '" value="0"></td><td><div class="input-group"><input type="text" class="form-control" style="text-align:center" name="unit2" id="unit2' +
+                            $('#tableSOGiveaway tr').length + '" value="' +
+                            result.unit +
+                            '" disabled><span class="input-group-btn"><button class="btn btn-default" data-toggle="modal" data-target="#modal_unit2" data-whatever="' +
+                            $('#tableSOGiveaway tr').length +
+                            ',tableSOGiveaway" type="button"><span class="fa fa-search"></span></button></span></div></td></tr>'
+                        );
+
+                        var row = $('#tableSOGiveaway tbody tr').length;
+
+                        $('#amount2' + row).change(function() {
+                            $('#total2' + row).html(formatMoney(($(
+                                    '#amount2' + row)
+                                .val() * $('#price2' + row)
+                                .val())));
+
+                        });
+
+                        $('#price2' + row).change(function() {
+                            $('#total2' + row).html(formatMoney(($(
+                                    '#amount2' + row)
+                                .val() * $('#price2' + row)
+                                .val())));
+                        });
+
+                        $('input[type=text]').on('keydown', function(e) {
+                            $('#total2' + row).html(formatMoney(($(
+                                    '#amount2' + row)
+                                .val() * $('#price2' + row)
+                                .val())))
+                        });
+
+
+
+                    }
+                });
+
             }
+        });
+
+
+
+
+    });
+
+
+
+    // ยกเลิกอนุมัติการขาย
+    $("#btnCancle").click(function() {
+        var so_code = $("#editsocode").val();
+        if (confirm("คุณต้องการยกเลิกใบสั่งขาย " + so_code + " หรือไม่")) {
+            $.ajax({
+                type: "POST",
+                data: {
+                    so_code: so_code,
+                    flg: 0
+                },
+                url: "ajax/cancle_so.php",
+                success: function(result) {
+                    alert(result["message"]);
+                    window.location.reload();
+                }
             });
-        } 
+        }
     });
 
 
