@@ -64,7 +64,7 @@ function onSelectSO(socode) {
     $("#printsocode").val(socode);
     // $("#editpaycondate").val(formatDate(new Date()));
     $("#btnPrintInvoice").show();
-    $("#btnPrintReceipt").show();     
+    $("#btnPrintReceipt").show();
     $("#tableSODetail tbody").empty();
     $("#tableEditSODetail").show();
     $.ajax({
@@ -163,7 +163,8 @@ function onSelectSO(socode) {
                             '</select></td></tr>'
                         );
                         getTotal(result.sono[count]);
-                        $('#places1' + $('#tableEditSODetail tbody tr').length).val(result.places[count]);                   
+                        $('#places1' + $('#tableEditSODetail tbody tr').length).val(result
+                            .places[count]);
 
                     }
 
@@ -204,7 +205,8 @@ function onSelectSO(socode) {
                             option +
                             '</select></td></tr>'
                         );
-                        $('#places2' + $('#tableEditSOGiveaway tbody tr').length).val(result.places[count]);                   
+                        $('#places2' + $('#tableEditSOGiveaway tbody tr').length).val(result
+                            .places[count]);
                         // getTotal(result.rrno[count]);
 
                     }
@@ -247,10 +249,10 @@ function getSO() {
                     supstatus = 'ยังส่งของไม่ครบ'
                     suptitle = 'ยังส่งของไม่ครบ'
                 }
-                sodate =  result
-                    .sodate[count].substring(8)+'-'+ result
-                    .sodate[count].substring(5,7)+'-'+result
-                    .sodate[count].substring(0,4);
+                sodate = result
+                    .sodate[count].substring(8) + '-' + result
+                    .sodate[count].substring(5, 7) + '-' + result
+                    .sodate[count].substring(0, 4);
 
                 $('#tableSO').append(
                     '<tr id="' + result.socode[
@@ -303,7 +305,9 @@ $(function() {
 
             $('#table_invoice').DataTable({
                 "dom": 't<"bottom"p><"clear">',
-                "order": [[ 0, "desc" ]]
+                "order": [
+                    [0, "desc"]
+                ]
             });
 
 
@@ -408,7 +412,7 @@ $(function() {
         }
     });
 
-    //Refresh
+    //สั่งปริ้น Invoice
     $("#btnPrintInvoice").click(function() {
 
         // alert($("#printsocode").val());
@@ -417,7 +421,24 @@ $(function() {
             url: "ajax/set_invdate.php",
             data: "socode=" + $("#printsocode").val(),
             success: function(result) {
-            //    alert(result.log);
+                //    alert(result.log);
+
+
+            }
+        });
+
+    });
+
+    //สั่งปริ้น ใบแจ้งหนี้
+    $("#btnPrintReceipt").click(function() {
+
+        // alert($("#printsocode").val());
+        $.ajax({
+            type: "POST",
+            url: "ajax/set_receipt.php",
+            data: "socode=" + $("#printsocode").val(),
+            success: function(result) {
+                //    alert(result.log);
 
 
             }
@@ -670,11 +691,11 @@ $(function() {
                         $('#amount1' + row).change(function() {
                             $('#total1' + row).html(formatMoney(($(
                                     '#amount1' + row)
-                            .val() *
+                                .val() *
                                 $('#price1' +
                                     row).val()) - ((($(
                                     '#amount1' + row
-                                    )
+                                )
                                 .val() *
                                 $(
                                     '#price1' + row)
@@ -686,11 +707,11 @@ $(function() {
                         $('#price1' + row).change(function() {
                             $('#total1' + row).html(formatMoney(($(
                                     '#amount1' + row)
-                            .val() *
+                                .val() *
                                 $('#price1' +
                                     row).val()) - ((($(
                                     '#amount1' + row
-                                    )
+                                )
                                 .val() *
                                 $(
                                     '#price1' + row)
@@ -702,11 +723,11 @@ $(function() {
                         $('#discount1' + row).change(function() {
                             $('#total1' + row).html(formatMoney(($(
                                     '#amount1' + row)
-                            .val() *
+                                .val() *
                                 $('#price1' +
                                     row).val()) - ((($(
                                     '#amount1' + row
-                                    )
+                                )
                                 .val() *
                                 $(
                                     '#price1' + row)
@@ -718,11 +739,11 @@ $(function() {
                         $('input[type=text]').on('keydown', function(e) {
                             $('#total1' + row).html(formatMoney(($(
                                     '#amount1' + row)
-                            .val() *
+                                .val() *
                                 $('#price1' +
                                     row).val()) - ((($(
                                     '#amount1' + row
-                                    )
+                                )
                                 .val() *
                                 $(
                                     '#price1' + row)
