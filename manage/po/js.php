@@ -133,7 +133,7 @@ function onSelectPO(pocode) {
                         getTotal(result.pono[count]);
 
                         // $disable = '';
-                        if (result.supstatus[count] == '03') {
+                        if (result.supstatus[count] == '03'||result.supstatus[count] == 'C') {
 
                             $("#frmEditPO input").prop("disabled", true);
                             $("#frmEditPO select").prop("disabled", true);

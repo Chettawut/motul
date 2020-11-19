@@ -74,8 +74,8 @@ function onDeleteDetail(table, id) {
     $("#" + table + " tbody").empty();
     $("#" + id).hide();
 
-    if (table == "tableSOGiveaway")
-        $('#tableSOGiveaway').hide();
+    if (table == "tableTFGiveaway")
+        $('#tableTFGiveaway').hide();
 }
 
 function getTotal(row) {
@@ -127,65 +127,32 @@ function enabledSupSO() {
     });
 }
 
-function onSelectSO(socode) {
+function onSelectTF(tfcode) {
 
-    $("#editsocode").val(socode);
+    $("#edittfcode").val(tfcode);
     $("#tableTFDetail tbody").empty();
-    $("#tableEditSODetail").show();
-    $("#printsocode").val(socode);
-
-    if ($("#" + socode + " td:eq(5)").text() == "รออนุมัติขาย") {
-        // enabledSupSO(); 
-        $("#btnEdit").show();
-    } else {
-        disabledSupSO();
-        $("#btnEdit").hide();
-    }
-
-    if ($("#" + socode + " td:eq(5)").text() == "ยกเลิกการใช้งาน")
-        $("#btnPrint").hide();
-    else
-        $("#btnPrint").show();
+    $("#tableEditTFDetail").show();
 
     $.ajax({
         type: "POST",
-        url: "ajax/getsup_so.php",
-        data: "idcode=" + socode,
+        url: "ajax/getsup_tf.php",
+        data: "idcode=" + tfcode,
         success: function(result) {
-
-            $("#editsocode").val(result.socode);
-            $("#editcuscode").val(result.cuscode);
-            $("#editcusname").val(result.cusname);
-            $("#editaddress").val(result.address);
-            $("#edittel").val(result.tel);
-            $("#editsodate").val(result.sodate);
-            $("#editdeldate").val(result.deldate);
-            $("#editpaydate").val(result.paydate);
-            $("#editpayment").val(result.payment);
-            $("#editcurrency").val(result.currency);
+            $("#edittfcode").val(result.tfcode);
+            $("#edittfdate").val(result.tfdate);
+            $("#edittrandate").val(result.trandate);
             $("#editremark").val(result.remark);
-            $("#editsalecode").val(result.salecode);
-            $("input[name=editvat][value=" + result.vat + "]").prop('checked', true);
 
         }
     });
 
-    if (($("#" + socode + " td:eq(5)").text() != "สมบูรณ์") && ($("#" + socode + " td:eq(5)").text() !=
-            "ยกเลิกการใช้งาน"))
-        $("#btnCancle").show();
-    else
-        $("#btnCancle").hide();
-
-    $("#txtHead").text('แก้ไขใบสั่งขาย (Edit Sale Order)');
-
-    $("#divfrmEditSO").show();
+    $("#divfrmEditTF").show();
     $('#divtableTF').hide();
     $("#btnBack").show();
     $('#btnAddTF').hide();
     $("#btnRefresh").hide();
-    $("#tableEditSODetail tbody").empty();
-    $("#tableEditSOGiveaway tbody").empty();
-    $('#tableEditSOGiveaway').hide();
+    $("#tableEditTFDetail tbody").empty();
+
     var option = '';
     $.ajax({
         type: "POST",
@@ -202,98 +169,51 @@ function onSelectSO(socode) {
             }
             $.ajax({
                 type: "POST",
-                url: "ajax/getsup_sodetail.php",
-                data: "idcode=" + socode,
+                url: "ajax/getsup_tfdetail.php",
+                data: "idcode=" + tfcode,
                 success: function(result) {
+                        
                     for (count = 0; count < result.stcode.length; count++) {
 
-                        $('#tableEditSODetail').append(
+                        $('#tableEditTFDetail').append(
                             '<tr id="' + result.stcode[count] +
-                            '" ><td name="sono" id="sono" ><p class="form-control-static" style="text-align:center">' +
-                            result.sono[count] +
+                            '" ><td name="tfno" id="tfno" ><p class="form-control-static" style="text-align:center">' +
+                            result.tfno[count] +
                             '</p></td><td><p class="form-control-static" style="text-align:center">' +
                             result
                             .stcode[count] +
                             '</p></td><td> <p class="form-control-static" style="text-align:left">' +
                             result.stname1[count] +
-                            '</p></td><td><input type="text" class="form-control" onChange="getTotal(' +
-                            result
-                            .sono[count] + ');" name="amount1"  id="amount1' +
-                            result.sono[count] +
+                            '</p></td><td><input type="text" class="form-control" name="amount1"  id="amount1' +
+                            result.tfno[count] +
                             '"  value="' +
                             result.amount[count] +
                             '"></td><td><div class="input-group"><input type="text" class="form-control" name="unit1" id="unit1' +
-                            result.sono[count] + '" value="' +
+                            result.tfno[count] + '" value="' +
                             result.unit[count] +
                             '" disabled><span class="input-group-btn"><button class="btn btn-default" data-toggle="modal" data-target="#modal_unit" data-whatever="' +
-                            result.sono[count] +
-                            ',tableEditSODetail,' +
+                            result.tfno[count] +
+                            ',tableEditTFDetail,' +
                             result
                             .stcode[count] +
-                            '" type="button"><span class="fa fa-search"></span></button></span></div></td><td><input type="text" class="form-control" onChange="getTotal(' +
-                            result.sono[count] + ');" name="price1" id="price1' +
-                            result.sono[count] + '" value="' +
-                            result.price[count] +
-                            '"></td><td><div class="input-group"><input type="text" class="form-control" onChange="getTotal(' +
-                            result.sono[count] + ');" name="discount1" id="discount1' +
-                            result.sono[count] +
-                            '" value="' +
-                            result.discount[count] +
-                            '"><div class="input-group-addon">%</div></div></td><td ><p name="total1" id="total1' +
-                            result.sono[count] +
-                            '" class="form-control-static" style="text-align:right">0</p></td><td><select class="form-control" style="text-align:left" name="places1" id="places1' +
-                            $('#tableEditSODetail tr').length + '" disabled>' +
+                            '" type="button"><span class="fa fa-search"></span></button></span></div></td><td><select class="form-control" style="text-align:left" name="places1" id="places1' +
+                            $('#tableEditTFDetail tr').length + '" disabled>' +
                             option +
-                            '</select></td></tr>'
-                        );                        
-
-                    }
-
-                }
-            });
-
-            $.ajax({
-                type: "POST",
-                url: "ajax/getsup_sodetail_giveaway.php",
-                data: "idcode=" + socode,
-                success: function(result) {
-                    for (count = 0; count < result.stcode.length; count++) {
-                        if (result.stcode.length > 0)
-                            $('#tableEditSOGiveaway').show();
-                        $('#tableEditSOGiveaway').append(
-                            '<tr id="' + result.stcode[count] +
-                            '" ><td name="sono" id="sono" ><p class="form-control-static" style="text-align:center">' +
-                            $('#tableEditSOGiveaway tr').length +
-                            '</p></td><td><p class="form-control-static" name="stcode2" id="stcode2' +
-                            $('#tableEditSOGiveaway tr').length +
-                            '" style="text-align:center">' +
-                            result
-                            .stcode[count] +
-                            '</p></td><td><p class="form-control-static" style="text-align:left">' +
-                            result
-                            .stname1[count] +
-                            '</p></td><td><input type="number" style="text-align:right" class="form-control" name="amount2"  id="amount2' +
-                            $('#tableEditSOGiveaway tr').length +
-                            '" value="' +
-                            result.amount[count] +
-                            '"></td><td><div class="input-group"><input type="text" class="form-control" style="text-align:center" name="unit2" id="unit2' +
-                            $('#tableEditSOGiveaway tr').length + '" value="' +
-                            result.unit[count] +
-                            '" disabled><span class="input-group-btn"><button class="btn btn-default" data-toggle="modal" data-target="#modal_unit2" data-whatever="' +
-                            $('#tableEditSOGiveaway tr').length +
-                            ',tableEditSOGiveaway," type="button"><span class="fa fa-search"></span></button></span></div></td><td><select class="form-control" style="text-align:left" name="places2" id="places2' +
-                            $('#tableEditSOGiveaway tr').length + '" disabled>' +
+                            '</select></td><td><select class="form-control" style="text-align:left" name="places2" id="places2' +
+                            $('#tableEditTFDetail tr').length + '" disabled>' +
                             option +
                             '</select></td></tr>'
                         );
-                        $('#places2' + $('#tableEditSOGiveaway tbody tr').length).val(result
-                            .places[count]);
-                        // getTotal(result.rrno[count]);
+                        $('#places1' + $('#tableEditTFDetail tbody tr').length).val(result
+                            .places1[count]);
+                        $('#places2' + $('#tableEditTFDetail tbody tr').length).val(result
+                            .places2[count]);
 
                     }
 
                 }
             });
+
         }
     });
 
@@ -302,26 +222,24 @@ function onSelectSO(socode) {
 
 }
 
-function getSO() {
+function getTF() {
     $.ajax({
         type: "POST",
-        url: "ajax/get_so.php",
-        data: "&type=" + '<?php echo $_SESSION['type'];?>' +
-            "&salecode=" + '<?php echo $_SESSION['salecode'];?>',
+        url: "ajax/get_tf.php",
         success: function(result) {
             var supstatus, suptitle;
 
-            for (count = 0; count < result.socode.length; count++) {
+            for (count = 0; count < result.tfcode.length; count++) {
 
-                sodate = result
-                    .sodate[count].substring(8) + '-' + result
-                    .sodate[count].substring(5, 7) + '-' + result
-                    .sodate[count].substring(0, 4);
+                tfdate = result
+                    .tfdate[count].substring(8) + '-' + result
+                    .tfdate[count].substring(5, 7) + '-' + result
+                    .tfdate[count].substring(0, 4);
 
                 $('#tableTF').append(
-                    '<tr id="' + result.socode[
-                        count] + '" onClick="onSelectSO(this.id);" ><td>' + result.socode[count] +
-                    '</td><td>' + sodate + '</td><td>' + result
+                    '<tr id="' + result.tfcode[
+                        count] + '" onClick="onSelectTF(this.id);" ><td>' + result.tfcode[count] +
+                    '</td><td>' + tfdate + '</td><td>' + result
                     .stcode[count] + '</td><td>' + result.stname1[count] + '</td></tr>');
             }
 
@@ -344,7 +262,7 @@ function getSO() {
 $(function() {
 
 
-    getSO();
+    getTF();
 
     $.ajax({
         type: "POST",
@@ -510,12 +428,11 @@ $(function() {
     $("#frmTF").submit(function(event) {
         event.preventDefault();
 
-        var amount = [];
         var stcode = [];
+        var amount = [];
         var unit = [];
-        var price = [];
-        var discount = [];
-        var places = [];
+        var places1 = [];
+        var places2 = [];
 
 
 
@@ -543,8 +460,8 @@ $(function() {
 
             $.ajax({
                 type: "POST",
-                url: "ajax/add_so.php",
-                data: $("#frmSO").serialize() + "&amount=" + amount + "&stcode=" + stcode +
+                url: "ajax/add_tf.php",
+                data: $("#frmTF").serialize() + "&amount=" + amount + "&stcode=" + stcode +
                     "&unit=" + unit +
                     "&places1=" + places1 +
                     "&places2=" + places2 +
@@ -557,11 +474,8 @@ $(function() {
                     } else {
                         alert(result.message);
 
-                        $("#socode").prop("disabled", true);
-                        $("#cuscode").prop("disabled", true);
-                        $("#tdname").prop("disabled", true);
-                        $("#tel").prop("disabled", true);
-                        $("#address").prop("disabled", true);
+                        $("#tfcode").prop("disabled", true);
+                        $("#tfdate").prop("disabled", true);
 
                         // console.log(result.message);
                     }
@@ -573,7 +487,7 @@ $(function() {
     });
 
     // กดยืนยันแก้ไข SO
-    $("#frmEditSO").submit(function(event) {
+    $("#frmEditTF").submit(function(event) {
         event.preventDefault();
 
 
@@ -595,30 +509,20 @@ $(function() {
         });
 
 
-        $('#tableEditSODetail tbody tr').each(function() {
+        $('#tableEditTFDetail tbody tr').each(function() {
             stcode.push($(this).attr("id"));
         });
-        $('#tableEditSODetail tbody tr').each(function(key) {
+        $('#tableEditTFDetail tbody tr').each(function(key) {
             amount.push($(this).find("td #amount1" + (++key)).val());
         });
-        $('#tableEditSODetail tbody tr').each(function(key) {
+        $('#tableEditTFDetail tbody tr').each(function(key) {
             unit.push($(this).find("td #unit1" + (++key)).val());
         });
-        $('#tableEditSODetail tbody tr').each(function(key) {
+        $('#tableEditTFDetail tbody tr').each(function(key) {
             price.push($(this).find("td #price1" + (++key)).val());
         });
-        $('#tableEditSODetail tbody tr').each(function(key) {
+        $('#tableEditTFDetail tbody tr').each(function(key) {
             discount.push($(this).find("td #discount1" + (++key)).val());
-        });
-
-        $('#tableEditSOGiveaway tbody tr').each(function() {
-            stcode2.push($(this).attr("id"));
-        });
-        $('#tableEditSOGiveaway tbody tr').each(function(key) {
-            amount2.push($(this).find("td #amount2" + (++key)).val());
-        });
-        $('#tableEditSOGiveaway tbody tr').each(function(key) {
-            unit2.push($(this).find("td #unit2" + (++key)).val());
         });
 
 
@@ -649,7 +553,7 @@ $(function() {
     // เพิ่ม po detail เมื่อเลือกสต๊อก
     $("#table_stock").delegate('tr', 'click', function() {
         var id = $(this).attr("id");
-        $('#btnClearSOdetail').show();
+        $('#btnClearTFdetail').show();
 
         var option = '';
         $.ajax({
@@ -797,7 +701,7 @@ $(function() {
     });
 
 
-    // ย้ายไปหน้า เพิ่ม PO
+    // ย้ายไปหน้า เพิ่ม TF
     $("#btnAddTF").click(function() {
 
         $("#socode").val('');
@@ -805,7 +709,7 @@ $(function() {
         $("#tdname").val('');
         $("#address").val('');
         $("#tfdate").val(formatDate(new Date()));
-        $("#trandate").val(formatDate(new Date()));        
+        $("#trandate").val(formatDate(new Date()));
         $("#tableTFDetail tbody").empty();
         previewTFcode();
 

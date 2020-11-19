@@ -70,7 +70,7 @@
                 $radio=$row["ratio"];
             }
 
-            $sql = "UPDATE stock_level SET amount = amount - ". $amount[$key]*$radio .",price = price-(amtprice*". $amount[$key]*$radio .") ";
+            $sql = "UPDATE stock_level SET amount = amount - ". $amount[$key]*$radio .",price = price-(amtprice*". $amount[$key]*$radio ."),amtprice= price/amount ";
             $sql .= " WHERE stcode = '". $stcode[$key] ."' and places = '". $places[$key] ."' ";
             $query = mysqli_query($conn,$sql);
 
@@ -98,7 +98,7 @@
                         $radio=$row["ratio"];
                     }
 
-                    $sql = "UPDATE stock_level SET amount = amount - ". $amount2[$key2]*$radio .",price = price-(amtprice*". $amount2[$key2]*$radio .") ";
+                    $sql = "UPDATE stock_level SET amount = amount - ". $amount2[$key2]*$radio .",price = price-(amtprice*". $amount2[$key2]*$radio ."),amtprice= price/amount ";
                     $sql .= " WHERE stcode = '". $stcode2[$key2] ."' and places = '". $places2[$key2] ."' ";
                     $query = mysqli_query($conn,$sql);
 

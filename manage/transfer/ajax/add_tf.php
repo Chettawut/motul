@@ -3,31 +3,24 @@
     include('../../../conn.php');
     date_default_timezone_set("Asia/Bangkok");
 
-    $price = explode(',', $_POST['price']);
     $amount = explode(',', $_POST['amount']);
     $stcode = explode(',', $_POST['stcode']);
     $unit = explode(',', $_POST['unit']);
-    $discount = explode(',', $_POST['discount']);
+    $places1 = explode(',', $_POST['places1']);
+    $places2 = explode(',', $_POST['places2']);
     
-    if($_POST["vat"]=='Y')
-    $places = 1;
-    else
-    $places = 2;
-
-    $amount2 = explode(',', $_POST['amount2']);
-    $stcode2 = explode(',', $_POST['stcode2']);
-    $unit2 = explode(',', $_POST['unit2']);
-    $places2 = 3;
-
     $code='';
     $warehouse=array("","A","B","C");
-    $socode;
-    $yearsocode;
+    $tfcode;
+    $yeartfcode;
+
+    $amtprice=array();
+
     $check = 1;
 
     foreach ($stcode as $key=> $value) {
-        $sql = "SELECT amount FROM stock_level ";
-        $sql .= " WHERE stcode = '". $stcode[$key] ."' and places = '". $places ."' ";
+        $sql = "SELECT amount,amtprice FROM stock_level ";
+        $sql .= " WHERE stcode = '". $stcode[$key] ."' and places = '". $places1[$key] ."' ";
         $query = mysqli_query($conn,$sql);
         while($row = $query->fetch_assoc()) {
 
@@ -44,8 +37,12 @@
         
             if($row["amount"]<($amount[$key]*$radio))
             {
-                $code .= 'ยอดสต๊อกรหัส '.$stcode[$key].' สต๊อก '.$warehouse[$places].' ไม่เพียงพอ                                                    ';
+                $code .= 'ยอดสต๊อกรหัส '.$stcode[$key].' สต๊อก '.$warehouse[$places1[$key]].' ไม่เพียงพอ                                                    ';
                 $check = 0;
+            }
+            else
+            {
+                array_push($amtprice,$row["amtprice"]);
             }
         }
 
@@ -53,92 +50,113 @@
         
     }        
 
-    foreach ($stcode2 as $key2=> $value2) {
-        $sql = "SELECT amount FROM stock_level ";
-        $sql .= " WHERE stcode = '". $stcode2[$key2] ."' and places = '". $places2 ."' ";
-        $query = mysqli_query($conn,$sql);
-        while($row = $query->fetch_assoc())
-        {
-
-            $radio=1;
-
-            if($unit2[$key2]=='ลัง')
-            {
-                $sql = "SELECT ratio FROM `stock` as a INNER join storage_unit as b on (a.storage_id=b.storage_id) ";
-                $sql .= " WHERE a.stcode = '". $stcode2[$key2] ."' ";
-                $query = mysqli_query($conn,$sql);
-                $row2 = $query->fetch_assoc();
-                $radio=$row2["ratio"];
-            }
-
-            if($row["amount"]<($amount2[$key2]*$radio))
-            {
-                $code .= 'ยอดสต๊อกรหัส '.$stcode2[$key2].' สต๊อก '.$warehouse[$places2].' ไม่เพียงพอ                                                    ';
-                // $code = $row["amount"].' '.$amount[$key].' '.$socode;
-                $check = 0;
-            }
-        }
-    }
-
+    //ลบ
     if($check==1)
     {
-        
-        $sql = "SELECT * FROM options order by year desc LIMIT 1";
-        $query = mysqli_query($conn,$sql);
-
-            while($row = $query->fetch_assoc()) {
-                $code=sprintf("%03s", $row["maxsocode"]);
-                $yearsocode=$row["year"];            
-                $socode= $yearsocode.'KM'.$code;
-            }
-
-        $StrSQL = "INSERT INTO somaster (socode,cuscode,sodate,deldate,paydate,payment,currency,vat,remark,salecode,date,time";
-        $StrSQL .= ")";
-        $StrSQL .= "VALUES (";
-        $StrSQL .= "'".$socode."','".$_POST["cuscode"]."','".$_POST["sodate"]."','".$_POST["deldate"]."','".$_POST["paydate"]."','".$_POST["payment"]."' ";
-        $StrSQL .= ", '".$_POST["currency"]."' , '".$_POST["vat"]."', '".$_POST["remark"]."', '".$_POST["salecode"]."' , '".date("Y-m-d")."','".date("H:i:s")."' ";
-        $StrSQL .= ") ";
-        $query = mysqli_query($conn,$StrSQL);
-
-        if($query) {
-            $strSQL = "UPDATE options SET ";
-            $strSQL .= "maxsocode='".($code+1)."' ";
-            $strSQL .= "WHERE year= ".$yearsocode." ";
-            $query = mysqli_query($conn,$strSQL);
-            foreach ($stcode as $key=> $value) {
-                $StrSQL = "INSERT INTO sodetail (socode , stcode , price , unit , amount , supstatus , discount, giveaway, places ";
-
-                //pono ต้องอยู่ท้ายตลอด
-                $StrSQL .= ", sono)";
-                $StrSQL .= "VALUES (";
-                $StrSQL .= "'".$socode."', '". $stcode[$key] ."', '". $price[$key] ."', '". $unit[$key] ."' , '". $amount[$key] ."' , '01', '". $discount[$key] ."', '0', '". $places ."' ";            
-                $StrSQL .= ", '". ++$key ."' ) ";
-                $query = mysqli_query($conn,$StrSQL);
+        foreach ($stcode as $key=> $value) {
+    
+                $radio=1;
+    
+                if($unit[$key]=='ลัง')
+                {
+                    $sql = "SELECT ratio FROM `stock` as a INNER join storage_unit as b on (a.storage_id=b.storage_id) ";
+                    $sql .= " WHERE a.stcode = '". $stcode[$key] ."' ";
+                    $query = mysqli_query($conn,$sql);
+                    $row2 = $query->fetch_assoc();
+                    $radio=$row2["ratio"];
                 }
 
-                foreach ($stcode2 as $key2=> $value2) {
-                    if($stcode2[$key2]!='')
+                $sql = "UPDATE stock_level SET amount = amount - ". $amount[$key]*$radio .", price = amtprice*amount ";
+                $sql .= " WHERE stcode = '". $stcode[$key] ."' and places = '". $places1[$key] ."' ";
+                $query2 = mysqli_query($conn,$sql);
+            
+                if(!$query2) 
                     {
+                        $code .= $stcode[$key].' ';
+                        $check = 0;
+                    }
+            
+        }  
 
-                    $StrSQL = "INSERT INTO sodetail (socode , stcode , price , unit , amount , supstatus, giveaway, places  ";
-                
-                    //rrno ต้องอยู่ท้ายตลอด
-                    $StrSQL .= ", sono)";
-                    $StrSQL .= "VALUES (";
-                    $StrSQL .= "'".$socode."', '". $stcode2[$key2] ."', '0', '". $unit2[$key2] ."' , '". $amount2[$key2] ."', '01', '1', '". $places2 ."' ";            
-                    $StrSQL .= ", '". ++$key2 ."' ) ";
-                    $query2 = mysqli_query($conn,$StrSQL);
+        //เพิ่ม
+        if($check==1)
+        {   
+            foreach ($stcode as $key=> $value) {
+    
+                $radio=1;
+    
+                if($unit[$key]=='ลัง')
+                {
+                    $sql = "SELECT ratio FROM `stock` as a INNER join storage_unit as b on (a.storage_id=b.storage_id) ";
+                    $sql .= " WHERE a.stcode = '". $stcode[$key] ."' ";
+                    $query = mysqli_query($conn,$sql);
+                    $row2 = $query->fetch_assoc();
+                    $radio=$row2["ratio"];
+                }
+
+                $sql = "UPDATE stock_level SET amount = amount + ". $amount[$key]*$radio .",amtprice=$amtprice[$key], price = amtprice*amount ";
+                $sql .= " WHERE stcode = '". $stcode[$key] ."' and places = '". $places2[$key] ."' ";
+                $query2 = mysqli_query($conn,$sql);
+            
+                if(!$query2) 
+                    {
+                        $code .= $stcode[$key].' ';
+                        $check = 0;
+                    }
+            
+            }  
+                //สร้าง TF
+                if($check==1)
+                { 
+                    $sql = "SELECT * FROM options order by year desc LIMIT 1";
+                    $query = mysqli_query($conn,$sql);
+
+                    while($row = $query->fetch_assoc()) {
+                        $code=sprintf("%03s", $row["maxtfcode"]);
+                        $yeartfcode=$row["year"];
+                        $tfcode= 'TF'.$yeartfcode.$code;            
+                        
+                    }
+
+                    $StrSQL = "INSERT INTO tfmaster (tfcode,tfdate,trandate,remark,salecode,date,time";
+                    $StrSQL .= ")";
+                    $StrSQL .= " VALUES (";
+                    $StrSQL .= "'".$tfcode."','".$_POST["tfdate"]."','".$_POST["trandate"]."','".$_POST["remark"]."','".$_POST["salecode"]."', '".date("Y-m-d")."','".date("H:i:s")."' ";
+                    $StrSQL .= ") ";
+                    $query = mysqli_query($conn,$StrSQL);
+
+                    if($query) {
+                        $strSQL = "UPDATE options SET ";
+                        $strSQL .= "maxtfcode='".($code+1)."' ";
+                        $strSQL .= "WHERE year= ".$yeartfcode." ";
+                        $query = mysqli_query($conn,$strSQL);
+                        foreach ($stcode as $key=> $value) {
+                            $StrSQL = "INSERT INTO tfdetail (tfcode , stcode , unit , amount , places1 , places2 ";
+
+                            //pono ต้องอยู่ท้ายตลอด
+                            $StrSQL .= ", tfno)";
+                            $StrSQL .= "VALUES (";
+                            $StrSQL .= "'".$tfcode."', '". $stcode[$key] ."', '". $unit[$key] ."' , '". $amount[$key] ."' , '". $places1[$key] ."', '". $places2[$key] ."' ";            
+                            $StrSQL .= ", '". ++$key ."' ) ";
+                            $query = mysqli_query($conn,$StrSQL);
+                            }
+
+                            
+                    }
+
+                    if($query) {
+                        echo json_encode(array('status' => '1','message'=> 'เพิ่มใบย้ายสินค้า '. $tfcode.' สำเร็จ'));
+                    }
+                    else
+                    {
+                        echo json_encode(array('status' => '0','message'=> $StrSQL));
                     }
                 }
-        }
-
-        if($query) {
-            echo json_encode(array('status' => '1','message'=> 'เพิ่มใบสั่งขาย '. $socode.' สำเร็จ'));
+                else
+                echo json_encode(array('status' => '0','message'=> $code));   
         }
         else
-        {
-            echo json_encode(array('status' => '0','message'=> $StrSQL));
-        }
+        echo json_encode(array('status' => '0','message'=> $code));   
         
     }
     else
