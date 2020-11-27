@@ -203,7 +203,7 @@ if (!isset($_SESSION['loggedin'])) {
                                 <div class="form-group col-md-4">
                                     <label for="recipient-name" class="col-form-label">วันที่ย้าย</label>
                                     <input type="date" class="form-control" size="4" name="edittrandate"
-                                        id="edittrandate">
+                                        id="edittrandate" disabled>
                                 </div>
                             </div>
                             <div class="form-row">

@@ -125,6 +125,8 @@ include_once('config.php');
                     </li>
                     <li><a href="<?php echo PATH; ?>/report/sales_by_year"><i class="fa fa-bar-chart"></i>
                             รายงานการขาย</a></li>
+                            <li><a href="<?php echo PATH; ?>/report/debtor"><i class="fa fa-bar-chart"></i>
+                            รายงานลูกหนี้รายตัว</a></li>
                 </ul>
 
 

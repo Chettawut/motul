@@ -188,7 +188,7 @@ function onSelectTF(tfcode) {
                             result.tfno[count] +
                             '"  value="' +
                             result.amount[count] +
-                            '"></td><td><div class="input-group"><input type="text" class="form-control" name="unit1" id="unit1' +
+                            '" disabled></td><td><div class="input-group"><input type="text" class="form-control" name="unit1" id="unit1' +
                             result.tfno[count] + '" value="' +
                             result.unit[count] +
                             '" disabled><span class="input-group-btn"><button class="btn btn-default" data-toggle="modal" data-target="#modal_unit" data-whatever="' +
