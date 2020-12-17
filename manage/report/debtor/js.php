@@ -6,8 +6,6 @@ $(function() {
     $.ajax({
         type: "POST",
         url: "ajax/get_customer.php",
-        data: "&type=" + '<?php echo $_SESSION['type'];?>' +
-            "&salecode=" + '<?php echo $_SESSION['salecode'];?>',
         success: function(result) {
 
             for (count = 0; count < result.code.length; count++) {
@@ -65,10 +63,10 @@ function CreateReport(table, cuscode) {
                     .invdate[count].substring(5, 7) + '-' + result
                     .invdate[count].substring(0, 4);
 
-                    recelog = result
-                    .recelog[count].substring(8) + '-' + result
-                    .recelog[count].substring(5, 7) + '-' + result
-                    .recelog[count].substring(0, 4);
+                    recedate = result
+                    .recedate[count].substring(8) + '-' + result
+                    .recedate[count].substring(5, 7) + '-' + result
+                    .recedate[count].substring(0, 4);
 
                 $('#' + table + ' tbody').append(
                     '<tr><td align="left" >' +
@@ -80,7 +78,7 @@ function CreateReport(table, cuscode) {
                     '</td><td align="right">' +
                     result.total[count] +
                     '</td><td align="center">' +
-                    recelog +
+                    recedate +
                     '</td><td align="right">' +
                     result.delcode[count] +
                     '</td></tr>');

@@ -39,7 +39,8 @@ include_once('config.php');
                             <li><a href="<?php echo PATH; ?>/po/"><i class="fa fa-book"></i> ใบสั่งซื้อสินค้า</a></li>
                             <li><a href="<?php echo PATH; ?>/receive/"><i class="fa fa-truck"></i> ใบรับสินค้า</a></li>
                             <li><a href="<?php echo PATH; ?>/issue/"><i class="fa fa-calendar-check-o"></i> ตัดขาย</a>
-                            <li><a href="<?php echo PATH; ?>/transfer/"><i class="fa fa-exchange"></i> ย้ายคลังสินค้า</a>
+                            <li><a href="<?php echo PATH; ?>/transfer/"><i class="fa fa-exchange"></i>
+                                    ย้ายคลังสินค้า</a>
                             </li>
                         </ul>
                     </li>
@@ -124,9 +125,13 @@ include_once('config.php');
                     <li><a href="<?php echo PATH; ?>/stock_card/"><i class="fa fa-book"></i> เช็คยอดพัสดุ</a>
                     </li>
                     <li><a href="<?php echo PATH; ?>/report/sales_by_year"><i class="fa fa-bar-chart"></i>
-                            รายงานการขาย</a></li>
-                            <li><a href="<?php echo PATH; ?>/report/debtor"><i class="fa fa-bar-chart"></i>
+                            รายงานการขายรายปี</a></li>
+                    <li><a href="<?php echo PATH; ?>/report/sales_by_stock"><i class="fa fa-bar-chart"></i>
+                            รายงานการขายรายพัสดุ</a></li>
+                    <li><a href="<?php echo PATH; ?>/report/debtor"><i class="fa fa-bar-chart"></i>
                             รายงานลูกหนี้รายตัว</a></li>
+
+
                 </ul>
 
 

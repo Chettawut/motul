@@ -8,7 +8,7 @@
     $cuscode = $_POST["cuscode"];
     // $year = '2020';
 
-    $sql = "SELECT a.socode,b.sodate,b.invoice,b.invdate,c.cusname,sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))-sum(((((a.amount*a.price)-((a.amount*a.price)*a.discount/100))*100)/107)*7/100) as price,sum(((((a.amount*a.price)-((a.amount*a.price)*a.discount/100))*100)/107)*7/100) as vat,sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100)) as total,recelog,delcode ";        
+    $sql = "SELECT a.socode,b.sodate,b.invoice,b.invdate,c.cusname,sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))-sum(((((a.amount*a.price)-((a.amount*a.price)*a.discount/100))*100)/107)*7/100) as price,sum(((((a.amount*a.price)-((a.amount*a.price)*a.discount/100))*100)/107)*7/100) as vat,sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100)) as total,recedate,delcode ";        
     $sql .= " FROM sodetail as a inner join somaster as b on (a.socode=b.socode) inner join customer as c on (b.cuscode=c.cuscode) ";
     if($cuscode!='')
     $sql .= " where b.cuscode = '".$cuscode."' and a.supstatus !='C'";    
@@ -30,7 +30,7 @@
         "cusname" => array(),
         "total" => array(),
         "delcode" => array(),
-        "recelog" => array()
+        "recedate" => array()
     );
 		
         while($row = $query->fetch_assoc())
@@ -42,7 +42,7 @@
             array_push($json_result['cusname'],$row["cusname"]);
             array_push($json_result['total'],(float)$row["total"]);
             array_push($json_result['delcode'],$row["delcode"]);
-            array_push($json_result['recelog'],$row["recelog"]);
+            array_push($json_result['recedate'],$row["recedate"]);
             
             
         }

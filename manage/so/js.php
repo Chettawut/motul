@@ -6,6 +6,204 @@ function onClick_tr(id, supname, address, tel) {
     $('#tel').val(tel.substring(0, 3) + '-' + tel.substring(3));
 }
 
+function onDelete_MainTable(row) {
+    var tmpstcode = [];
+    var tmpstname1 = [];
+    var tmpunit = [];
+    var tmpsellprice = [];
+    var all_row = $('#tableSODetail tbody tr').length;
+
+    for(var i=row+1;i<=all_row;i++)
+    {
+        tmpstcode.push($('#stcode1'+i).text());
+        tmpstname1.push($('#stname1'+i).text());
+        tmpunit.push($('#unit1'+i).val());
+        tmpsellprice.push($('#price1'+i).val());
+    }
+
+    for(var d=row;d<=all_row;d++)
+    $("#detail"+d).remove();
+
+    for(var j=0;j<tmpstcode.length;j++)
+    onCreate_detail(tmpstcode[j], tmpstname1[j], tmpunit[j], tmpsellprice[j]);
+
+}
+
+function onCreate_detail(stcode, stname1, unit, sellprice) {
+
+    var all_row = $('#tableSODetail tr').length;
+
+    $('#tableSODetail').append(
+        '<tr id="detail' + all_row +
+        '" ><td><p class="form-control-static" style="text-align:center">' +
+        all_row +
+        '</p></td><td><p class="form-control-static" name="stcode1"  id="stcode1' +
+        all_row +
+        '" style="text-align:center">' +
+        stcode +
+        '</p></td><td><p class="form-control-static" name="stname1"  id="stname1' +
+        all_row +
+        '" style="text-align:left" >' +
+        stname1 +
+        '</p></td><td><input type="number" class="form-control" name="amount1"  id="amount1' +
+        all_row +
+        '" min="1" value="1"></td><td><div class="input-group"><input type="text" class="form-control" name="unit1" id="unit1' +
+        all_row + '" value="' +
+        unit +
+        '" disabled><span class="input-group-btn"><button class="btn btn-default" data-toggle="modal" data-target="#modal_unit" data-whatever="' +
+        all_row +
+        ',tableSODetail,' +
+        stcode +
+        '" type="button"><span class="fa fa-search"></span></button></span></div></td><td><input type="text" class="form-control" name="price1" id="price1' +
+        all_row + '" value="' +
+        sellprice +
+        '"></td><td><div class="input-group"><input type="text" class="form-control" name="discount1" id="discount1' +
+        all_row +
+        '" value="0"><div class="input-group-addon">%</div></div></td><td ><p name="total1" id="total1' +
+        all_row +
+        '" class="form-control-static" style="text-align:right">0</p></td><td><button type="button" onClick="onDelete_MainTable('+all_row+')"; class="btn btn-danger form-control" ><i class="fa fa fa-times" aria-hidden="true"></i class=> ลบ</button></td></tr>'
+    );
+
+    onCal_detail(all_row);
+
+
+}
+
+function onDelete_GiveawayTable(row) {
+    var tmpstcode = [];
+    var tmpstname1 = [];
+    var tmpunit = [];
+    var tmpsellprice = [];
+    var all_row = $('#tableSOGiveaway tbody tr').length;
+
+    for(var i=row+1;i<=all_row;i++)
+    {
+        tmpstcode.push($('#stcode2'+i).text());
+        tmpstname1.push($('#stname2'+i).text());
+        tmpunit.push($('#unit2'+i).val());
+    }
+
+    for(var d=row;d<=all_row;d++)
+    $("#giveaway"+d).remove();
+
+    for(var j=0;j<tmpstcode.length;j++)
+    onCreate_giveaway(tmpstcode[j], tmpstname1[j], tmpunit[j]);
+
+    if ($('#tableSOGiveaway tbody tr').length == 0)
+        $('#tableSOGiveaway').hide();
+}
+
+function onCreate_giveaway(stcode, stname1, unit) {
+
+    var all_row = $('#tableSOGiveaway tr').length;
+
+    $('#tableSOGiveaway').append(
+        '<tr id="giveaway' + all_row +
+        '" ><td ><p class="form-control-static" style="text-align:center">' +
+        all_row +
+        '</p></td><td><p class="form-control-static" name="stcode2" id="stcode2' +
+        all_row +
+        '" style="text-align:center">' +
+        stcode +
+        '</p></td><td><p class="form-control-static" name="stname2" id="stname2' +
+        all_row +
+        '" style="text-align:left">' +
+        stname1 +
+        '</p></td><td><input type="number" style="text-align:right" class="form-control" name="amount2"  id="amount2' +
+        all_row +
+        '" min="1" value="1"></td><td><div class="input-group"><input type="text" class="form-control" style="text-align:center" name="unit2" id="unit2' +
+        all_row + '" value="' +
+        unit +
+        '" disabled><span class="input-group-btn"><button class="btn btn-default" data-toggle="modal" data-target="#modal_unit2" data-whatever="' +
+        all_row +
+        ',tableSOGiveaway" type="button"><span class="fa fa-search"></span></button></span></div></td><td><button type="button" onClick="onDelete_GiveawayTable('+all_row+')"; class="btn btn-danger form-control" ><i class="fa fa fa-times" aria-hidden="true"></i class=> ลบ</button></td></tr>'
+    );
+
+
+
+}
+
+function onCal_detail(row) {
+    $('#total1' + row).html(formatMoney(($(
+            '#amount1' + row)
+        .val() *
+        $('#price1' +
+            row).val()) - ((($(
+            '#amount1' + row
+        )
+        .val() *
+        $(
+            '#price1' + row)
+        .val()) * $(
+        '#discount1' +
+        row).val()) / 100), 2));
+
+    $('#amount1' + row).change(function() {
+        $('#total1' + row).html(formatMoney(($(
+                '#amount1' + row)
+            .val() *
+            $('#price1' +
+                row).val()) - ((($(
+                '#amount1' + row
+            )
+            .val() *
+            $(
+                '#price1' + row)
+            .val()) * $(
+            '#discount1' +
+            row).val()) / 100), 2));
+    });
+
+    $('#price1' + row).change(function() {
+        $('#total1' + row).html(formatMoney(($(
+                '#amount1' + row)
+            .val() *
+            $('#price1' +
+                row).val()) - ((($(
+                '#amount1' + row
+            )
+            .val() *
+            $(
+                '#price1' + row)
+            .val()) * $(
+            '#discount1' +
+            row).val()) / 100), 2));
+    });
+
+    $('#discount1' + row).change(function() {
+        $('#total1' + row).html(formatMoney(($(
+                '#amount1' + row)
+            .val() *
+            $('#price1' +
+                row).val()) - ((($(
+                '#amount1' + row
+            )
+            .val() *
+            $(
+                '#price1' + row)
+            .val()) * $(
+            '#discount1' +
+            row).val()) / 100), 2));
+    });
+
+    $('input[type=text]').on('keydown', function(e) {
+        $('#total1' + row).html(formatMoney(($(
+                '#amount1' + row)
+            .val() *
+            $('#price1' +
+                row).val()) - ((($(
+                '#amount1' + row
+            )
+            .val() *
+            $(
+                '#price1' + row)
+            .val()) * $(
+            '#discount1' +
+            row).val()) / 100), 2));
+    });
+
+}
+
 function onClick_unit(unit, target) {
 
     var row = target.split(',')[0];
@@ -576,8 +774,8 @@ $(function() {
         var places2 = [];
 
 
-        $('#tableSODetail tbody tr').each(function() {
-            stcode.push($(this).attr("id"));
+        $('#tableSODetail tbody tr').each(function(key) {
+            stcode.push($(this).find("td #stcode1" + (++key)).text());
         });
         $('#tableSODetail tbody tr').each(function(key) {
             amount.push($(this).find("td #amount1" + (++key)).val());
@@ -592,8 +790,8 @@ $(function() {
             discount.push($(this).find("td #discount1" + (++key)).val());
         });
 
-        $('#tableSOGiveaway tbody tr').each(function() {
-            stcode2.push($(this).attr("id"));
+        $('#tableSOGiveaway tbody tr').each(function(key) {
+            stcode2.push($(this).find("td #stcode2" + (++key)).text());
         });
         $('#tableSOGiveaway tbody tr').each(function(key) {
             amount2.push($(this).find("td #amount2" + (++key)).val());
@@ -602,40 +800,45 @@ $(function() {
             unit2.push($(this).find("td #unit2" + (++key)).val());
         });
 
-        if (stcode != 0) {
-            $(':disabled').each(function(event) {
-                $(this).removeAttr('disabled');
-            });
+        if ($("#cuscode").val() != '') {
+            if (stcode != 0) {
+                $(':disabled').each(function(event) {
+                    $(this).removeAttr('disabled');
+                });
 
-            $.ajax({
-                type: "POST",
-                url: "ajax/add_so.php",
-                data: $("#frmSO").serialize() + "&amount=" + amount + "&stcode=" + stcode +
-                    "&unit=" + unit +
-                    "&price=" + price +
-                    "&discount=" + discount + "&stcode2=" + stcode2 + "&amount2=" + amount2 +
-                    "&unit2=" + unit2 +
-                    "&salecode=" + '<?php echo $_SESSION['salecode'];?>',
-                success: function(result) {
-                    if (result.status == 1) {
-                        alert(result.message);
-                        window.location.reload();
-                        // console.log(result.sql);
-                    } else {
-                        alert(result.message);
+                $.ajax({
+                    type: "POST",
+                    url: "ajax/add_so.php",
+                    data: $("#frmSO").serialize() + "&amount=" + amount + "&stcode=" + stcode +
+                        "&unit=" + unit +
+                        "&price=" + price +
+                        "&discount=" + discount + "&stcode2=" + stcode2 + "&amount2=" +
+                        amount2 +
+                        "&unit2=" + unit2 +
+                        "&salecode=" + '<?php echo $_SESSION['salecode'];?>',
+                    success: function(result) {
+                        if (result.status == 1) {
+                            alert(result.message);
+                            window.location.reload();
+                            // console.log(result.sql);
+                        } else {
+                            alert(result.message);
 
-                        $("#socode").prop("disabled", true);
-                        $("#cuscode").prop("disabled", true);
-                        $("#tdname").prop("disabled", true);
-                        $("#tel").prop("disabled", true);
-                        $("#address").prop("disabled", true);
+                            $("#socode").prop("disabled", true);
+                            $("#cuscode").prop("disabled", true);
+                            $("#tdname").prop("disabled", true);
+                            $("#tel").prop("disabled", true);
+                            $("#address").prop("disabled", true);
 
-                        // console.log(result.message);
+                            // console.log(result.message);
+                        }
                     }
-                }
-            });
+                });
+            } else {
+                alert('กรุณาเพิ่มรายการ');
+            }
         } else {
-            alert('กรุณาเพิ่มรายการ');
+            alert('กรุณาเลือกลูกค้า');
         }
     });
 
@@ -713,7 +916,7 @@ $(function() {
 
     });
 
-    // เพิ่ม po detail เมื่อเลือกสต๊อก
+    // เพิ่ม so detail เมื่อเลือกสต๊อก
     $("#table_stock").delegate('tr', 'click', function() {
         var id = $(this).attr("id");
         $('#btnClearSOdetail').show();
@@ -753,104 +956,8 @@ $(function() {
                         today = yyyy + '-' + mm + '-' + dd;
                         // console.log(today);
 
-                        $('#tableSODetail').append(
-                            '<tr id="' + result.stcode +
-                            '" ><td name="sono" id="sono" ><p class="form-control-static" style="text-align:center">' +
-                            $('#tableSODetail tr').length +
-                            '</p></td><td><p class="form-control-static" style="text-align:center">' +
-                            result
-                            .stcode +
-                            '</p></td><td> <p class="form-control-static" style="text-align:left">' +
-                            result.stname1 +
-                            '</p></td><td><input type="text" class="form-control" name="amount1"  id="amount1' +
-                            $('#tableSODetail tr').length +
-                            '"  value="0"></td><td><div class="input-group"><input type="text" class="form-control" name="unit1" id="unit1' +
-                            $('#tableSODetail tr').length + '" value="' +
-                            result.unit +
-                            '" disabled><span class="input-group-btn"><button class="btn btn-default" data-toggle="modal" data-target="#modal_unit" data-whatever="' +
-                            $('#tableSODetail tr').length +
-                            ',tableSODetail,' +
-                            result
-                            .stcode +
-                            '" type="button"><span class="fa fa-search"></span></button></span></div></td><td><input type="text" class="form-control" name="price1" id="price1' +
-                            $('#tableSODetail tr').length + '" value="' +
-                            result.sellprice +
-                            '"></td><td><div class="input-group"><input type="text" class="form-control" name="discount1" id="discount1' +
-                            $(
-                                '#tableSODetail tr').length +
-                            '" value="0"><div class="input-group-addon">%</div></div></td><td ><p name="total1" id="total1' +
-                            $('#tableSODetail tr')
-                            .length +
-                            '" class="form-control-static" style="text-align:right">0</p></td></tr>'
-                        );
-
-
-                        var row = $('#tableSODetail tbody tr').length;
-
-                        $('#amount1' + row).change(function() {
-                            $('#total1' + row).html(formatMoney(($(
-                                    '#amount1' + row)
-                                .val() *
-                                $('#price1' +
-                                    row).val()) - ((($(
-                                    '#amount1' + row
-                                )
-                                .val() *
-                                $(
-                                    '#price1' + row)
-                                .val()) * $(
-                                '#discount1' +
-                                row).val()) / 100), 2));
-                        });
-
-                        $('#price1' + row).change(function() {
-                            $('#total1' + row).html(formatMoney(($(
-                                    '#amount1' + row)
-                                .val() *
-                                $('#price1' +
-                                    row).val()) - ((($(
-                                    '#amount1' + row
-                                )
-                                .val() *
-                                $(
-                                    '#price1' + row)
-                                .val()) * $(
-                                '#discount1' +
-                                row).val()) / 100), 2));
-                        });
-
-                        $('#discount1' + row).change(function() {
-                            $('#total1' + row).html(formatMoney(($(
-                                    '#amount1' + row)
-                                .val() *
-                                $('#price1' +
-                                    row).val()) - ((($(
-                                    '#amount1' + row
-                                )
-                                .val() *
-                                $(
-                                    '#price1' + row)
-                                .val()) * $(
-                                '#discount1' +
-                                row).val()) / 100), 2));
-                        });
-
-                        $('input[type=text]').on('keydown', function(e) {
-                            $('#total1' + row).html(formatMoney(($(
-                                    '#amount1' + row)
-                                .val() *
-                                $('#price1' +
-                                    row).val()) - ((($(
-                                    '#amount1' + row
-                                )
-                                .val() *
-                                $(
-                                    '#price1' + row)
-                                .val()) * $(
-                                '#discount1' +
-                                row).val()) / 100), 2));
-                        });
-
+                        onCreate_detail(result.stcode, result.stname1, result
+                            .unit, result.sellprice);
 
                     }
                 });
@@ -860,152 +967,6 @@ $(function() {
 
     });
 
-    // เพิ่ม po detail เมื่อเลือกสต๊อก
-    $("#table_stock2").delegate('tr', 'click', function() {
-        var id = $(this).attr("id");
-        $('#btnClearSOdetail').show();
-
-        var option = '';
-        $.ajax({
-            type: "POST",
-            url: "ajax/get_places.php",
-
-            success: function(result) {
-
-                for (count = 0; count < result.places.length; count++) {
-
-                    option += '<option value="' + result.placescode[count] + '">' + result
-                        .places[count] + '</option>';
-
-
-                }
-                $.ajax({
-                    type: "POST",
-                    url: "ajax/getsup_stock.php",
-                    data: "idcode=" + id,
-                    success: function(result) {
-
-                        var today = new Date();
-                        var dd = today.getDate() + 7;
-
-                        var mm = today.getMonth() + 1;
-                        var yyyy = today.getFullYear();
-                        if (dd < 10) {
-                            dd = '0' + dd;
-                        }
-
-                        if (mm < 10) {
-                            mm = '0' + mm;
-                        }
-                        today = yyyy + '-' + mm + '-' + dd;
-                        // console.log(today);
-
-                        $('#tableSODetail').append(
-                            '<tr id="' + result.stcode +
-                            '" ><td name="sono" id="sono" ><p class="form-control-static" style="text-align:center">' +
-                            $('#tableSODetail tr').length +
-                            '</p></td><td><p class="form-control-static" style="text-align:center">' +
-                            result
-                            .stcode +
-                            '</p></td><td> <p class="form-control-static" style="text-align:left">' +
-                            result.stname1 +
-                            '</p></td><td><input type="text" class="form-control" name="amount1"  id="amount1' +
-                            $('#tableSODetail tr').length +
-                            '"  value="0"></td><td><div class="input-group"><input type="text" class="form-control" name="unit1" id="unit1' +
-                            $('#tableSODetail tr').length + '" value="' +
-                            result.unit +
-                            '" disabled><span class="input-group-btn"><button class="btn btn-default" data-toggle="modal" data-target="#modal_unit" data-whatever="' +
-                            $('#tableSODetail tr').length +
-                            ',tableSODetail,' +
-                            result
-                            .stcode +
-                            '" type="button"><span class="fa fa-search"></span></button></span></div></td><td><input type="text" class="form-control" name="price1" id="price1' +
-                            $('#tableSODetail tr').length + '" value="' +
-                            result.sellprice +
-                            '"></td><td><div class="input-group"><input type="text" class="form-control" name="discount1" id="discount1' +
-                            $(
-                                '#tableSODetail tr').length +
-                            '" value="0"><div class="input-group-addon">%</div></div></td><td ><p name="total1" id="total1' +
-                            $('#tableSODetail tr')
-                            .length +
-                            '" class="form-control-static" style="text-align:right">0</p></td></tr>'
-                        );
-
-
-                        var row = $('#tableSODetail tbody tr').length;
-
-                        $('#amount1' + row).change(function() {
-                            $('#total1' + row).html(formatMoney(($(
-                                    '#amount1' + row)
-                                .val() *
-                                $('#price1' +
-                                    row).val()) - ((($(
-                                    '#amount1' + row
-                                )
-                                .val() *
-                                $(
-                                    '#price1' + row)
-                                .val()) * $(
-                                '#discount1' +
-                                row).val()) / 100), 2));
-                        });
-
-                        $('#price1' + row).change(function() {
-                            $('#total1' + row).html(formatMoney(($(
-                                    '#amount1' + row)
-                                .val() *
-                                $('#price1' +
-                                    row).val()) - ((($(
-                                    '#amount1' + row
-                                )
-                                .val() *
-                                $(
-                                    '#price1' + row)
-                                .val()) * $(
-                                '#discount1' +
-                                row).val()) / 100), 2));
-                        });
-
-                        $('#discount1' + row).change(function() {
-                            $('#total1' + row).html(formatMoney(($(
-                                    '#amount1' + row)
-                                .val() *
-                                $('#price1' +
-                                    row).val()) - ((($(
-                                    '#amount1' + row
-                                )
-                                .val() *
-                                $(
-                                    '#price1' + row)
-                                .val()) * $(
-                                '#discount1' +
-                                row).val()) / 100), 2));
-                        });
-
-                        $('input[type=text]').on('keydown', function(e) {
-                            $('#total1' + row).html(formatMoney(($(
-                                    '#amount1' + row)
-                                .val() *
-                                $('#price1' +
-                                    row).val()) - ((($(
-                                    '#amount1' + row
-                                )
-                                .val() *
-                                $(
-                                    '#price1' + row)
-                                .val()) * $(
-                                '#discount1' +
-                                row).val()) / 100), 2));
-                        });
-
-
-                    }
-                });
-            }
-        });
-
-
-    });
 
     // เพิ่ม po detail เมื่อเลือกสต๊อก
     $("#table_giveaway").delegate('tr', 'click', function() {
@@ -1036,143 +997,8 @@ $(function() {
                     data: "idcode=" + id,
                     success: function(result) {
 
-                        $('#tableSOGiveaway').append(
-                            '<tr id="' + result.stcode +
-                            '" ><td name="sono" id="sono" ><p class="form-control-static" style="text-align:center">' +
-                            $('#tableSOGiveaway tr').length +
-                            '</p></td><td><p class="form-control-static" name="stcode2" id="stcode2' +
-                            $('#tableSOGiveaway tr').length +
-                            '" style="text-align:center">' +
-                            result
-                            .stcode +
-                            '</p></td><td><p class="form-control-static" style="text-align:left">' +
-                            result
-                            .stname1 +
-                            '</p></td><td><input type="number" style="text-align:right" class="form-control" name="amount2"  id="amount2' +
-                            $('#tableSOGiveaway tr').length +
-                            '" value="0"></td><td><div class="input-group"><input type="text" class="form-control" style="text-align:center" name="unit2" id="unit2' +
-                            $('#tableSOGiveaway tr').length + '" value="' +
-                            result.unit +
-                            '" disabled><span class="input-group-btn"><button class="btn btn-default" data-toggle="modal" data-target="#modal_unit2" data-whatever="' +
-                            $('#tableSOGiveaway tr').length +
-                            ',tableSOGiveaway" type="button"><span class="fa fa-search"></span></button></span></div></td></tr>'
-                        );
-
-                        var row = $('#tableSOGiveaway tbody tr').length;
-
-                        $('#amount2' + row).change(function() {
-                            $('#total2' + row).html(formatMoney(($(
-                                    '#amount2' + row)
-                                .val() * $('#price2' + row)
-                                .val())));
-
-                        });
-
-                        $('#price2' + row).change(function() {
-                            $('#total2' + row).html(formatMoney(($(
-                                    '#amount2' + row)
-                                .val() * $('#price2' + row)
-                                .val())));
-                        });
-
-                        $('input[type=text]').on('keydown', function(e) {
-                            $('#total2' + row).html(formatMoney(($(
-                                    '#amount2' + row)
-                                .val() * $('#price2' + row)
-                                .val())))
-                        });
-
-
-
-                    }
-                });
-
-            }
-        });
-
-
-
-
-    });
-
-    
-
-    // เพิ่ม po detail เมื่อเลือกสต๊อก
-    $("#table_giveaway2").delegate('tr', 'click', function() {
-        var target = $(this).attr("id");
-        var id = target.split(',')[0];
-        var row = target.split(',')[1];
-        $('#btnClearSOGiveaway').show();
-        $('#tableSOGiveaway').show();
-        // alert(row+' test '+id);
-        var option = '';
-        $.ajax({
-            type: "POST",
-            url: "ajax/get_places.php",
-
-            success: function(result) {
-
-                for (count = 0; count < result.places.length; count++) {
-
-                    option += '<option value="' + result.placescode[count] + '">' + result
-                        .places[count] + '</option>';
-
-
-                }
-
-                $.ajax({
-                    type: "POST",
-                    url: "ajax/getsup_stock.php",
-                    data: "idcode=" + id,
-                    success: function(result) {
-
-                        $('#tableSOGiveaway').append(
-                            '<tr id="' + result.stcode +
-                            '" ><td name="sono" id="sono" ><p class="form-control-static" style="text-align:center">' +
-                            $('#tableSOGiveaway tr').length +
-                            '</p></td><td><p class="form-control-static" name="stcode2" id="stcode2' +
-                            $('#tableSOGiveaway tr').length +
-                            '" style="text-align:center">' +
-                            result
-                            .stcode +
-                            '</p></td><td><p class="form-control-static" style="text-align:left">' +
-                            result
-                            .stname1 +
-                            '</p></td><td><input type="number" style="text-align:right" class="form-control" name="amount2"  id="amount2' +
-                            $('#tableSOGiveaway tr').length +
-                            '" value="0"></td><td><div class="input-group"><input type="text" class="form-control" style="text-align:center" name="unit2" id="unit2' +
-                            $('#tableSOGiveaway tr').length + '" value="' +
-                            result.unit +
-                            '" disabled><span class="input-group-btn"><button class="btn btn-default" data-toggle="modal" data-target="#modal_unit2" data-whatever="' +
-                            $('#tableSOGiveaway tr').length +
-                            ',tableSOGiveaway" type="button"><span class="fa fa-search"></span></button></span></div></td></tr>'
-                        );
-
-                        var row = $('#tableSOGiveaway tbody tr').length;
-
-                        $('#amount2' + row).change(function() {
-                            $('#total2' + row).html(formatMoney(($(
-                                    '#amount2' + row)
-                                .val() * $('#price2' + row)
-                                .val())));
-
-                        });
-
-                        $('#price2' + row).change(function() {
-                            $('#total2' + row).html(formatMoney(($(
-                                    '#amount2' + row)
-                                .val() * $('#price2' + row)
-                                .val())));
-                        });
-
-                        $('input[type=text]').on('keydown', function(e) {
-                            $('#total2' + row).html(formatMoney(($(
-                                    '#amount2' + row)
-                                .val() * $('#price2' + row)
-                                .val())))
-                        });
-
-
+                        onCreate_giveaway(result.stcode, result.stname1, result
+                            .unit)
 
                     }
                 });

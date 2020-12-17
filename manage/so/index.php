@@ -211,16 +211,16 @@ if (!isset($_SESSION['loggedin'])) {
                                             data-toggle="modal" data-target="#modal_giveaway"><i class="fa fa fa-gift"
                                                 aria-hidden="true"></i>
                                             เพิ่มของแถม</button>
-                                        <button type="button" id="btnClearSOdetail" style="display:none;"
+                                        <!-- <button type="button" id="btnClearSOdetail" style="display:none;"
                                             class="btn btn-danger"
                                             onClick="onDeleteDetail('tableSODetail','btnClearSOdetail');"><i
                                                 class="fa fa fa-times" aria-hidden="true"></i>
-                                            ลบรายการ</button>
+                                            ลบรายการทั้งหมด</button>
                                         <button type="button" id="btnClearSOGiveaway" style="display:none;"
                                             class="btn btn-danger"
                                             onClick="onDeleteDetail('tableSOGiveaway','btnClearSOGiveaway');"><i
                                                 class="fa fa fa-times" aria-hidden="true"></i>
-                                            ลบของแถม</button>
+                                            ลบของแถมทั้งหมด</button> -->
 
                                     </div>
 
@@ -235,12 +235,13 @@ if (!isset($_SESSION['loggedin'])) {
                                                 <tr>
                                                     <th style="width:5%;text-align:center">ลำดับ</th>
                                                     <th style="width:10%;text-align:center">รหัสสินค้า</th>
-                                                    <th style="width:20%;text-align:center">รายการสินค้า</th>
-                                                    <th style="width:7%;text-align:center">จำนวน</th>
+                                                    <th style="width:25%;text-align:center">รายการสินค้า</th>
+                                                    <th style="width:10%;text-align:center">จำนวน</th>
                                                     <th style="width:15%;text-align:center">หน่วย</th>
-                                                    <th style="width:9%;text-align:center">ราคาขาย</th>
+                                                    <th style="width:10%;text-align:center">ราคาขาย</th>
                                                     <th style="width:10%;text-align:center">ส่วนลด</th>
                                                     <th style="width:10%;text-align:center">จำนวนเงิน</th>
+                                                    <th style="width:5%;text-align:center"></th>
                                                     
                                                 </tr>
                                             </thead>
@@ -256,9 +257,10 @@ if (!isset($_SESSION['loggedin'])) {
                                                 <tr>
                                                     <th style="width:5%;text-align:center">ลำดับ</th>
                                                     <th style="width:10%;text-align:center">รหัสสินค้า</th>
-                                                    <th style="width:35%;text-align:left">รายการสินค้า</th>
+                                                    <th style="width:55%;text-align:left">รายการสินค้า</th>
                                                     <th style="width:10%;text-align:center">จำนวน</th>
-                                                    <th style="width:20%;text-align:center">หน่วย</th>
+                                                    <th style="width:15%;text-align:center">หน่วย</th>
+                                                    <th style="width:5%;text-align:center"></th>
                                                     
                                                     
                                                 </tr>
