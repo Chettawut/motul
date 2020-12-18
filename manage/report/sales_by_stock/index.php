@@ -67,7 +67,7 @@ if (!isset($_SESSION['loggedin'])) {
                                     <div class="form-group">
                                         <select class="form-control" id="select_place" name="select_place"
                                             style="width: 100%;">
-                                            <option value="ALL">ทั้งหมด</option>
+                                            <option value="ALL">ทุกคลัง</option>
                                             <option value="1">คลัง A</option>
                                             <option value="2">คลัง B</option>
                                             <option value="3">คลัง C</option>
@@ -93,13 +93,13 @@ if (!isset($_SESSION['loggedin'])) {
                                         <thead>
                                             <tr>
                                                 <!-- <th>ลำดับที่</th> -->
-                                                <th style="text-align:center;">เลขที่ใบขาย</th>
-                                                <th>วันที่ขาย</th>
-                                                <th>รหัสพัสดุ</th>
-                                                <th>ชื่อพัสดุ</th>
-                                                <th>ชื่อลูกค้า</th>
-                                                <th>จำนวน</th>
-                                                <th>หน่วย</th>
+                                                <th style="text-align:center;width:10%;">วันที่ขาย</th>
+                                                <th style="text-align:center;width:15%;">เลขที่บิลขาย</th>
+                                                <th style="text-align:center;width:15%;">รหัสพัสดุ</th>                                                
+                                                <th style="text-align:left;width:40%;">ชื่อพัสดุ</th>                                                
+                                                <th style="text-align:center;width:10%;">จำนวน</th>
+                                                <th style="text-align:center;width:10%;">หน่วย</th>
+                                                <th style="text-align:center;width:10%;">คลัง</th>
                                             </tr>
                                         </thead>
                                         <tbody>
