@@ -34,7 +34,7 @@ $(function() {
     var d = new Date();
     var yearnow = d.getFullYear();
 
-    CreateReport('table_sale', '', '1');
+    CreateReport('table_sale', '', 'ALL');
 
 })
 

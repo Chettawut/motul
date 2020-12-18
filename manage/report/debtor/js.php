@@ -36,7 +36,7 @@ $(function() {
 })
 
 function onClick_tr(id) {
-    
+
     CreateReport('table_debtor', id);
 }
 
@@ -63,10 +63,15 @@ function CreateReport(table, cuscode) {
                     .invdate[count].substring(5, 7) + '-' + result
                     .invdate[count].substring(0, 4);
 
+                if (result.delcode[count] != '') {
                     recedate = result
-                    .recedate[count].substring(8) + '-' + result
-                    .recedate[count].substring(5, 7) + '-' + result
-                    .recedate[count].substring(0, 4);
+                        .recedate[count].substring(8) + '-' + result
+                        .recedate[count].substring(5, 7) + '-' + result
+                        .recedate[count].substring(0, 4);
+                } else
+                    recedate = '';
+
+
 
                 $('#' + table + ' tbody').append(
                     '<tr><td align="left" >' +
@@ -76,16 +81,16 @@ function CreateReport(table, cuscode) {
                     '</td><td align="left">' +
                     result.cusname[count] +
                     '</td><td align="right">' +
-                    result.total[count] +
+                    formatMoney(result.total[count],0) +
                     '</td><td align="center">' +
                     recedate +
                     '</td><td align="right">' +
                     result.delcode[count] +
                     '</td></tr>');
-            
+
             }
 
-          
+
 
         }
     });

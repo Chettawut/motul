@@ -12,12 +12,21 @@
 
     $sql = "SELECT b.invoice,b.invdate,d.stcode,d.stname1 as stname,b.invdate,c.cusname,a.amount,a.unit,a.places ";        
     $sql .= " FROM sodetail as a inner join somaster as b on (a.socode=b.socode) inner join customer as c on (b.cuscode=c.cuscode) inner join stock as d on (a.stcode=d.stcode) ";
-    if($stock=='')
+    if($stock==''&&$place=='ALL')
     $sql .= " where (a.supstatus = '03' or a.supstatus = '04')";
-    else if ($place!='ALL')
-    $sql .= " where a.stcode = '".$stock."' and a.places ='".$place."'  and (a.supstatus = '03' or a.supstatus = '04')";
     else
-    $sql .= " where a.stcode = '".$stock."' and (a.supstatus = '03' or a.supstatus = '04')";
+    {
+        $sql .= " where ";
+        if($stock!=''&&$place=='ALL')
+        $sql .= " a.stcode = '".$stock."' ";        
+        else if($stock==''&&$place!='ALL')
+        $sql .= " a.places = '".$place."' ";
+        else
+        $sql .= " a.stcode = '".$stock."' and a.places = '".$place."' ";
+
+        $sql .= " and (a.supstatus = '03' or a.supstatus = '04')";
+    }
+    
     $sql .= " order by a.socode desc";  
     
     
