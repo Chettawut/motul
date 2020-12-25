@@ -232,7 +232,7 @@
 
             <div class="panel-body">
                 วันที่ : <?php                    
-                    echo substr($json_result["date"][0],8).'/'.substr($json_result["date"][0],5,2).'/'.substr($json_result["date"][0],0,4);
+                    echo substr($json_result["sodate"][0],8).'/'.substr($json_result["sodate"][0],5,2).'/'.substr($json_result["sodate"][0],0,4);
                     ?><br>
                 เวลา : <?php                    
                     echo substr($json_result["time"][0],0,5);

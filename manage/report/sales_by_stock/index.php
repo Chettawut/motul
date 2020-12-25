@@ -93,13 +93,14 @@ if (!isset($_SESSION['loggedin'])) {
                                         <thead>
                                             <tr>
                                                 <!-- <th>ลำดับที่</th> -->
-                                                <th style="text-align:center;width:10%;">วันที่ขาย</th>
-                                                <th style="text-align:center;width:15%;">เลขที่บิลขาย</th>
-                                                <th style="text-align:center;width:15%;">รหัสพัสดุ</th>                                                
-                                                <th style="text-align:left;width:40%;">ชื่อพัสดุ</th>                                                
-                                                <th style="text-align:center;width:10%;">จำนวน</th>
-                                                <th style="text-align:center;width:10%;">หน่วย</th>
-                                                <th style="text-align:center;width:10%;">คลัง</th>
+                                                <th style="text-align:center;width:7%;">วันที่ขาย</th>
+                                                <th style="text-align:center;width:7%;">บิลขาย</th>
+                                                <th style="text-align:center;width:7%;">รหัสพัสดุ</th>                                                
+                                                <th style="text-align:left;width:20%;">ชื่อพัสดุ</th>                                                
+                                                <th style="text-align:left;width:20%;">ชื่อลูกค้า</th>                                                
+                                                <th style="text-align:center;width:7%;">จำนวน</th>
+                                                <th style="text-align:center;width:7%;">หน่วย</th>
+                                                <th style="text-align:center;width:7%;">คลัง</th>
                                             </tr>
                                         </thead>
                                         <tbody>

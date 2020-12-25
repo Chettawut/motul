@@ -71,7 +71,7 @@ function CreateReport(table, stock, place) {
             for (count = 0; count < result.invoice.length; count++) {
             $('#' + table + ' tbody').append(
                 '<tr><td style="text-align:center;">' + result.invdate[count] +
-                '</td><td>' + result.invoice[count] + '</td><td>' + result.stcode[count] + '</td><td style="text-align:left;">' + result.stname[count] + '</td><td>' + result.amount[count] + '</td><td>' + result.unit[count] + '</td><td>' + result.place[count] + '</td></tr>');
+                '</td><td>' + result.invoice[count] + '</td><td>' + result.stcode[count] + '</td><td style="text-align:left;">' + result.stname[count] + '</td><td style="text-align:left;">' + result.cusname[count] + '</td><td>' + result.amount[count] + '</td><td>' + result.unit[count] + '</td><td>' + result.place[count] + '</td></tr>');
             }
 
             
