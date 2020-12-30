@@ -24,6 +24,9 @@
     $socode;
     $yearsocode;
     $check = 1;
+    $current_amount=0;
+    $current_price=0;
+    $current_amtprice=0;
 
     foreach ($stcode as $key=> $value) {
         $sql = "SELECT amount FROM stock_level ";
@@ -82,6 +85,88 @@
 
     if($check==1)
     {
+
+        //ตัดสต๊อกสินค้า 
+        foreach ($stcode as $key=> $value) {
+
+            $radio=1;
+
+            
+                $sql = "SELECT ratio,amount,price,amtprice FROM `stock` as a INNER join storage_unit as b on (a.storage_id=b.storage_id) INNER join stock_level as C on (a.stcode=c.stcode)";
+                $sql .= " WHERE a.stcode = '". $stcode[$key] ."' and c.places = '". $places ."'";
+                $query = mysqli_query($conn,$sql);
+                $row2 = $query->fetch_assoc();
+                if($unit[$key]=='ลัง')
+                $radio=$row2["ratio"];
+                $current_amount=$row2["amount"]- ($amount[$key]*$radio) ;
+                
+                if($current_amount!=0)
+                {
+                    $current_price=$row2["price"]-($row2["amtprice"]*($amount[$key]*$radio));                
+                    $current_amtprice=$current_price/$current_amount;
+                }
+                else
+                {
+                    $current_price=0;
+                    $current_amtprice=0;
+                }
+                
+                
+            
+
+            $sql = "UPDATE stock_level SET amount = ".$current_amount." ,price = ".$current_price.",amtprice= ".$current_amtprice." ";
+            $sql .= " WHERE stcode = '". $stcode[$key] ."' and places = '". $places ."' ";
+            $query = mysqli_query($conn,$sql);
+
+            if(!$query) 
+            {
+                $code .= $stcode[$key].' ';
+                $check = 0;
+            }
+        }
+
+        //ตัดสต๊อกของแถม
+        if($check==1)   
+        {
+            
+            foreach ($stcode2 as $key2=> $value2) {
+                if($stcode2[$key2]!='')
+                {
+                    $radio=1;
+
+                    
+                        $sql = "SELECT ratio,amount,price,amtprice FROM `stock` as a INNER join storage_unit as b on (a.storage_id=b.storage_id) INNER join stock_level as C on (a.stcode=c.stcode)";
+                        $sql .= " WHERE a.stcode = '". $stcode2[$key2] ."' and c.places = '". $places2 ."'";
+                        $query = mysqli_query($conn,$sql);
+                        $row2 = $query->fetch_assoc();
+                        if($unit2[$key2]=='ลัง')
+                        $radio=$row2["ratio"];
+                        $current_amount=$row2["amount"] - ($amount2[$key2]*$radio) ;
+
+                        if($current_amount!=0)
+                            {              
+                                $current_price=$row2["price"]-($row2["amtprice"]*($amount2[$key2]*$radio));
+                                $current_amtprice=$current_price/$current_amount;
+                            }
+                        else
+                            {
+                                $current_price=0;
+                                $current_amtprice=0;
+                            }      
+
+
+                    $sql = "UPDATE stock_level SET amount = ".$current_amount." ,price = ".$current_price.",amtprice= ".$current_amtprice." ";
+                    $sql .= " WHERE stcode = '". $stcode2[$key2] ."' and places = '". $places2 ."' ";
+                    $query = mysqli_query($conn,$sql);
+
+                    if(!$query) 
+                    {
+                        $code .= $stcode2[$key2].' ';
+                        $check = 0;
+                    }
+                }
+            }
+        }
         
         $sql = "SELECT * FROM options order by year desc LIMIT 1";
         $query = mysqli_query($conn,$sql);

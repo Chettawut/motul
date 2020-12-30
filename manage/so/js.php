@@ -1055,7 +1055,7 @@ $(function() {
     });
 
 
-    // ย้ายไปหน้า เพิ่ม PO
+    // ย้ายไปหน้า เพิ่ม SO
     $("#btnAddSO").click(function() {
 
         $("#socode").val('');

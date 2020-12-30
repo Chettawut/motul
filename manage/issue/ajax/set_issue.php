@@ -57,60 +57,6 @@
     if($check==1)
     {
 
-        foreach ($stcode as $key=> $value) {
-
-            $radio=1;
-
-            if($unit[$key]=='ลัง')
-            {
-                $sql = "SELECT ratio FROM `stock` as a INNER join storage_unit as b on (a.storage_id=b.storage_id) ";
-                $sql .= " WHERE a.stcode = '". $stcode[$key] ."' ";
-                $query = mysqli_query($conn,$sql);
-                $row = $query->fetch_assoc();
-                $radio=$row["ratio"];
-            }
-
-            $sql = "UPDATE stock_level SET amount = amount - ". $amount[$key]*$radio .",price = price-(amtprice*". $amount[$key]*$radio ."),amtprice= price/amount ";
-            $sql .= " WHERE stcode = '". $stcode[$key] ."' and places = '". $places[$key] ."' ";
-            $query = mysqli_query($conn,$sql);
-
-            if(!$query) 
-            {
-                $code .= $stcode[$key].' ';
-                $check = 0;
-            }
-        }
-
-        if($check==1)   
-        {
-            
-            foreach ($stcode2 as $key2=> $value2) {
-                if($stcode2[$key2]!='')
-                {
-                    $radio=1;
-
-                    if($unit2[$key2]=='ลัง')
-                    {
-                        $sql = "SELECT ratio FROM `stock` as a INNER join storage_unit as b on (a.storage_id=b.storage_id) ";
-                        $sql .= " WHERE a.stcode = '". $stcode2[$key2] ."' ";
-                        $query = mysqli_query($conn,$sql);
-                        $row = $query->fetch_assoc();
-                        $radio=$row["ratio"];
-                    }
-
-                    $sql = "UPDATE stock_level SET amount = amount - ". $amount2[$key2]*$radio .",price = price-(amtprice*". $amount2[$key2]*$radio ."),amtprice= price/amount ";
-                    $sql .= " WHERE stcode = '". $stcode2[$key2] ."' and places = '". $places2[$key2] ."' ";
-                    $query = mysqli_query($conn,$sql);
-
-                    if(!$query) 
-                    {
-                        $code .= $stcode2[$key2].' ';
-                        $check = 0;
-                    }
-                }
-            }
-        }
-
         if($check==1)   
         {
             //แก้สถานะ
