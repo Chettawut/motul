@@ -605,6 +605,7 @@ $(function() {
         }
     });
 
+    //modal เพิ่มของขาย
     $.ajax({
         type: "POST",
         url: "ajax/get_stock.php",
@@ -614,15 +615,74 @@ $(function() {
             for (count = 0; count < result.code.length; count++) {
 
                 $('#table_stock tbody').append(
-                    '<tr data-toggle="modal" data-dismiss="modal"  id="' + result
-                    .stcode[count] + '" );"><td>' + result.code[count] + '</td><td>' +
-                    result.stcode[count] + '</td><td>' +
-                    result.stname1[count] + '</td></tr>');
+                    '<tr data-toggle="modal" data-dismiss="modal" data-target="#modelStockEdit" id="' +
+                            result.stcode[count] + '" data-whatever="' + result
+                            .code[count] + '"><td>' + result.stcode[count] +
+                            '</td><td>' +
+                            result.stname1[count] +
+                            '</td><td style="text-align:right">' +
+                                result.amount1[count] +
+                                '</td><td style="text-align:right">' +
+                                result.piece1[count] +
+                                '</td><td style="text-align:right">' +
+                                result.amount2[count] +
+                                '</td><td style="text-align:right">' +
+                                result.piece2[count] +
+                                '</td><td style="text-align:right">' +
+                                result.amount3[count] +
+                                '</td><td style="text-align:right">' +
+                                result.piece3[count] +
+                                '</td></tr>');
 
 
             }
 
             $('#table_stock').DataTable({
+                "dom": '<"pull-left"f>rt<"bottom"p><"clear">',
+                "ordering": true
+            });
+
+
+            $(".dataTables_filter input[type='search']").attr({
+                size: 40,
+                maxlength: 40
+            });
+        }
+    });
+
+    //modal เพิ่มของแถม
+    $.ajax({
+        type: "POST",
+        url: "ajax/get_stock.php",
+
+        success: function(result) {
+
+            for (count = 0; count < result.code.length; count++) {
+
+                $('#table_giveaway tbody').append(
+                    '<tr data-toggle="modal" data-dismiss="modal" data-target="#modelStockEdit" id="' +
+                            result.stcode[count] + '" data-whatever="' + result
+                            .code[count] + '"><td>' + result.stcode[count] +
+                            '</td><td>' +
+                            result.stname1[count] +
+                            '</td><td style="text-align:right">' +
+                                result.amount1[count] +
+                                '</td><td style="text-align:right">' +
+                                result.piece1[count] +
+                                '</td><td style="text-align:right">' +
+                                result.amount2[count] +
+                                '</td><td style="text-align:right">' +
+                                result.piece2[count] +
+                                '</td><td style="text-align:right">' +
+                                result.amount3[count] +
+                                '</td><td style="text-align:right">' +
+                                result.piece3[count] +
+                                '</td></tr>');
+
+
+            }
+
+            $('#table_giveaway').DataTable({
                 "dom": '<"pull-left"f>rt<"bottom"p><"clear">',
                 "ordering": true
             });
@@ -667,37 +727,7 @@ $(function() {
         }
     });
 
-    $.ajax({
-        type: "POST",
-        url: "ajax/get_stock.php",
-
-        success: function(result) {
-
-            for (count = 0; count < result.code.length; count++) {
-
-                $('#table_giveaway tbody').append(
-                    '<tr data-toggle="modal" data-dismiss="modal"  id="' +
-                    result
-                    .stcode[count] + '" );"><td>' + result.code[count] +
-                    '</td><td>' +
-                    result.stcode[count] + '</td><td>' +
-                    result.stname1[count] + '</td></tr>');
-
-
-            }
-
-            $('#table_giveaway').DataTable({
-                "dom": '<"pull-left"f>rt<"bottom"p><"clear">',
-                "ordering": true
-            });
-
-
-            $(".dataTables_filter input[type='search']").attr({
-                size: 40,
-                maxlength: 40
-            });
-        }
-    });
+    
 
     $('#modal_unit').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget)
@@ -848,76 +878,78 @@ $(function() {
     $("#frmEditSO").submit(function(event) {
         event.preventDefault();
 
-        var amount = [];
-        var stcode = [];
-        var unit = [];
-        var price = [];
-        var discount = [];
-        var places = [];
+        alert('ระบบแก้ไขกำลังปรับปรุง')
 
-        var stcode2 = [];
-        var amount2 = [];
-        var unit2 = [];
-        var places2 = [];
+        // var amount = [];
+        // var stcode = [];
+        // var unit = [];
+        // var price = [];
+        // var discount = [];
+        // var places = [];
 
-        $(':disabled').each(function(event) {
-            $(this).removeAttr('disabled');
-        });
+        // var stcode2 = [];
+        // var amount2 = [];
+        // var unit2 = [];
+        // var places2 = [];
 
-
-        $('#tableEditSODetail tbody tr').each(function() {
-            stcode.push($(this).attr("id"));
-        });
-        $('#tableEditSODetail tbody tr').each(function(key) {
-            amount.push($(this).find("td #amount1" + (++key)).val());
-        });
-        $('#tableEditSODetail tbody tr').each(function(key) {
-            unit.push($(this).find("td #unit1" + (++key)).val());
-        });
-        $('#tableEditSODetail tbody tr').each(function(key) {
-            price.push($(this).find("td #price1" + (++key)).val());
-        });
-        $('#tableEditSODetail tbody tr').each(function(key) {
-            discount.push($(this).find("td #discount1" + (++key)).val());
-        });
-
-        $('#tableEditSOGiveaway tbody tr').each(function() {
-            stcode2.push($(this).attr("id"));
-        });
-        $('#tableEditSOGiveaway tbody tr').each(function(key) {
-            amount2.push($(this).find("td #amount2" + (++key)).val());
-        });
-        $('#tableEditSOGiveaway tbody tr').each(function(key) {
-            unit2.push($(this).find("td #unit2" + (++key)).val());
-        });
+        // $(':disabled').each(function(event) {
+        //     $(this).removeAttr('disabled');
+        // });
 
 
-        $.ajax({
-            type: "POST",
-            url: "ajax/edit_so.php",
-            data: $("#frmEditSO").serialize() + "&amount=" + amount + "&stcode=" + stcode +
-                "&unit=" + unit +
-                "&price=" + price +
-                "&places=" + places +
-                "&discount=" + discount + "&stcode2=" + stcode2 + "&amount2=" + amount2 +
-                "&unit2=" + unit2 +
-                "&places2=" + places2,
-            success: function(result) {
-                if (result.status == 1) {
-                    alert(result.message);
-                    window.location.reload();
-                    // console.log(result.sql);
-                } else {
-                    alert('err');
-                    console.log(result.message);
-                }
-            }
-        });
+        // $('#tableEditSODetail tbody tr').each(function() {
+        //     stcode.push($(this).attr("id"));
+        // });
+        // $('#tableEditSODetail tbody tr').each(function(key) {
+        //     amount.push($(this).find("td #amount1" + (++key)).val());
+        // });
+        // $('#tableEditSODetail tbody tr').each(function(key) {
+        //     unit.push($(this).find("td #unit1" + (++key)).val());
+        // });
+        // $('#tableEditSODetail tbody tr').each(function(key) {
+        //     price.push($(this).find("td #price1" + (++key)).val());
+        // });
+        // $('#tableEditSODetail tbody tr').each(function(key) {
+        //     discount.push($(this).find("td #discount1" + (++key)).val());
+        // });
+
+        // $('#tableEditSOGiveaway tbody tr').each(function() {
+        //     stcode2.push($(this).attr("id"));
+        // });
+        // $('#tableEditSOGiveaway tbody tr').each(function(key) {
+        //     amount2.push($(this).find("td #amount2" + (++key)).val());
+        // });
+        // $('#tableEditSOGiveaway tbody tr').each(function(key) {
+        //     unit2.push($(this).find("td #unit2" + (++key)).val());
+        // });
+
+
+        // $.ajax({
+        //     type: "POST",
+        //     url: "ajax/edit_so.php",
+        //     data: $("#frmEditSO").serialize() + "&amount=" + amount + "&stcode=" + stcode +
+        //         "&unit=" + unit +
+        //         "&price=" + price +
+        //         "&places=" + places +
+        //         "&discount=" + discount + "&stcode2=" + stcode2 + "&amount2=" + amount2 +
+        //         "&unit2=" + unit2 +
+        //         "&places2=" + places2,
+        //     success: function(result) {
+        //         if (result.status == 1) {
+        //             alert(result.message);
+        //             window.location.reload();
+        //             // console.log(result.sql);
+        //         } else {
+        //             alert('err');
+        //             console.log(result.message);
+        //         }
+        //     }
+        // });
 
     });
 
     // เพิ่ม so detail เมื่อเลือกสต๊อก
-    $("#table_stock").delegate('tr', 'click', function() {
+    $("#table_stock").delegate('tbody tr', 'click', function() {
         var id = $(this).attr("id");
         $('#btnClearSOdetail').show();
 
@@ -969,7 +1001,7 @@ $(function() {
 
 
     // เพิ่ม po detail เมื่อเลือกสต๊อก
-    $("#table_giveaway").delegate('tr', 'click', function() {
+    $("#table_giveaway").delegate('tbody tr', 'click', function() {
         var target = $(this).attr("id");
         var id = target.split(',')[0];
         var row = target.split(',')[1];

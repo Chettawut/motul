@@ -74,8 +74,7 @@ if (!isset($_SESSION['loggedin'])) {
                                             class="fa fa-print" aria-hidden="true"></i> Print </button>
                                     <input type="hidden" id="printsocode" class="btn btn-default" name="printsocode"
                                         value="John">
-                                    <input type="hidden" id="editsalecode" class="btn btn-default" 
-                                        value="John">
+                                    <input type="hidden" id="editsalecode" class="btn btn-default" value="John">
 
                                 </form>
                             </div>
@@ -242,7 +241,7 @@ if (!isset($_SESSION['loggedin'])) {
                                                     <th style="width:10%;text-align:center">ส่วนลด</th>
                                                     <th style="width:10%;text-align:center">จำนวนเงิน</th>
                                                     <th style="width:5%;text-align:center"></th>
-                                                    
+
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -261,8 +260,8 @@ if (!isset($_SESSION['loggedin'])) {
                                                     <th style="width:10%;text-align:center">จำนวน</th>
                                                     <th style="width:15%;text-align:center">หน่วย</th>
                                                     <th style="width:5%;text-align:center"></th>
-                                                    
-                                                    
+
+
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -487,7 +486,7 @@ if (!isset($_SESSION['loggedin'])) {
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">เลือกสินค้า</h4>
+                        <h4 class="modal-title" id="myModalLabel">เพิ่มสินค้าที่ต้องการขาย</h4>
                     </div>
                     <div class="modal-body">
 
@@ -498,9 +497,14 @@ if (!isset($_SESSION['loggedin'])) {
                                         class="table table-bordered table-striped">
                                         <thead style=" background-color:#D6EAF8;">
                                             <tr>
-                                                <th>ลำดับ</th>
-                                                <th>รหัสสินค้า</th>
-                                                <th>ชื่อสินค้า</th>
+                                                <th width="10%">รหัสพัสดุ</th>
+                                                <th width="40%">ชื่อพัสดุ</th>
+                                                <th width="8%" style="text-align:center">ลัง A</th>
+                                                <th width="8%" style="text-align:center">เศษ A</th>
+                                                <th width="8%" style="text-align:center">ลัง B</th>
+                                                <th width="8%" style="text-align:center">เศษ B</th>
+                                                <th width="8%" style="text-align:center">ลัง C</th>
+                                                <th width="8%" style="text-align:center">เศษ C</th>
 
                                             </tr>
                                         </thead>
@@ -613,7 +617,7 @@ if (!isset($_SESSION['loggedin'])) {
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">เลือกของแถมจากลูกค้า</h4>
+                        <h4 class="modal-title" id="myModalLabel">เลือกของแถมให้ลูกค้า</h4>
                     </div>
                     <div class="modal-body">
 
@@ -624,9 +628,14 @@ if (!isset($_SESSION['loggedin'])) {
                                         class="table table-bordered table-striped">
                                         <thead style=" background-color:#D6EAF8;">
                                             <tr>
-                                                <th>ลำดับ</th>
-                                                <th>รหัสสินค้า</th>
-                                                <th>ชื่อสินค้า</th>
+                                            <th width="10%">รหัสพัสดุ</th>
+                                                <th width="40%">ชื่อพัสดุ</th>
+                                                <th width="8%" style="text-align:center">ลัง A</th>
+                                                <th width="8%" style="text-align:center">เศษ A</th>
+                                                <th width="8%" style="text-align:center">ลัง B</th>
+                                                <th width="8%" style="text-align:center">เศษ B</th>
+                                                <th width="8%" style="text-align:center">ลัง C</th>
+                                                <th width="8%" style="text-align:center">เศษ C</th>
 
                                             </tr>
                                         </thead>

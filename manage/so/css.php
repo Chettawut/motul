@@ -114,4 +114,40 @@ table[name=tableEditSOGiveaway] tr:hover {
     background-color: #DCDCDC;
 }
 
+table[name=table_stock]  {
+    border-top: 1px solid #00BFFF;
+    
+}
+
+table[name=table_stock] th {
+    font-size: 14px;
+    color: #fff;
+    line-height: 1.4;
+    background-color: #3C8DBB;
+    border: 3px solid black;
+}
+
+
+table[name=table_stock] tr:hover {
+    background-color: #DCDCDC;
+}
+
+table[name=table_giveaway]  {
+    border-top: 1px solid #00BFFF;
+    
+}
+
+table[name=table_giveaway] th {
+    font-size: 14px;
+    color: #fff;
+    line-height: 1.4;
+    background-color: #3C8DBB;
+    border: 3px solid black;
+}
+
+
+table[name=table_giveaway] tr:hover {
+    background-color: #DCDCDC;
+}
+
 </style>
