@@ -92,7 +92,7 @@
             $radio=1;
 
             
-                $sql = "SELECT ratio,amount,price,amtprice FROM `stock` as a INNER join storage_unit as b on (a.storage_id=b.storage_id) INNER join stock_level as C on (a.stcode=c.stcode)";
+                $sql = "SELECT b.ratio,c.amount,c.price,c.amtprice FROM `stock` as a INNER join storage_unit as b on (a.storage_id=b.storage_id) INNER join stock_level as c on (a.stcode=c.stcode)";
                 $sql .= " WHERE a.stcode = '". $stcode[$key] ."' and c.places = '". $places ."'";
                 $query = mysqli_query($conn,$sql);
                 $row2 = $query->fetch_assoc();
@@ -135,7 +135,7 @@
                     $radio=1;
 
                     
-                        $sql = "SELECT ratio,amount,price,amtprice FROM `stock` as a INNER join storage_unit as b on (a.storage_id=b.storage_id) INNER join stock_level as C on (a.stcode=c.stcode)";
+                        $sql = "SELECT ratio,amount,price,amtprice FROM `stock` as a INNER join storage_unit as b on (a.storage_id=b.storage_id) INNER join stock_level as c on (a.stcode=c.stcode)";
                         $sql .= " WHERE a.stcode = '". $stcode2[$key2] ."' and c.places = '". $places2 ."'";
                         $query = mysqli_query($conn,$sql);
                         $row2 = $query->fetch_assoc();

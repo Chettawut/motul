@@ -13,19 +13,18 @@ function onDelete_MainTable(row) {
     var tmpsellprice = [];
     var all_row = $('#tableSODetail tbody tr').length;
 
-    for(var i=row+1;i<=all_row;i++)
-    {
-        tmpstcode.push($('#stcode1'+i).text());
-        tmpstname1.push($('#stname1'+i).text());
-        tmpunit.push($('#unit1'+i).val());
-        tmpsellprice.push($('#price1'+i).val());
+    for (var i = row + 1; i <= all_row; i++) {
+        tmpstcode.push($('#stcode1' + i).text());
+        tmpstname1.push($('#stname1' + i).text());
+        tmpunit.push($('#unit1' + i).val());
+        tmpsellprice.push($('#price1' + i).val());
     }
 
-    for(var d=row;d<=all_row;d++)
-    $("#detail"+d).remove();
+    for (var d = row; d <= all_row; d++)
+        $("#detail" + d).remove();
 
-    for(var j=0;j<tmpstcode.length;j++)
-    onCreate_detail(tmpstcode[j], tmpstname1[j], tmpunit[j], tmpsellprice[j]);
+    for (var j = 0; j < tmpstcode.length; j++)
+        onCreate_detail(tmpstcode[j], tmpstname1[j], tmpunit[j], tmpsellprice[j]);
 
 }
 
@@ -61,7 +60,9 @@ function onCreate_detail(stcode, stname1, unit, sellprice) {
         all_row +
         '" value="0"><div class="input-group-addon">%</div></div></td><td ><p name="total1" id="total1' +
         all_row +
-        '" class="form-control-static" style="text-align:right">0</p></td><td><button type="button" onClick="onDelete_MainTable('+all_row+')"; class="btn btn-danger form-control" ><i class="fa fa fa-times" aria-hidden="true"></i class=> ลบ</button></td></tr>'
+        '" class="form-control-static" style="text-align:right">0</p></td><td><button type="button" onClick="onDelete_MainTable(' +
+        all_row +
+        ')"; class="btn btn-danger form-control" ><i class="fa fa fa-times" aria-hidden="true"></i class=> ลบ</button></td></tr>'
     );
 
     onCal_detail(all_row);
@@ -76,18 +77,17 @@ function onDelete_GiveawayTable(row) {
     var tmpsellprice = [];
     var all_row = $('#tableSOGiveaway tbody tr').length;
 
-    for(var i=row+1;i<=all_row;i++)
-    {
-        tmpstcode.push($('#stcode2'+i).text());
-        tmpstname1.push($('#stname2'+i).text());
-        tmpunit.push($('#unit2'+i).val());
+    for (var i = row + 1; i <= all_row; i++) {
+        tmpstcode.push($('#stcode2' + i).text());
+        tmpstname1.push($('#stname2' + i).text());
+        tmpunit.push($('#unit2' + i).val());
     }
 
-    for(var d=row;d<=all_row;d++)
-    $("#giveaway"+d).remove();
+    for (var d = row; d <= all_row; d++)
+        $("#giveaway" + d).remove();
 
-    for(var j=0;j<tmpstcode.length;j++)
-    onCreate_giveaway(tmpstcode[j], tmpstname1[j], tmpunit[j]);
+    for (var j = 0; j < tmpstcode.length; j++)
+        onCreate_giveaway(tmpstcode[j], tmpstname1[j], tmpunit[j]);
 
     if ($('#tableSOGiveaway tbody tr').length == 0)
         $('#tableSOGiveaway').hide();
@@ -116,7 +116,9 @@ function onCreate_giveaway(stcode, stname1, unit) {
         unit +
         '" disabled><span class="input-group-btn"><button class="btn btn-default" data-toggle="modal" data-target="#modal_unit2" data-whatever="' +
         all_row +
-        ',tableSOGiveaway" type="button"><span class="fa fa-search"></span></button></span></div></td><td><button type="button" onClick="onDelete_GiveawayTable('+all_row+')"; class="btn btn-danger form-control" ><i class="fa fa fa-times" aria-hidden="true"></i class=> ลบ</button></td></tr>'
+        ',tableSOGiveaway" type="button"><span class="fa fa-search"></span></button></span></div></td><td><button type="button" onClick="onDelete_GiveawayTable(' +
+        all_row +
+        ')"; class="btn btn-danger form-control" ><i class="fa fa fa-times" aria-hidden="true"></i class=> ลบ</button></td></tr>'
     );
 
 
@@ -846,8 +848,6 @@ $(function() {
     $("#frmEditSO").submit(function(event) {
         event.preventDefault();
 
-
-
         var amount = [];
         var stcode = [];
         var unit = [];
@@ -1016,13 +1016,71 @@ $(function() {
     // ยกเลิกอนุมัติการขาย
     $("#btnCancle").click(function() {
         var so_code = $("#editsocode").val();
+
+        var amount = [];
+        var stcode = [];
+        var unit = [];
+        var price = [];
+        var discount = [];
+        var places = [];
+
+        var stcode2 = [];
+        var amount2 = [];
+        var unit2 = [];
+        var places2 = [];
+
+        $(':disabled').each(function(event) {
+            $(this).removeAttr('disabled');
+        });
+
+
+        $('#tableEditSODetail tbody tr').each(function() {
+            stcode.push($(this).attr("id"));
+        });
+        $('#tableEditSODetail tbody tr').each(function(key) {
+            amount.push($(this).find("td #amount1" + (++key)).val());
+        });
+        $('#tableEditSODetail tbody tr').each(function(key) {
+            unit.push($(this).find("td #unit1" + (++key)).val());
+        });
+        $('#tableEditSODetail tbody tr').each(function(key) {
+            price.push($(this).find("td #price1" + (++key)).val());
+        });
+        $('#tableEditSODetail tbody tr').each(function(key) {
+            discount.push($(this).find("td #discount1" + (++key)).val());
+        });
+        $('#tableEditSODetail tbody tr').each(function(key) {
+            places.push($(this).find("td #places1" + (++key)).val());
+        });
+
+        $('#tableEditSOGiveaway tbody tr').each(function() {
+            stcode2.push($(this).attr("id"));
+        });
+        $('#tableEditSOGiveaway tbody tr').each(function(key) {
+            amount2.push($(this).find("td #amount2" + (++key)).val());
+        });
+        $('#tableEditSOGiveaway tbody tr').each(function(key) {
+            unit2.push($(this).find("td #unit2" + (++key)).val());
+        });
+        $('#tableEditSOGiveaway tbody tr').each(function(key) {
+            places2.push($(this).find("td #places2" + (++key)).val());
+        });
+
+
+        // alert('ไม่สามารถยกเลิกได้ กรุณาติดต่อโปรแกรมเมอร์');
+        // window.location.reload();
+        // alert(amount2);
+
         if (confirm("คุณต้องการยกเลิกใบสั่งขาย " + so_code + " หรือไม่")) {
             $.ajax({
                 type: "POST",
-                data: {
-                    so_code: so_code,
-                    flg: 0
-                },
+                data: $("#frmEditSO").serialize() + "&amount=" + amount + "&stcode=" + stcode +
+                "&unit=" + unit +
+                "&price=" + price +
+                "&places=" + places +
+                "&discount=" + discount + "&stcode2=" + stcode2 + "&amount2=" + amount2 +
+                "&unit2=" + unit2 +
+                "&places2=" + places2,
                 url: "ajax/cancle_so.php",
                 success: function(result) {
                     alert(result["message"]);
@@ -1030,6 +1088,8 @@ $(function() {
                 }
             });
         }
+        else
+        window.location.reload();
     });
 
 
