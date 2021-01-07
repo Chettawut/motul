@@ -57,7 +57,7 @@
 
                 if(!$query) 
                 {
-                    $code .= $stcode[$key].' ';
+                    $code .= $stcode[$key].' error';
                     $check = 0;
                 }
             }

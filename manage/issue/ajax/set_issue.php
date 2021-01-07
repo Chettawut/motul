@@ -19,39 +19,39 @@
     $code = '';
     $socode= $_POST['editsocode'];
 
-    foreach ($stcode as $key=> $value) {
-        $sql = "SELECT amount FROM stock_level ";
-        $sql .= " WHERE stcode = '". $stcode[$key] ."' and places = '". $places[$key] ."' ";
-        $query = mysqli_query($conn,$sql);
-        while($row = $query->fetch_assoc()) {
+    // foreach ($stcode as $key=> $value) {
+    //     $sql = "SELECT amount FROM stock_level ";
+    //     $sql .= " WHERE stcode = '". $stcode[$key] ."' and places = '". $places[$key] ."' ";
+    //     $query = mysqli_query($conn,$sql);
+    //     while($row = $query->fetch_assoc()) {
         
-            if($row["amount"]<$amount[$key])
-            {
-                $code .= $stcode[$key].' ';
-                $check = 0;
-            }
-        }
+    //         if($row["amount"]<$amount[$key])
+    //         {
+    //             $code .= $stcode[$key].' ';
+    //             $check = 0;
+    //         }
+    //     }
 
-        // $code++;
+    //     // $code++;
         
-    }
+    // }
 
         
 
-    foreach ($stcode2 as $key2=> $value2) {
-        $sql = "SELECT amount FROM stock_level ";
-        $sql .= " WHERE stcode = '". $stcode2[$key2] ."' and places = '". $places2[$key2] ."' ";
-        $query = mysqli_query($conn,$sql);
-        while($row = $query->fetch_assoc())
-        {
-            if($row["amount"]<$amount2[$key2])
-            {
-                $code .= $stcode2[$key2].' ';
-                // $code = $row["amount"].' '.$amount[$key].' '.$socode;
-                $check = 0;
-            }
-        }
-    }
+    // foreach ($stcode2 as $key2=> $value2) {
+    //     $sql = "SELECT amount FROM stock_level ";
+    //     $sql .= " WHERE stcode = '". $stcode2[$key2] ."' and places = '". $places2[$key2] ."' ";
+    //     $query = mysqli_query($conn,$sql);
+    //     while($row = $query->fetch_assoc())
+    //     {
+    //         if($row["amount"]<$amount2[$key2])
+    //         {
+    //             $code .= $stcode2[$key2].' ';
+    //             // $code = $row["amount"].' '.$amount[$key].' '.$socode;
+    //             $check = 0;
+    //         }
+    //     }
+    // }
 
 
     if($check==1)

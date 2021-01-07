@@ -858,6 +858,7 @@ $(function() {
 
                             $("#socode").prop("disabled", true);
                             $("#cuscode").prop("disabled", true);
+                            $("#cusname").prop("disabled", true);
                             $("#tdname").prop("disabled", true);
                             $("#tel").prop("disabled", true);
                             $("#address").prop("disabled", true);
@@ -878,73 +879,85 @@ $(function() {
     $("#frmEditSO").submit(function(event) {
         event.preventDefault();
 
-        alert('ระบบแก้ไขกำลังปรับปรุง')
+        // alert('ระบบแก้ไขกำลังปรับปรุง')
 
-        // var amount = [];
-        // var stcode = [];
-        // var unit = [];
-        // var price = [];
-        // var discount = [];
-        // var places = [];
+        var amount = [];
+        var stcode = [];
+        var unit = [];
+        var price = [];
+        var discount = [];
+        var places = [];
 
-        // var stcode2 = [];
-        // var amount2 = [];
-        // var unit2 = [];
-        // var places2 = [];
+        var stcode2 = [];
+        var amount2 = [];
+        var unit2 = [];
+        var places2 = [];
 
-        // $(':disabled').each(function(event) {
-        //     $(this).removeAttr('disabled');
-        // });
-
-
-        // $('#tableEditSODetail tbody tr').each(function() {
-        //     stcode.push($(this).attr("id"));
-        // });
-        // $('#tableEditSODetail tbody tr').each(function(key) {
-        //     amount.push($(this).find("td #amount1" + (++key)).val());
-        // });
-        // $('#tableEditSODetail tbody tr').each(function(key) {
-        //     unit.push($(this).find("td #unit1" + (++key)).val());
-        // });
-        // $('#tableEditSODetail tbody tr').each(function(key) {
-        //     price.push($(this).find("td #price1" + (++key)).val());
-        // });
-        // $('#tableEditSODetail tbody tr').each(function(key) {
-        //     discount.push($(this).find("td #discount1" + (++key)).val());
-        // });
-
-        // $('#tableEditSOGiveaway tbody tr').each(function() {
-        //     stcode2.push($(this).attr("id"));
-        // });
-        // $('#tableEditSOGiveaway tbody tr').each(function(key) {
-        //     amount2.push($(this).find("td #amount2" + (++key)).val());
-        // });
-        // $('#tableEditSOGiveaway tbody tr').each(function(key) {
-        //     unit2.push($(this).find("td #unit2" + (++key)).val());
-        // });
+        $(':disabled').each(function(event) {
+            $(this).removeAttr('disabled');
+        });
 
 
-        // $.ajax({
-        //     type: "POST",
-        //     url: "ajax/edit_so.php",
-        //     data: $("#frmEditSO").serialize() + "&amount=" + amount + "&stcode=" + stcode +
-        //         "&unit=" + unit +
-        //         "&price=" + price +
-        //         "&places=" + places +
-        //         "&discount=" + discount + "&stcode2=" + stcode2 + "&amount2=" + amount2 +
-        //         "&unit2=" + unit2 +
-        //         "&places2=" + places2,
-        //     success: function(result) {
-        //         if (result.status == 1) {
-        //             alert(result.message);
-        //             window.location.reload();
-        //             // console.log(result.sql);
-        //         } else {
-        //             alert('err');
-        //             console.log(result.message);
-        //         }
-        //     }
-        // });
+        $('#tableEditSODetail tbody tr').each(function() {
+            stcode.push($(this).attr("id"));
+        });
+        $('#tableEditSODetail tbody tr').each(function(key) {
+            amount.push($(this).find("td #amount1" + (++key)).val());
+        });
+        $('#tableEditSODetail tbody tr').each(function(key) {
+            unit.push($(this).find("td #unit1" + (++key)).val());
+        });
+        $('#tableEditSODetail tbody tr').each(function(key) {
+            price.push($(this).find("td #price1" + (++key)).val());
+        });
+        $('#tableEditSODetail tbody tr').each(function(key) {
+            discount.push($(this).find("td #discount1" + (++key)).val());
+        });
+        
+        $('#tableEditSODetail tbody tr').each(function(key) {
+            places.push($(this).find("td #places1" + (++key)).val());
+        });
+
+        $('#tableEditSOGiveaway tbody tr').each(function() {
+            stcode2.push($(this).attr("id"));
+        });
+        $('#tableEditSOGiveaway tbody tr').each(function(key) {
+            amount2.push($(this).find("td #amount2" + (++key)).val());
+        });
+        $('#tableEditSOGiveaway tbody tr').each(function(key) {
+            unit2.push($(this).find("td #unit2" + (++key)).val());
+        });
+        $('#tableEditSOGiveaway tbody tr').each(function(key) {
+            places2.push($(this).find("td #places2" + (++key)).val());
+        });
+
+        $.ajax({
+            type: "POST",
+            url: "ajax/edit_so.php",
+            data: $("#frmEditSO").serialize() + "&amount=" + amount + "&stcode=" + stcode +
+                "&unit=" + unit +
+                "&price=" + price +
+                "&places=" + places +
+                "&discount=" + discount + "&stcode2=" + stcode2 + "&amount2=" + amount2 +
+                "&unit2=" + unit2 +
+                "&places2=" + places2,
+            success: function(result) {
+                if (result.status == 1) {
+                    alert(result.message);
+                    window.location.reload();
+                    // console.log(result.sql);
+                } else {
+                    alert(result.message);
+                    $("#editsocode").prop("disabled", true);
+                    $("#editcuscode").prop("disabled", true);
+                    $("#editcusname").prop("disabled", true);
+                    $("#edittdname").prop("disabled", true);
+                    $("#edittel").prop("disabled", true);
+                    $("#editaddress").prop("disabled", true);
+                    // console.log(result.message);
+                }
+            }
+        });
 
     });
 
