@@ -38,7 +38,7 @@ include_once('config.php');
                         <ul class="treeview-menu">
                             <li><a href="<?php echo PATH; ?>/po/"><i class="fa fa-book"></i> ใบสั่งซื้อสินค้า</a></li>
                             <li><a href="<?php echo PATH; ?>/receive/"><i class="fa fa-truck"></i> ใบรับสินค้า</a></li>
-                            <li><a href="<?php echo PATH; ?>/issue/"><i class="fa fa-calendar-check-o"></i> ตัดขาย</a>
+                            <li><a href="<?php echo PATH; ?>/issue/"><i class="fa fa-calendar-check-o"></i> ยืนยันการส่งสินค้า</a>
                             <li><a href="<?php echo PATH; ?>/transfer/"><i class="fa fa-exchange"></i>
                                     ย้ายคลังสินค้า</a>
                             </li>

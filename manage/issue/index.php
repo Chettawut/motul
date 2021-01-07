@@ -35,10 +35,10 @@ if (!isset($_SESSION['loggedin'])) {
             <section class="content-header">
                 <h1>
                     Store
-                    <small>ตัดขาย</small>
+                    <small>ยืนยันการส่งสินค้า</small>
                 </h1>
                 <ol class="breadcrumb">
-                    <li><a href="#"><i class="fa fa-calendar-check-o"></i>ตัดขาย</a></li>
+                    <li><a href="#"><i class="fa fa-calendar-check-o"></i>ยืนยันการส่งสินค้า</a></li>
                 </ol>
             </section>
             <!-- Main content -->
@@ -49,7 +49,7 @@ if (!isset($_SESSION['loggedin'])) {
                         <div class="box" style="background-color:#EAEDED">
                             <div class="box-header">
                                 <i class="fa fa-calendar-check-o"></i>
-                                <h3 id="txtHead" class="box-title">ตัดยอดขาย (Shipment)</h3>
+                                <h3 id="txtHead" class="box-title">ยืนยันการส่งสินค้า (Shipment)</h3>
                             </div>
                             <!-- /.box-header -->
                             <div class="box-body">
@@ -61,7 +61,7 @@ if (!isset($_SESSION['loggedin'])) {
                                             ย้อนกลับ</button>
                                         <button type="button" id="btnApp" style="display:none;"
                                             class="btn btn-success"><i class="fa fa-check-circle" aria-hidden="true"></i>
-                                            ตัดขาย</button>
+                                            ยืนยันการส่งสินค้า</button>
                                         <!-- <button type="button" id="btnCal" style="display:none;"
                                             class="btn btn-danger"><i class="fa fa-times-circle" aria-hidden="true"></i>
                                             ยกเลิกอนุมัติการขาย</button>                                           -->
