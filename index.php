@@ -123,10 +123,11 @@
                 <div class="post-preview">
                     <a href="<?php echo PATH; ?>">
                         <h2 class="post-title">
-                            ข่าวของบริษัท
+                            ร่วมงานกับเรา
                         </h2>
                         <h3 class="post-subtitle">
-                            รายละเอียด
+                            รายละเอียด <br>
+                            เปิดรับสมัคร : พนักงานขายประจำภาคอีสาน ภาคเหนือ ภาคใต้ และภาคกลาง
                         </h3>
                     </a>
                     <p class="post-meta">Posted by
