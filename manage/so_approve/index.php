@@ -355,12 +355,12 @@ if (!isset($_SESSION['loggedin'])) {
                                     </div>
                                     <div class="form-group col-md-2">
                                         <label for="recipient-name" class="col-form-label">ภาษี </label>
-                                        <div class="radio">
+                                        <div class="radio" >
                                             <label class="radio-inline">
-                                                <input type="radio" name="editvat" value="Y" checked> มี
+                                                <input type="radio" name="editvat" id="editvatY" value="Y" disabled> มี
                                             </label>
                                             <label class="radio-inline">
-                                                <input type="radio" name="editvat" value="N"> ไม่มี
+                                                <input type="radio" name="editvat" id="editvatN" value="N" disabled> ไม่มี
                                             </label>
                                         </div>
                                     </div>

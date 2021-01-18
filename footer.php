@@ -14,7 +14,7 @@
                             </a>
                         </li>
                     </ul>
-                    <p class="copyright text-muted">Copyright &copy; Jaroon Freelance 2019-2020</p>
+                    <p class="copyright text-muted">Copyright &copy; Jaroon Freelance 2020-<?php echo date("Y"); ?></p>
                 </div>
             </div>
         </div>

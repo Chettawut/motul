@@ -603,7 +603,22 @@ $(function() {
             success: function(result) {
                 if (result.status == 1) {
                     alert(result.message);
-                    window.location.reload();
+                    $("#editsocode").prop("disabled", true);
+                    $("#editcuscode").prop("disabled", true);
+                    $("#editcusname").prop("disabled", true);
+                    $("#edittdname").prop("disabled", true);
+                    $("#edittel").prop("disabled", true);
+                    $("#editsodate").prop("disabled", true);
+                    $("#editdeldate").prop("disabled", true);
+                    $("#editpaydate").prop("disabled", true);
+                    $("#editpayment").prop("disabled", true);
+                    $("#editcurrency").prop("disabled", true);
+                    $("#editvatY").attr("disabled",true);
+                    $("#editvatN").attr("disabled",true);
+                    $("#editremark").prop("disabled", true);
+                    $("#editaddress").prop("disabled", true);
+                    
+                    // window.location.reload();
                     // console.log(result.sql);
                 } else {
                     alert('err');
