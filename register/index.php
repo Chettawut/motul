@@ -1,3 +1,6 @@
+<?php
+include_once('../conn.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -103,6 +106,8 @@
 
 <?php
 include_once('../config.php'); 
+
+
 ?>
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
@@ -147,7 +152,7 @@ include_once('../config.php');
             </div>
         </div>
     </header>
-
+    
     <?php 
     if(isset($_GET['log']))
     {
@@ -160,16 +165,24 @@ include_once('../config.php');
         echo "<script type='text/javascript'>window.location.replace('..');</script>";
 
     }
+    $sql = "SELECT * FROM `job` ";
+	$query = mysqli_query($conn,$sql);
+    $row = $query->fetch_assoc();
     ?>
+    
     <!-- Main Content -->
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
                 <div class="post-preview">
-                    <a href="<?php echo PATH; ?>">
-                        กำลังทดสอบระบบ
-                    </a>
+                    
+                        <?php echo $row["jobname"]; ?> 
+                   
                 </div>
+
+                <?php echo $row["property"]; ?> 
+                <?php echo $row["role"]; ?> 
+                
 
                 <!-- <div class="post-preview">
                     <a href="post.html">
