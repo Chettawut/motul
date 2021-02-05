@@ -139,29 +139,29 @@ function CreateReport(table, year, vat) {
             } else {
                 $('#' + table + ' tbody').append(
                     '<tr><td align="center" height="30">รวมเงิน</td><td align="right" >' +
-                    formatMoney(result.total_Jan - (((result.total_Jan * 100) / 107) * 7 / 100), 2) +
+                    formatMoney(result.total_Jan, 2) +
                     '</td><td align="right">' +
-                    formatMoney(result.total_Feb - (((result.total_Feb * 100) / 107) * 7 / 100), 2) +
+                    formatMoney(result.total_Feb, 2) +
                     '</td><td align="right">' +
-                    formatMoney(result.total_Mar - (((result.total_Mar * 100) / 107) * 7 / 100), 2) +
+                    formatMoney(result.total_Mar, 2) +
                     '</td><td align="right">' +
-                    formatMoney(result.total_Apr - (((result.total_Apr * 100) / 107) * 7 / 100), 2) +
+                    formatMoney(result.total_Apr, 2) +
                     '</td><td align="right">' +
-                    formatMoney(result.total_May - (((result.total_May * 100) / 107) * 7 / 100), 2) +
+                    formatMoney(result.total_May, 2) +
                     '</td><td align="right">' +
-                    formatMoney(result.total_Jun - (((result.total_Jun * 100) / 107) * 7 / 100), 2) +
+                    formatMoney(result.total_Jun, 2) +
                     '</td><td align="right">' +
-                    formatMoney(result.total_Jul - (((result.total_Jul * 100) / 107) * 7 / 100), 2) +
+                    formatMoney(result.total_Jul, 2) +
                     '</td><td align="right">' +
-                    formatMoney(result.total_Aug - (((result.total_Aug * 100) / 107) * 7 / 100), 2) +
+                    formatMoney(result.total_Aug, 2) +
                     '</td><td align="right">' +
-                    formatMoney(result.total_Sep - (((result.total_Sep * 100) / 107) * 7 / 100), 2) +
+                    formatMoney(result.total_Sep, 2) +
                     '</td><td align="right">' +
-                    formatMoney(result.total_Oct - (((result.total_Oct * 100) / 107) * 7 / 100), 2) +
+                    formatMoney(result.total_Oct, 2) +
                     '</td><td align="right">' +
-                    formatMoney(result.total_Nov - (((result.total_Nov * 100) / 107) * 7 / 100), 2) +
+                    formatMoney(result.total_Nov, 2) +
                     '</td><td align="right">' +
-                    formatMoney(result.total_Dec - (((result.total_Dec * 100) / 107) * 7 / 100), 2) +
+                    formatMoney(result.total_Dec, 2) +
                     '</td></tr>');
             }
 
