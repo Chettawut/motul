@@ -78,7 +78,8 @@ if (!isset($_SESSION['loggedin'])) {
                                         <thead>
                                             <tr>
                                                 <!-- <th>ลำดับที่</th> -->
-                                                <th >วันที่ออกบิล</th>
+                                                <th style="text-align:center;">วันที่ออกบิล</th>
+                                                <th style="text-align:center;">วันที่กำหนดชำระเงิน</th>
                                                 <th style="text-align:center;">เลขที่บิล</th>
                                                 <th >ชื่อลูกหนี้</th>
                                                 <th style="text-align:right;">จำนวนเงิน</th>                                                

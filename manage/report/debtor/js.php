@@ -58,7 +58,7 @@ function CreateReport(table, cuscode) {
             console.log(result.total);
 
             for (count = 0; count < result.socode.length; count++) {
-                invdate = result
+                var invdate = result
                     .invdate[count].substring(8) + '-' + result
                     .invdate[count].substring(5, 7) + '-' + result
                     .invdate[count].substring(0, 4);
@@ -71,11 +71,18 @@ function CreateReport(table, cuscode) {
                 } else
                     recedate = '';
 
+                var paydate = result
+                    .paydate[count].substring(8) + '-' + result
+                    .paydate[count].substring(5, 7) + '-' + result
+                    .paydate[count].substring(0, 4);    
+
 
 
                 $('#' + table + ' tbody').append(
                     '<tr><td align="left" >' +
                     invdate +
+                    '</td><td align="center">' +
+                    paydate +
                     '</td><td align="center">' +
                     result.invoice[count] +
                     '</td><td align="left">' +
