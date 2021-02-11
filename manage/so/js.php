@@ -927,39 +927,44 @@ $(function() {
 
         if ($("#cuscode").val() != '') {
             if (stcode != 0) {
-                $(':disabled').each(function(event) {
-                    $(this).removeAttr('disabled');
-                });
+                if ($('input[name="vat"][value="Y"]').prop("checked")||$('input[name="vat"][value="N"]').prop("checked")) {                    
+                    $(':disabled').each(function(event) {
+                        $(this).removeAttr('disabled');
+                    });
 
-                $.ajax({
-                    type: "POST",
-                    url: "ajax/add_so.php",
-                    data: $("#frmSO").serialize() + "&amount=" + amount + "&stcode=" + stcode +
-                        "&unit=" + unit +
-                        "&price=" + price +
-                        "&discount=" + discount + "&stcode2=" + stcode2 + "&amount2=" +
-                        amount2 +
-                        "&unit2=" + unit2 +
-                        "&salecode=" + '<?php echo $_SESSION['salecode'];?>',
-                    success: function(result) {
-                        if (result.status == 1) {
-                            alert(result.message);
-                            window.location.reload();
-                            // console.log(result.sql);
-                        } else {
-                            alert(result.message);
+                    $.ajax({
+                        type: "POST",
+                        url: "ajax/add_so.php",
+                        data: $("#frmSO").serialize() + "&amount=" + amount + "&stcode=" +
+                            stcode +
+                            "&unit=" + unit +
+                            "&price=" + price +
+                            "&discount=" + discount + "&stcode2=" + stcode2 + "&amount2=" +
+                            amount2 +
+                            "&unit2=" + unit2 +
+                            "&salecode=" + '<?php echo $_SESSION['salecode'];?>',
+                        success: function(result) {
+                            if (result.status == 1) {
+                                alert(result.message);
+                                window.location.reload();
+                                // console.log(result.sql);
+                            } else {
+                                alert(result.message);
 
-                            $("#editsocode").prop("disabled", true);
-                            $("#editcuscode").prop("disabled", true);
-                            $("#editcusname").prop("disabled", true);
-                            $("#edittdname").prop("disabled", true);
-                            $("#edittel").prop("disabled", true);
-                            $("#editaddress").prop("disabled", true);
+                                $("#editsocode").prop("disabled", true);
+                                $("#editcuscode").prop("disabled", true);
+                                $("#editcusname").prop("disabled", true);
+                                $("#edittdname").prop("disabled", true);
+                                $("#edittel").prop("disabled", true);
+                                $("#editaddress").prop("disabled", true);
 
-                            // console.log(result.message);
+                                // console.log(result.message);
+                            }
                         }
-                    }
-                });
+                    });
+                } else {
+                    alert('กรุณาเลือก VAT ก่อน');
+                }
             } else {
                 alert('กรุณาเพิ่มรายการ');
             }
@@ -1161,7 +1166,7 @@ $(function() {
 
                     if (result.status == 1) {
                         alert(result.message);
-                        onSelectSO($("#editsocode").val());                        
+                        onSelectSO($("#editsocode").val());
                         // console.log(result.sql);
                     } else {
                         alert(result.message);
@@ -1188,9 +1193,9 @@ $(function() {
     // เพิ่ม so detail เมื่อเลือกสต๊อกของแถมเพิ่มเติม
     $("#table_giveaway2").delegate('tbody tr', 'click', function() {
         var id = $(this).attr("id");
-        
+
         if (confirm("คุณต้องการเพิ่มของแถมรหัส " + id + " หรือไม่")) {
-            
+
             // $('#tableEditSOGiveaway').show();
 
             $.ajax({
@@ -1202,7 +1207,7 @@ $(function() {
 
                     if (result.status == 1) {
                         alert(result.message);
-                        onSelectSO($("#editsocode").val());                        
+                        onSelectSO($("#editsocode").val());
                         // console.log(result.sql);
                     } else {
                         alert(result.message);

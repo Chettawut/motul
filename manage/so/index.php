@@ -175,7 +175,7 @@ if (!isset($_SESSION['loggedin'])) {
                                             <label for="recipient-name" class="col-form-label">ภาษี </label>
                                             <div class="radio">
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="vat" value="Y" checked> มี
+                                                    <input type="radio" name="vat" value="Y" > มี
                                                 </label>
                                                 <label class="radio-inline">
                                                     <input type="radio" name="vat" value="N"> ไม่มี
