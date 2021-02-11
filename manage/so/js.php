@@ -333,6 +333,9 @@ function onSelectSO(socode) {
     $("#tableSODetail tbody").empty();
     $("#tableEditSODetail").show();
     $("#printsocode").val(socode);
+    $("#btnAddSOdetail2").show();
+    $("#btnAddSOGiveaway2").show();
+
 
     if ($("#" + socode + " td:eq(5)").text() == "รออนุมัติขาย") {
         // enabledSupSO(); 
@@ -616,23 +619,23 @@ $(function() {
 
                 $('#table_stock tbody').append(
                     '<tr data-toggle="modal" data-dismiss="modal" data-target="#modelStockEdit" id="' +
-                            result.stcode[count] + '" data-whatever="' + result
-                            .code[count] + '"><td>' + result.stcode[count] +
-                            '</td><td>' +
-                            result.stname1[count] +
-                            '</td><td style="text-align:right">' +
-                                result.amount1[count] +
-                                '</td><td style="text-align:right">' +
-                                result.piece1[count] +
-                                '</td><td style="text-align:right">' +
-                                result.amount2[count] +
-                                '</td><td style="text-align:right">' +
-                                result.piece2[count] +
-                                '</td><td style="text-align:right">' +
-                                result.amount3[count] +
-                                '</td><td style="text-align:right">' +
-                                result.piece3[count] +
-                                '</td></tr>');
+                    result.stcode[count] + '" data-whatever="' + result
+                    .code[count] + '"><td>' + result.stcode[count] +
+                    '</td><td>' +
+                    result.stname1[count] +
+                    '</td><td style="text-align:right">' +
+                    result.amount1[count] +
+                    '</td><td style="text-align:right">' +
+                    result.piece1[count] +
+                    '</td><td style="text-align:right">' +
+                    result.amount2[count] +
+                    '</td><td style="text-align:right">' +
+                    result.piece2[count] +
+                    '</td><td style="text-align:right">' +
+                    result.amount3[count] +
+                    '</td><td style="text-align:right">' +
+                    result.piece3[count] +
+                    '</td></tr>');
 
 
             }
@@ -661,28 +664,118 @@ $(function() {
 
                 $('#table_giveaway tbody').append(
                     '<tr data-toggle="modal" data-dismiss="modal" data-target="#modelStockEdit" id="' +
-                            result.stcode[count] + '" data-whatever="' + result
-                            .code[count] + '"><td>' + result.stcode[count] +
-                            '</td><td>' +
-                            result.stname1[count] +
-                            '</td><td style="text-align:right">' +
-                                result.amount1[count] +
-                                '</td><td style="text-align:right">' +
-                                result.piece1[count] +
-                                '</td><td style="text-align:right">' +
-                                result.amount2[count] +
-                                '</td><td style="text-align:right">' +
-                                result.piece2[count] +
-                                '</td><td style="text-align:right">' +
-                                result.amount3[count] +
-                                '</td><td style="text-align:right">' +
-                                result.piece3[count] +
-                                '</td></tr>');
+                    result.stcode[count] + '" data-whatever="' + result
+                    .code[count] + '"><td>' + result.stcode[count] +
+                    '</td><td>' +
+                    result.stname1[count] +
+                    '</td><td style="text-align:right">' +
+                    result.amount1[count] +
+                    '</td><td style="text-align:right">' +
+                    result.piece1[count] +
+                    '</td><td style="text-align:right">' +
+                    result.amount2[count] +
+                    '</td><td style="text-align:right">' +
+                    result.piece2[count] +
+                    '</td><td style="text-align:right">' +
+                    result.amount3[count] +
+                    '</td><td style="text-align:right">' +
+                    result.piece3[count] +
+                    '</td></tr>');
 
 
             }
 
             $('#table_giveaway').DataTable({
+                "dom": '<"pull-left"f>rt<"bottom"p><"clear">',
+                "ordering": true
+            });
+
+
+            $(".dataTables_filter input[type='search']").attr({
+                size: 40,
+                maxlength: 40
+            });
+        }
+    });
+
+    //modal เพิ่มของขาย
+    $.ajax({
+        type: "POST",
+        url: "ajax/get_stock.php",
+
+        success: function(result) {
+
+            for (count = 0; count < result.code.length; count++) {
+
+                $('#table_stock2 tbody').append(
+                    '<tr data-toggle="modal" data-dismiss="modal" data-target="#modelStockEdit" id="' +
+                    result.stcode[count] + '" data-whatever="' + result
+                    .code[count] + '"><td>' + result.stcode[count] +
+                    '</td><td>' +
+                    result.stname1[count] +
+                    '</td><td style="text-align:right">' +
+                    result.amount1[count] +
+                    '</td><td style="text-align:right">' +
+                    result.piece1[count] +
+                    '</td><td style="text-align:right">' +
+                    result.amount2[count] +
+                    '</td><td style="text-align:right">' +
+                    result.piece2[count] +
+                    '</td><td style="text-align:right">' +
+                    result.amount3[count] +
+                    '</td><td style="text-align:right">' +
+                    result.piece3[count] +
+                    '</td></tr>');
+
+
+            }
+
+            $('#table_stock2').DataTable({
+                "dom": '<"pull-left"f>rt<"bottom"p><"clear">',
+                "ordering": true
+            });
+
+
+            $(".dataTables_filter input[type='search']").attr({
+                size: 40,
+                maxlength: 40
+            });
+        }
+    });
+
+    //modal เพิ่มของแถม
+    $.ajax({
+        type: "POST",
+        url: "ajax/get_stock.php",
+
+        success: function(result) {
+
+            for (count = 0; count < result.code.length; count++) {
+
+                $('#table_giveaway2 tbody').append(
+                    '<tr data-toggle="modal" data-dismiss="modal" data-target="#modelStockEdit" id="' +
+                    result.stcode[count] + '" data-whatever="' + result
+                    .code[count] + '"><td>' + result.stcode[count] +
+                    '</td><td>' +
+                    result.stname1[count] +
+                    '</td><td style="text-align:right">' +
+                    result.amount1[count] +
+                    '</td><td style="text-align:right">' +
+                    result.piece1[count] +
+                    '</td><td style="text-align:right">' +
+                    result.amount2[count] +
+                    '</td><td style="text-align:right">' +
+                    result.piece2[count] +
+                    '</td><td style="text-align:right">' +
+                    result.amount3[count] +
+                    '</td><td style="text-align:right">' +
+                    result.piece3[count] +
+                    '</td></tr>');
+
+
+            }
+
+            $('#table_giveaway2').DataTable({
                 "dom": '<"pull-left"f>rt<"bottom"p><"clear">',
                 "ordering": true
             });
@@ -727,7 +820,7 @@ $(function() {
         }
     });
 
-    
+
 
     $('#modal_unit').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget)
@@ -856,12 +949,12 @@ $(function() {
                         } else {
                             alert(result.message);
 
-                            $("#socode").prop("disabled", true);
-                            $("#cuscode").prop("disabled", true);
-                            $("#cusname").prop("disabled", true);
-                            $("#tdname").prop("disabled", true);
-                            $("#tel").prop("disabled", true);
-                            $("#address").prop("disabled", true);
+                            $("#editsocode").prop("disabled", true);
+                            $("#editcuscode").prop("disabled", true);
+                            $("#editcusname").prop("disabled", true);
+                            $("#edittdname").prop("disabled", true);
+                            $("#edittel").prop("disabled", true);
+                            $("#editaddress").prop("disabled", true);
 
                             // console.log(result.message);
                         }
@@ -913,7 +1006,7 @@ $(function() {
         $('#tableEditSODetail tbody tr').each(function(key) {
             discount.push($(this).find("td #discount1" + (++key)).val());
         });
-        
+
         $('#tableEditSODetail tbody tr').each(function(key) {
             places.push($(this).find("td #places1" + (++key)).val());
         });
@@ -964,7 +1057,6 @@ $(function() {
     // เพิ่ม so detail เมื่อเลือกสต๊อก
     $("#table_stock").delegate('tbody tr', 'click', function() {
         var id = $(this).attr("id");
-        $('#btnClearSOdetail').show();
 
         var option = '';
         $.ajax({
@@ -1018,7 +1110,6 @@ $(function() {
         var target = $(this).attr("id");
         var id = target.split(',')[0];
         var row = target.split(',')[1];
-        $('#btnClearSOGiveaway').show();
         $('#tableSOGiveaway').show();
         // alert(row+' test '+id);
         var option = '';
@@ -1042,14 +1133,93 @@ $(function() {
                     data: "idcode=" + id,
                     success: function(result) {
 
-                        onCreate_giveaway(result.stcode, result.stname1, result
-                            .unit)
+
 
                     }
                 });
 
             }
         });
+
+
+
+
+    });
+
+    // เพิ่ม so detail เมื่อเลือกสต๊อกเพิ่มเติม
+    $("#table_stock2").delegate('tbody tr', 'click', function() {
+        var id = $(this).attr("id");
+        var option = '';
+
+        if (confirm("คุณต้องการเพิ่มสินค้ารหัส " + id + " หรือไม่")) {
+            $.ajax({
+                type: "POST",
+                url: "ajax/add_sodetail.php",
+                data: "stcode=" + id + "&socode=" + $("#editsocode").val(),
+                success: function(result) {
+                    // alert(result.message);
+
+                    if (result.status == 1) {
+                        alert(result.message);
+                        onSelectSO($("#editsocode").val());                        
+                        // console.log(result.sql);
+                    } else {
+                        alert(result.message);
+                        $("#editsocode").prop("disabled", true);
+                        $("#editcuscode").prop("disabled", true);
+                        $("#editcusname").prop("disabled", true);
+                        $("#edittdname").prop("disabled", true);
+                        $("#edittel").prop("disabled", true);
+                        $("#editaddress").prop("disabled", true);
+                        // console.log(result.message);
+                    }
+
+
+                }
+            });
+
+        }
+
+
+
+    });
+
+
+    // เพิ่ม so detail เมื่อเลือกสต๊อกของแถมเพิ่มเติม
+    $("#table_giveaway2").delegate('tbody tr', 'click', function() {
+        var id = $(this).attr("id");
+        
+        if (confirm("คุณต้องการเพิ่มของแถมรหัส " + id + " หรือไม่")) {
+            
+            // $('#tableEditSOGiveaway').show();
+
+            $.ajax({
+                type: "POST",
+                url: "ajax/add_sodetail_giveaway.php",
+                data: "stcode=" + id + "&socode=" + $("#editsocode").val(),
+                success: function(result) {
+                    // alert(result.message);
+
+                    if (result.status == 1) {
+                        alert(result.message);
+                        onSelectSO($("#editsocode").val());                        
+                        // console.log(result.sql);
+                    } else {
+                        alert(result.message);
+                        $("#editsocode").prop("disabled", true);
+                        $("#editcuscode").prop("disabled", true);
+                        $("#editcusname").prop("disabled", true);
+                        $("#edittdname").prop("disabled", true);
+                        $("#edittel").prop("disabled", true);
+                        $("#editaddress").prop("disabled", true);
+                        // console.log(result.message);
+                    }
+
+
+                }
+            });
+
+        }
 
 
 
@@ -1120,21 +1290,20 @@ $(function() {
             $.ajax({
                 type: "POST",
                 data: $("#frmEditSO").serialize() + "&amount=" + amount + "&stcode=" + stcode +
-                "&unit=" + unit +
-                "&price=" + price +
-                "&places=" + places +
-                "&discount=" + discount + "&stcode2=" + stcode2 + "&amount2=" + amount2 +
-                "&unit2=" + unit2 +
-                "&places2=" + places2,
+                    "&unit=" + unit +
+                    "&price=" + price +
+                    "&places=" + places +
+                    "&discount=" + discount + "&stcode2=" + stcode2 + "&amount2=" + amount2 +
+                    "&unit2=" + unit2 +
+                    "&places2=" + places2,
                 url: "ajax/cancle_so.php",
                 success: function(result) {
                     alert(result["message"]);
                     window.location.reload();
                 }
             });
-        }
-        else
-        window.location.reload();
+        } else
+            window.location.reload();
     });
 
 

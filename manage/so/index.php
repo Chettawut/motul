@@ -210,16 +210,6 @@ if (!isset($_SESSION['loggedin'])) {
                                             data-toggle="modal" data-target="#modal_giveaway"><i class="fa fa fa-gift"
                                                 aria-hidden="true"></i>
                                             เพิ่มของแถม</button>
-                                        <!-- <button type="button" id="btnClearSOdetail" style="display:none;"
-                                            class="btn btn-danger"
-                                            onClick="onDeleteDetail('tableSODetail','btnClearSOdetail');"><i
-                                                class="fa fa fa-times" aria-hidden="true"></i>
-                                            ลบรายการทั้งหมด</button>
-                                        <button type="button" id="btnClearSOGiveaway" style="display:none;"
-                                            class="btn btn-danger"
-                                            onClick="onDeleteDetail('tableSOGiveaway','btnClearSOGiveaway');"><i
-                                                class="fa fa fa-times" aria-hidden="true"></i>
-                                            ลบของแถมทั้งหมด</button> -->
 
                                     </div>
 
@@ -376,6 +366,19 @@ if (!isset($_SESSION['loggedin'])) {
 
                                 <br>
                                 <br>
+                                <div class="form-group col-md-12">
+                                        
+                                        <button type="button" id="btnAddSOdetail2" class="btn btn-success"
+                                            data-toggle="modal" data-target="#modal_stock2"><i class="fa fa fa-tags"
+                                                aria-hidden="true"></i>
+                                            เพิ่มรายการ</button>
+
+                                        <button type="button" id="btnAddSOGiveaway2" class="btn btn-info"
+                                            data-toggle="modal" data-target="#modal_giveaway2"><i class="fa fa fa-gift"
+                                                aria-hidden="true"></i>
+                                            เพิ่มของแถม</button>
+
+                                    </div>
 
                                 <div style="border: 1px solid #FAEBD7;">
                                     <br>
@@ -625,6 +628,102 @@ if (!isset($_SESSION['loggedin'])) {
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <table id="table_giveaway" name="table_giveaway"
+                                        class="table table-bordered table-striped">
+                                        <thead style=" background-color:#D6EAF8;">
+                                            <tr>
+                                            <th width="10%">รหัสพัสดุ</th>
+                                                <th width="40%">ชื่อพัสดุ</th>
+                                                <th width="8%" style="text-align:center">ลัง A</th>
+                                                <th width="8%" style="text-align:center">เศษ A</th>
+                                                <th width="8%" style="text-align:center">ลัง B</th>
+                                                <th width="8%" style="text-align:center">เศษ B</th>
+                                                <th width="8%" style="text-align:center">ลัง C</th>
+                                                <th width="8%" style="text-align:center">เศษ C</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal table_id -->
+        <div class="modal fade bs-example-modal-lg" id="modal_stock2" tabindex="-1" role="dialog"
+            aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">เพิ่มสินค้าที่ต้องการขาย</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <table id="table_stock2" name="table_stock"
+                                        class="table table-bordered table-striped">
+                                        <thead style=" background-color:#D6EAF8;">
+                                            <tr>
+                                                <th width="10%">รหัสพัสดุ</th>
+                                                <th width="40%">ชื่อพัสดุ</th>
+                                                <th width="8%" style="text-align:center">ลัง A</th>
+                                                <th width="8%" style="text-align:center">เศษ A</th>
+                                                <th width="8%" style="text-align:center">ลัง B</th>
+                                                <th width="8%" style="text-align:center">เศษ B</th>
+                                                <th width="8%" style="text-align:center">ลัง C</th>
+                                                <th width="8%" style="text-align:center">เศษ C</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal table_id -->
+        <div class="modal fade bs-example-modal-lg" id="modal_giveaway2" tabindex="-1" role="dialog"
+            aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">เลือกของแถมให้ลูกค้า</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <table id="table_giveaway2" name="table_giveaway"
                                         class="table table-bordered table-striped">
                                         <thead style=" background-color:#D6EAF8;">
                                             <tr>

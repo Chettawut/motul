@@ -33,16 +33,7 @@
             $amount_dif=0;
             $amount_old=$row2["amount"]; 
             $unit_old=$row2["unit"]; 
-
-            $sql = "SELECT amount FROM `stock_level` ";
-            $sql .= " WHERE stcode='".$stcode[$key]."' and places = '". $places[$key] ."' ";
-            $query = mysqli_query($conn,$sql);
-            $row2 = $query->fetch_assoc();  
-
-            $amount_stock=$row2["amount"];
-            
-                
-                
+         
                     $radio=1;
                     $radio_old=1;                    
 
@@ -50,6 +41,8 @@
                     $sql .= " WHERE a.stcode = '". $stcode[$key] ."' and c.places = '". $places[$key] ."'";
                     $query = mysqli_query($conn,$sql);
                     $row2 = $query->fetch_assoc();
+
+                    $amount_stock=$row2["amount"];
                     
                     if($unit[$key]=='ลัง')
                     $radio=$row2["ratio"];
@@ -58,7 +51,7 @@
                     
                     $amount_dif=($amount[$key]*$radio)-($amount_old*$radio_old);
 
-                if(($amount_stock-$amount_dif)>0)
+                if(($amount_stock-$amount_dif)>=0)
                 {
 
                     $current_amount=$row2["amount"]-($amount_dif) ;
@@ -116,14 +109,7 @@
 
                 $amount_dif=0;
                 $amount_old=$row2["amount"]; 
-                $unit_old=$row2["unit"]; 
-
-                $sql = "SELECT amount FROM `stock_level` ";
-                $sql .= " WHERE stcode='".$stcode2[$key2]."' and places = '". $places2[$key2] ."' ";
-                $query = mysqli_query($conn,$sql);
-                $row2 = $query->fetch_assoc();  
-
-                $amount_stock=$row2["amount"];
+                $unit_old=$row2["unit"];                 
             
                     $radio=1;
                     $radio_old=1;                    
@@ -132,6 +118,8 @@
                     $sql .= " WHERE a.stcode = '". $stcode2[$key2] ."' and c.places = '". $places2[$key2] ."'";
                     $query = mysqli_query($conn,$sql);
                     $row2 = $query->fetch_assoc();
+
+                    $amount_stock=$row2["amount"];
                     
                     if($unit2[$key2]=='ลัง')
                     $radio=$row2["ratio"];
@@ -185,7 +173,6 @@
             }
         }
     }
-
 
     if($check)
     {
