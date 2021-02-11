@@ -333,16 +333,17 @@ function onSelectSO(socode) {
     $("#tableSODetail tbody").empty();
     $("#tableEditSODetail").show();
     $("#printsocode").val(socode);
-    $("#btnAddSOdetail2").show();
-    $("#btnAddSOGiveaway2").show();
-
-
+    
     if ($("#" + socode + " td:eq(5)").text() == "รออนุมัติขาย") {
         // enabledSupSO(); 
         $("#btnEdit").show();
+        $("#btnAddSOdetail2").show();
+        $("#btnAddSOGiveaway2").show();
     } else {
         disabledSupSO();
         $("#btnEdit").hide();
+        $("#btnAddSOdetail2").hide();
+        $("#btnAddSOGiveaway2").hide();
     }
 
     if ($("#" + socode + " td:eq(5)").text() == "ยกเลิกการใช้งาน")
