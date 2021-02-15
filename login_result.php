@@ -8,7 +8,7 @@ if ( !isset($_POST['username'], $_POST['password']) ) {
 	exit('Please fill both the username and password fields!');
 }
 // Prepare our SQL, preparing the SQL statement will prevent SQL injection.
-if ($stmt = $conn->prepare('SELECT firstname,lastname,id,password,type,salecode FROM user WHERE username = ?')) {
+if ($stmt = $conn->prepare('SELECT firstname,lastname,id,password,type,salecode,status FROM user WHERE username = ?')) {
 	// Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
 	$stmt->bind_param('s', $_POST['username']);
 	$stmt->execute();
@@ -19,37 +19,44 @@ if ($stmt = $conn->prepare('SELECT firstname,lastname,id,password,type,salecode 
 }
 
 if ($stmt->num_rows > 0) {
-	$stmt->bind_result($firstname,$lastname,$id,$password,$type,$salecode);
+	$stmt->bind_result($firstname,$lastname,$id,$password,$type,$salecode,$status);
 	$stmt->fetch();
 	// Account exists, now we verify the password.
 	// Note: remember to use password_hash in your registration file to store the hashed passwords.
 	if (password_verify($_POST['password'], $password)) {
-		// Verification success! User has loggedin!
-		// Create sessions so we know the user is logged in, they basically act like cookies but remember the data on the server.
-		session_regenerate_id();
-		$_SESSION['loggedin'] = TRUE;
-		$_SESSION['name'] = $_POST['username'];
-		$_SESSION['id'] = $id;
-		$_SESSION['firstname'] = $firstname;
-		$_SESSION['lastname'] = $lastname;
-		
-		if($type=='01')
-		$_SESSION['type'] = 'Store';
-		else if($type=='02')
-		$_SESSION['type'] = 'Sales Leader';
-		else if($type=='03')
-		$_SESSION['type'] = 'Office';
-		else if($type=='04')
-		$_SESSION['type'] = 'Manager';
-		else if($type=='05')
-		$_SESSION['type'] = 'Sales';
-		else if($type=='99')
-		$_SESSION['type'] = 'Admin';
 
-		$_SESSION['salecode'] = $salecode;
+			session_regenerate_id();
+			$_SESSION['loggedin'] = TRUE;
+			$_SESSION['name'] = $_POST['username'];
+			$_SESSION['id'] = $id;
+			$_SESSION['firstname'] = $firstname;
+			$_SESSION['lastname'] = $lastname;
 		
-        // echo 'Welcome ' . $_SESSION['name'] . '!';
-        header( "Location: manage");
+		if($status=='Y')
+		{
+			
+			
+			if($type=='01')
+			$_SESSION['type'] = 'Store';
+			else if($type=='02')
+			$_SESSION['type'] = 'Sales Leader';
+			else if($type=='03')
+			$_SESSION['type'] = 'Office';
+			else if($type=='04')
+			$_SESSION['type'] = 'Manager';
+			else if($type=='05')
+			$_SESSION['type'] = 'Sales';
+			else if($type=='99')
+			$_SESSION['type'] = 'Admin';
+
+			$_SESSION['salecode'] = $salecode;
+			
+			// echo 'Welcome ' . $_SESSION['name'] . '!';
+			header( "Location: manage");
+		}
+		else{
+			header( "Location: ..?log=disable");
+		}
 	} else {
 		echo 'Incorrect password!';
 		header( "Location: ..?log=password");

@@ -110,6 +110,8 @@
         $message = "Username ไม่ถูกต้อง";
         else if($_GET['log']=='password')
         $message = "Password ไม่ถูกต้อง";
+        else if($_GET['log']=='disable')
+        $message = "คุณไม่ได้เป็นพนักงานบริษัทนี้แล้ว";
         echo "<script type='text/javascript'>alert('$message');</script>";
         // header( "Location: index.php");
         echo "<script type='text/javascript'>window.location.replace('..');</script>";

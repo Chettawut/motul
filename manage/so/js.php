@@ -1139,7 +1139,8 @@ $(function() {
                     data: "idcode=" + id,
                     success: function(result) {
 
-
+                        onCreate_giveaway(result.stcode, result.stname1, result
+                            .unit)
 
                     }
                 });
