@@ -6,12 +6,12 @@
     $_POST["cuscode"] = $_POST["cuscode1"].$_POST["cuscode2"].$_POST["cuscode3"];
 
     $StrSQL = "INSERT INTO customer (`cuscode`, `cusname`, `idno`, `road`, `subdistrict` ,`district`";
-    $StrSQL .= ",`province`, `zipcode`, `tel`, `fax`, `taxnumber` ,`email`,`status`,`salecode`";
+    $StrSQL .= ",`province`, `zipcode`, `tel`, `fax`, `taxnumber` ,`email`,`status`,`map`,`salecode`";
     $StrSQL .= ",`s_date`,`s_time`)";
     $StrSQL .= " VALUES (";
     $StrSQL .= "'".$_POST["cuscode"]."','".$_POST["cusname"]."','".$_POST["idno"]."','".$_POST["road"]."','".$_POST["subdistrict"]."','".$_POST["district"]."'";
     $StrSQL .= ",'".$_POST["province"]."','".$_POST["zipcode"]."','".$_POST["tel"]."','".$_POST["fax"]."','".$_POST["taxnumber"]."','".$_POST["email"]."'";
-    $StrSQL .= ",'Y','".$_POST["salecode"]."','".date("Y-m-d")."','".date("H:i:s")."' ";
+    $StrSQL .= ",'Y','".$_POST["map"]."','".$_POST["salecode"]."','".date("Y-m-d")."','".date("H:i:s")."' ";
     $StrSQL .= ")";
     $query = mysqli_query($conn,$StrSQL);
    

@@ -106,6 +106,7 @@ $('#modelCustomerEdit').on('show.bs.modal', function(event) {
             modal.find('.modal-body #editfax').val(result.fax);
             modal.find('.modal-body #edittaxnumber').val(result.taxnumber);
             modal.find('.modal-body #editemail').val(result.email);
+            modal.find('.modal-body #editmap').val(result.map);
             modal.find('.modal-body #editstatus').val(result.status);
 
 

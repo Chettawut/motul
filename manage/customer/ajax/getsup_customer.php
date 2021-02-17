@@ -19,6 +19,7 @@
 		"fax" => array(),
 		"taxnumber" => array(),
 		"email" => array(),
+		"map" => array(),
 		"status" => array()
 		
         );
@@ -36,6 +37,7 @@
 			array_push($json_result['fax'],$row["fax"]);
 			array_push($json_result['taxnumber'],$row["taxnumber"]);
 			array_push($json_result['email'],$row["email"]);
+			array_push($json_result['map'],$row["map"]);
 			array_push($json_result['status'],$row["status"]);
         }
         echo json_encode($json_result);

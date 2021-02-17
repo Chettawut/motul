@@ -124,8 +124,9 @@ if (!isset($_SESSION['loggedin'])) {
                                             <input type="text" class="form-control" name="cuscode2" id="cuscode2"
                                                 minlength="9" maxlength="9" placeholder="จังหวัด" disabled required>
                                             <span class="input-group-btn">
-                                            <button class="btn btn-default" data-toggle="modal"
-                                                        data-target="#modal_one" type="button"><span class="fa fa-search"></span></button>
+                                                <button class="btn btn-default" data-toggle="modal"
+                                                    data-target="#modal_one" type="button"><span
+                                                        class="fa fa-search"></span></button>
                                             </span>
                                         </div>
                                     </div>
@@ -140,6 +141,20 @@ if (!isset($_SESSION['loggedin'])) {
                             <div class="form-group col-md-12">
                                 <label for="recipient-name" class="col-form-label">ชื่อลูกค้า</label>
                                 <input type="text" class="form-control" name="cusname" id="cusname" required>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="recipient-name" class="col-form-label">Google Map</label>
+                                <input type="text" class="form-control" name="map" id="map" required>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="recipient-name" class="col-form-label">เบอร์โทรศัพท์</label>
+                                <input type="text" class="form-control" name="tel" id="tel" required>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="recipient-name" class="col-form-label">เบอร์แฟ็ค</label>
+                                <input type="text" class="form-control" name="fax" id="fax">
                             </div>
 
                             <div class="form-group col-md-6">
@@ -175,16 +190,6 @@ if (!isset($_SESSION['loggedin'])) {
                             </div>
 
                             <div class="form-group col-md-6">
-                                <label for="recipient-name" class="col-form-label">เบอร์โทรศัพท์</label>
-                                <input type="text" class="form-control" name="tel" id="tel">
-                            </div>
-
-                            <div class="form-group col-md-6">
-                                <label for="recipient-name" class="col-form-label">เบอร์แฟ็ค</label>
-                                <input type="text" class="form-control" name="fax" id="fax">
-                            </div>
-
-                            <div class="form-group col-md-6">
                                 <label for="recipient-name" class="col-form-label">เลขผู้เสียภาษี</label>
                                 <input type="text" class="form-control" name="taxnumber" id="taxnumber">
                             </div>
@@ -193,6 +198,7 @@ if (!isset($_SESSION['loggedin'])) {
                                 <label for="recipient-name" class="col-form-label">Email</label>
                                 <input type="text" class="form-control" name="email" id="email">
                             </div>
+
 
                         </div>
                         <div class="modal-footer">
@@ -275,6 +281,30 @@ if (!isset($_SESSION['loggedin'])) {
                                 <input type="text" class="form-control" name="editcusname" id="editcusname" required>
                             </div>
 
+                            <div class="form-group col-md-12">
+
+                                <label for="recipient-name" class="col-form-label">Google Map</label>
+
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" 
+                                            type="button" ><span class="fa fa-eye" onclick="window.open($('#editmap').val(),'_blank');"> View</span></button>
+                                    </span>
+                                    <input type="text" class="form-control" name="editmap" id="editmap">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="recipient-name" class="col-form-label">เบอร์โทรศัพท์</label>
+                                <input type="text" class="form-control" name="edittel" id="edittel">
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="recipient-name" class="col-form-label">เบอร์แฟ็ค</label>
+                                <input type="text" class="form-control" name="editfax" id="editfax">
+                            </div>
+
                             <div class="form-group col-md-6">
                                 <label for="recipient-name" class="col-form-label">เลขที่</label>
                                 <input type="text" class="form-control" name="editidno" id="editidno">
@@ -305,16 +335,6 @@ if (!isset($_SESSION['loggedin'])) {
                             <div class="form-group col-md-6">
                                 <label for="recipient-name" class="col-form-label">รหัสไปรษณีย์</label>
                                 <input type="text" class="form-control" name="editzipcode" id="editzipcode">
-                            </div>
-
-                            <div class="form-group col-md-6">
-                                <label for="recipient-name" class="col-form-label">เบอร์โทรศัพท์</label>
-                                <input type="text" class="form-control" name="edittel" id="edittel">
-                            </div>
-
-                            <div class="form-group col-md-6">
-                                <label for="recipient-name" class="col-form-label">เบอร์แฟ็ค</label>
-                                <input type="text" class="form-control" name="editfax" id="editfax">
                             </div>
 
                             <div class="form-group col-md-6">

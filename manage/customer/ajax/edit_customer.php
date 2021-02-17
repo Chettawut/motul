@@ -14,7 +14,7 @@
     $strSQL .= "cuscode='".$_POST["editcuscode"]."',cusname='".$_POST["editcusname"]."',idno='".$_POST["editidno"]."',road='".$_POST["editroad"]."' ";
     $strSQL .= ",subdistrict='".$_POST["editsubdistrict"]."',district='".$_POST["editdistrict"]."',province='".$_POST["editprovince"]."' ";
     $strSQL .= ",zipcode='".$_POST["editzipcode"]."',tel='".$_POST["edittel"]."',fax='".$_POST["editfax"]."'";
-    $strSQL .= ",taxnumber='".$_POST["edittaxnumber"]."',email='".$_POST["editemail"]."',status='".$_POST["editstatus"]."',s_date='".date("Y-m-d")."',s_time='".date("H:i:s")."' ";
+    $strSQL .= ",taxnumber='".$_POST["edittaxnumber"]."',email='".$_POST["editemail"]."',status='".$_POST["editstatus"]."',map='".$_POST["editmap"]."',s_date='".date("Y-m-d")."',s_time='".date("H:i:s")."' ";
     $strSQL .= "WHERE code= '".$_POST["code"]."' ";
 
                             
