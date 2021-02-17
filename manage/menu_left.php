@@ -11,7 +11,7 @@ include_once('config.php');
             </div>
             <div class="pull-left info">
                 <p><?php echo $_SESSION['firstname'].' '.$_SESSION['lastname']; ?> </p>
-                <a href="#"><i class="fa fa-circle text-success"></i> <?php echo $_SESSION['type']; ?></a>
+                <a href="#"><i class="fa fa-circle text-success"></i><span id="spantype"> <?php echo $_SESSION['type']; ?></span></a>
             </div>
         </div>
         <ul class="sidebar-menu" data-widget="tree">

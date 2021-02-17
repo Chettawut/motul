@@ -364,7 +364,7 @@ if (!isset($_SESSION['loggedin'])) {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <input type="submit" class="btn btn-primary" value="Submit">
+                            <input id="btnEdit" type="submit" class="btn btn-primary" value="Submit">
                         </div>
                     </form>
                 </div>

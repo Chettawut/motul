@@ -83,10 +83,34 @@ function onClick_tr(id, name) {
 
 }
 
+function disabledSupSO() {
+    $("input[type='text'], textarea").each(function(event) {
+        $(this).prop('disabled', true);
+    });
+    $("input[type='date']").each(function(event) {
+        $(this).prop('disabled', true);
+    });
+    $("select").each(function(event) {
+        $(this).prop('disabled', true);
+    });
+    $("select option").each(function(event) {
+        $(this).prop('disabled', true);
+    });
+
+    $("input:radio").each(function(event) {
+        $(this).prop('disabled', true);
+    });
+    $("#btnEdit").hide();
+}
+
 $('#modelCustomerEdit').on('show.bs.modal', function(event) {
     var button = $(event.relatedTarget);
     var recipient = button.data('whatever');
     var modal = $(this);
+
+    var type = $("#spantype").text().replace(/\s/g,'');
+    if(type==='Sales')
+      disabledSupSO();
 
     $.ajax({
         type: "POST",

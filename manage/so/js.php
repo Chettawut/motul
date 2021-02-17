@@ -327,7 +327,8 @@ function enabledSupSO() {
     });
 }
 
-function onSelectSO(socode) {
+
+function onSelectSO(socode) {    
 
     $("#editsocode").val(socode);
     $("#tableSODetail tbody").empty();
