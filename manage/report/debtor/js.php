@@ -55,7 +55,7 @@ function CreateReport(table, cuscode) {
             cuscode: cuscode
         },
         success: function(result) {
-            console.log(result.total);
+            // console.log(result.total);
 
             for (count = 0; count < result.socode.length; count++) {
                 var invdate = result
@@ -74,7 +74,7 @@ function CreateReport(table, cuscode) {
                 var paydate = result
                     .paydate[count].substring(8) + '-' + result
                     .paydate[count].substring(5, 7) + '-' + result
-                    .paydate[count].substring(0, 4);    
+                    .paydate[count].substring(0, 4);
 
 
 
@@ -88,7 +88,7 @@ function CreateReport(table, cuscode) {
                     '</td><td align="left">' +
                     result.cusname[count] +
                     '</td><td align="right">' +
-                    formatMoney(result.total[count],0) +
+                    formatMoney(result.total[count], 0) +
                     '</td><td align="center">' +
                     recedate +
                     '</td><td align="right">' +
@@ -96,6 +96,98 @@ function CreateReport(table, cuscode) {
                     '</td></tr>');
 
             }
+
+            $.fn.dataTable.ext.search.push(
+                function(settings, data, dataIndex) {
+                    var min = $('#min').datepicker("getDate");
+                    var max = $('#max').datepicker("getDate");
+                    var paystatus = $('#pay_status').val();
+                    var startDate = new Date(data[0]);
+                    var payDate = data[6];
+
+                    if (paystatus == '') {
+                        if (min == null && max == null) {
+                            return true;
+                        }
+                        if (min == null && startDate <= max) {
+                            return true;
+                        }
+                        if (max == null && startDate >= min) {
+                            return true;
+                        }
+                        if (startDate <= max && startDate >= min) {
+                            return true;
+                        }
+                        return false;
+                    }
+                    if (paystatus == 'Y') {
+                        if (payDate != '') {
+                            if (min == null && max == null) {
+                                return true;
+                            }
+                            if (min == null && startDate <= max) {
+                                return true;
+                            }
+                            if (max == null && startDate >= min) {
+                                return true;
+                            }
+                            if (startDate <= max && startDate >= min) {
+                                return true;
+                            }
+                            return false;
+                        }
+
+                    }
+                    if (paystatus == 'N') {
+                        if (payDate == '') {
+                            if (min == null && max == null) {
+                                return true;
+                            }
+                            if (min == null && startDate <= max) {
+                                return true;
+                            }
+                            if (max == null && startDate >= min) {
+                                return true;
+                            }
+                            if (startDate <= max && startDate >= min) {
+                                return true;
+                            }
+                            return false;
+                        }
+                    }
+
+                    return false;
+                }
+            );
+
+            $("#min").datepicker({
+                onSelect: function() {
+                    table.draw();
+                },
+                changeMonth: true,
+                changeYear: true,
+                format: 'dd-mm-yyyy'
+            });
+            $("#max").datepicker({
+                onSelect: function() {
+                    table.draw();
+                },
+                changeMonth: true,
+                changeYear: true,
+                format: 'dd-mm-yyyy'
+            });
+
+            var table2 = $('#' + table).DataTable({
+                "dom": '<"pull-right"f>rt<"bottom"p><"clear">'
+            });
+            $('#min, #max,#pay_status').change(function() {
+                table2.draw();
+            });
+
+            $(".dataTables_filter input[type='search']").attr({
+                size: 80,
+                maxlength: 80
+            });
 
 
 

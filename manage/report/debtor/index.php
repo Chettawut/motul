@@ -57,18 +57,53 @@ if (!isset($_SESSION['loggedin'])) {
                                 <form class="form-inline" onsubmit="return false;">
                                     <!-- <button type="button" id="btnRefresh" class="btn btn-primary"><i
                                             class="fa fa-refresh" aria-hidden="true"></i> Refresh</button> -->
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <button type="button" class="btn btn-primary active" data-toggle="modal"
+                                                    data-target="#modal_one">
+                                                    <span class="fa fa-search"></span> ค้นหาลูกค้า</button>
 
-                                    <div class="form-group">
-                                        <button type="button" class="btn btn-primary active" data-toggle="modal"
-                                                        data-target="#modal_one">
-                                            <span class="fa fa-search"></span> ค้นหาลูกค้า</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <div class="input-group">
+                                                <span class="input-group-addon" id="basic-addon1">ตั้งแต่</span>
+                                                <input name="min" id="min" class="form-control" type="text">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="input-group">
+                                                <span class="input-group-addon" id="basic-addon1">จนถึง</span>
+                                                <input name="max" id="max" class="form-control" type="text">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"
+                                                    id="basic-addon1">สถานะการจ่ายเงิน</span>
+                                                <select name="pay_status" id="pay_status" class="form-control">
+                                                    <option value=''>ทั้งหมด</option>
+                                                    <option value='Y'>จ่ายแล้ว</option>
+                                                    <option value='N'>ยังไม่จ่าย</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+
                                     </div>
+
+
 
                                 </form>
 
                                 <div style="text-align:center">
                                     <h3 id="spancusname">รายงานลูกหนี้ทั้งหมด</h3>
                                 </div>
+
 
 
                                 <br>
@@ -81,8 +116,8 @@ if (!isset($_SESSION['loggedin'])) {
                                                 <th style="text-align:center;">วันที่ออกบิล</th>
                                                 <th style="text-align:center;">วันที่กำหนดชำระเงิน</th>
                                                 <th style="text-align:center;">เลขที่บิล</th>
-                                                <th >ชื่อลูกหนี้</th>
-                                                <th style="text-align:right;">จำนวนเงิน</th>                                                
+                                                <th>ชื่อลูกหนี้</th>
+                                                <th style="text-align:right;">จำนวนเงิน</th>
                                                 <th style="text-align:center;">วันที่ออกใบเสร็จ</th>
                                                 <th style="text-align:center;">เลขที่ใบเสร็จ</th>
                                             </tr>
