@@ -28,6 +28,9 @@
     if($cuscode!='')
     $sql .= " and c.cuscode  = '".$cuscode."' ";    
 
+    if($min!=''||$max!='')
+    $sql .= " GROUP by a.socode order by b.paydate desc";  
+    else
     $sql .= " GROUP by a.socode order by a.socode desc";  
     
     
