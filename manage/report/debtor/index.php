@@ -90,7 +90,7 @@ if (!isset($_SESSION['loggedin'])) {
                                                     <option value='Y'>จ่ายแล้ว</option>
                                                     <option value='N'>ยังไม่จ่าย</option>
                                                 </select>
-
+                                                <input type="hidden" id="cuscode" name="cuscode" >
                                             </div>
                                         </div>
 

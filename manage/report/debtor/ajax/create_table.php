@@ -5,16 +5,30 @@
         
         
     // $vat = 'Y';
+    $min = $_POST["min"];
+    $max = $_POST["max"];
+    $pay_status = $_POST["pay_status"];
     $cuscode = $_POST["cuscode"];
     // $year = '2020';
 
     $sql = "SELECT a.socode,b.sodate,b.paydate,b.invoice,b.invdate,c.cusname,sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))-sum(((((a.amount*a.price)-((a.amount*a.price)*a.discount/100))*100)/107)*7/100) as price,sum(((((a.amount*a.price)-((a.amount*a.price)*a.discount/100))*100)/107)*7/100) as vat,sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100)) as total,recedate,delcode ";        
     $sql .= " FROM sodetail as a inner join somaster as b on (a.socode=b.socode) inner join customer as c on (b.cuscode=c.cuscode) ";
+    $sql .= " where a.supstatus !='C'";  
+    if($min!=''&&$max!='')
+    $sql .= " and b.paydate  >= '".$min."' and b.paydate  <= '".$max."' ";          
+    else if($max!='')
+    $sql .= " and b.paydate  <= '".$max."' ";    
+    else if($min!='')
+    $sql .= " and b.paydate  >= '".$min."' ";    
+    if($pay_status=='Y')
+    $sql .= " and b.recedate  != '' ";    
+    else if($pay_status=='N')
+    $sql .= " and b.recedate  = '' ";    
+
     if($cuscode!='')
-    $sql .= " where b.cuscode = '".$cuscode."' and a.supstatus !='C'";    
-    else
-    $sql .= " where a.supstatus !='C'";    
-    $sql .= " GROUP by a.socode order by socode desc";  
+    $sql .= " and c.cuscode  = '".$cuscode."' ";    
+
+    $sql .= " GROUP by a.socode order by a.socode desc";  
     
     
     // echo $strSQL;

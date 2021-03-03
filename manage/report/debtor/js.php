@@ -1,7 +1,23 @@
 <script type="text/javascript">
 $(function() {
 
-    CreateReport('table_debtor', '');
+    $("#min").datepicker({
+        format: 'yyyy-mm-dd'
+    });
+    $("#max").datepicker({
+        format: 'yyyy-mm-dd'
+    });
+    // format: 'yyyy-mm-dd'
+
+    CreateReport('table_debtor', '','','','');
+
+
+
+    $('#min, #max,#pay_status').change(function() {
+        CreateReport('table_debtor', $('#min').val(),$('#max').val(),$('#pay_status').val(),$('#cuscode').val());
+        // alert($('#cuscode').val());
+    });
+
 
     $.ajax({
         type: "POST",
@@ -36,15 +52,12 @@ $(function() {
 })
 
 function onClick_tr(id) {
-
-    CreateReport('table_debtor', id);
+    $('#cuscode').val(id);
+    CreateReport('table_debtor',$('#min').val(),$('#max').val(),$('#pay_status').val(), id);
 }
 
 
-
-
-
-function CreateReport(table, cuscode) {
+function CreateReport(table,min,max,pay_status, cuscode) {
 
     $("#" + table + " tbody tr").empty();
 
@@ -52,6 +65,9 @@ function CreateReport(table, cuscode) {
         type: "POST",
         url: "ajax/create_table.php",
         data: {
+            min: min,
+            max: max,
+            pay_status: pay_status,
             cuscode: cuscode
         },
         success: function(result) {
@@ -63,7 +79,7 @@ function CreateReport(table, cuscode) {
                     .invdate[count].substring(5, 7) + '-' + result
                     .invdate[count].substring(0, 4);
 
-                if (result.delcode[count] != '') {
+                if (result.recedate[count] != '') {
                     recedate = result
                         .recedate[count].substring(8) + '-' + result
                         .recedate[count].substring(5, 7) + '-' + result
@@ -96,100 +112,6 @@ function CreateReport(table, cuscode) {
                     '</td></tr>');
 
             }
-
-            $.fn.dataTable.ext.search.push(
-                function(settings, data, dataIndex) {
-                    var min = $('#min').datepicker("getDate");
-                    var max = $('#max').datepicker("getDate");
-                    var paystatus = $('#pay_status').val();
-                    var startDate = new Date(data[0]);
-                    var payDate = data[6];
-
-                    if (paystatus == '') {
-                        if (min == null && max == null) {
-                            return true;
-                        }
-                        if (min == null && startDate <= max) {
-                            return true;
-                        }
-                        if (max == null && startDate >= min) {
-                            return true;
-                        }
-                        if (startDate <= max && startDate >= min) {
-                            return true;
-                        }
-                        return false;
-                    }
-                    if (paystatus == 'Y') {
-                        if (payDate != '') {
-                            if (min == null && max == null) {
-                                return true;
-                            }
-                            if (min == null && startDate <= max) {
-                                return true;
-                            }
-                            if (max == null && startDate >= min) {
-                                return true;
-                            }
-                            if (startDate <= max && startDate >= min) {
-                                return true;
-                            }
-                            return false;
-                        }
-
-                    }
-                    if (paystatus == 'N') {
-                        if (payDate == '') {
-                            if (min == null && max == null) {
-                                return true;
-                            }
-                            if (min == null && startDate <= max) {
-                                return true;
-                            }
-                            if (max == null && startDate >= min) {
-                                return true;
-                            }
-                            if (startDate <= max && startDate >= min) {
-                                return true;
-                            }
-                            return false;
-                        }
-                    }
-
-                    return false;
-                }
-            );
-
-            $("#min").datepicker({
-                onSelect: function() {
-                    table.draw();
-                },
-                changeMonth: true,
-                changeYear: true,
-                format: 'dd-mm-yyyy'
-            });
-            $("#max").datepicker({
-                onSelect: function() {
-                    table.draw();
-                },
-                changeMonth: true,
-                changeYear: true,
-                format: 'dd-mm-yyyy'
-            });
-
-            var table2 = $('#' + table).DataTable({
-                "dom": '<"pull-right"f>rt<"bottom"p><"clear">'
-            });
-            $('#min, #max,#pay_status').change(function() {
-                table2.draw();
-            });
-
-            $(".dataTables_filter input[type='search']").attr({
-                size: 80,
-                maxlength: 80
-            });
-
-
 
         }
     });

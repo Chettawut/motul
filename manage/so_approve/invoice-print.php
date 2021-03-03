@@ -237,7 +237,7 @@
 
             <div class="panel-body">
                 วันที่ : <?php                    
-                    echo substr($json_result["invdate"][0],8).'/'.substr($json_result["invdate"][0],5,2).'/'.substr($json_result["invdate"][0],0,4);
+                    echo substr($json_result["invdate"][0],8).'/'.substr($json_result["invdate"][0],5,2).'/'.substr($json_result["invdate"][0],0,4);                    
                     ?><br>
                 เลขที่ Invoice : <?php
                     echo $json_result["invoice"][0];
