@@ -78,7 +78,7 @@ include_once('config.php');
             </li>
             <?php 
                 }
-                if($_SESSION['type']=='Admin'||$_SESSION['type']=='Sales'||$_SESSION['type']=='Manager'||$_SESSION['type']=='Store'||$_SESSION['type']=='Sales Leader')
+                if($_SESSION['type']=='Admin'||$_SESSION['type']=='Sales'||$_SESSION['type']=='Sales Leader')
                 {
                 ?>
             <li class="treeview">
@@ -130,6 +130,8 @@ include_once('config.php');
                             รายงานการขายรายพัสดุ</a></li>
                     <li><a href="<?php echo PATH; ?>/report/debtor"><i class="fa fa-bar-chart"></i>
                             รายงานลูกหนี้รายตัว</a></li>
+                    <li><a href="<?php echo PATH; ?>/report/top_sales"><i class="fa fa-bar-chart"></i>
+                    รายงานยอดขายตามพัสดุ</a></li>
 
 
                 </ul>

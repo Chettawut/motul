@@ -12,7 +12,7 @@ if (!isset($_SESSION['loggedin'])) {
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>รายงานยอดขายสูงสุดของพัสดุรายปี</title>
+    <title>รายงานยอดขายสูงสุดตามพัสดุรายปี</title>
     <?php include('css.php'); 
     include_once('../../config.php');
     include_once ROOT .'/func.php';
@@ -50,7 +50,7 @@ if (!isset($_SESSION['loggedin'])) {
                         <div class="box" style="background-color:#EAEDED">
                             <div class="box-header">
                                 <i class="fa fa-cube"></i>
-                                <h3 class="box-title">รายงานยอดขายสูงสุดของพัสดุรายปี</h3>
+                                <h3 class="box-title">รายงานยอดขายสูงสุดตามพัสดุรายปี</h3>
                             </div>
                             <!-- /.box-header -->
                             <div class="box-body">
@@ -76,7 +76,7 @@ if (!isset($_SESSION['loggedin'])) {
 
                                 </form>
 
-
+                            
                                 <br>
                                 <!-- Tab panes -->
                                 <div class="tab-content" style="text-align:center">

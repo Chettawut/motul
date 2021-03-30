@@ -4,19 +4,75 @@ $(function() {
     var d = new Date();
     var yearnow = d.getFullYear();
 
-    CreateReport('table_top_sales', yearnow, 'Y');
+    getData();
+
+
+    CreateReport('table_top_sales', $("#select_year").val() - 543, $("#vat").val(), $("#month").val());
 })
 
 $("#select_year").change(function() {
-    CreateReport('table_top_sales', $("#select_year").val() - 543, $("#vat").val());
+    CreateReport('table_top_sales', $("#select_year").val() - 543, $("#vat").val(), $("#month").val());
 });
 
 $("#vat").change(function() {
-    CreateReport('table_top_sales', $("#select_year").val() - 543, $("#vat").val());
+    CreateReport('table_top_sales', $("#select_year").val() - 543, $("#vat").val(), $("#month").val());
 });
 
+$("#month").change(function() {
+    CreateReport('table_top_sales', $("#select_year").val() - 543, $("#vat").val(), $("#month").val());
+});
 
-function CreateReport(table, year, vat) {
+function getData() {
+
+    $("#table_code tbody tr").empty();
+    $.ajax({
+        type: "POST",
+        url: "ajax/get_code.php",
+        //    data: $("#frmMain").serialize(),
+        success: function(result) {
+
+            for (count = 0; count < result.data_code.length; count++) {
+
+
+                $('#table_code').append(
+                    '<tr id="' + result
+                    .data_code[
+                        count] + '" data-whatever="' + result.data_code[
+                        count] + '"><td>' + result.num_order[count] + '</td><td>' +
+                    '<input type="text" class="form-control" onchange="setData(' +
+                    result
+                    .num_order[
+                        count] + ',' + result.data[
+                        count] +
+                    ')" id="data' + result
+                    .num_order[count] +
+                    '" name="data' + result.num_order[count] + '" value="' + result.data[
+                        count] +
+                    '"></td></tr>');
+            }
+
+        }
+    });
+}
+
+function setData(row) {
+
+    $.ajax({
+        type: "POST",
+        url: "ajax/set_code.php",
+        data: "row=" + row + "&value=" + $('#data' + row).val(),
+        success: function(result) {
+            if (result.status == '0')
+                alert(result.message);
+            // getData();
+
+
+        }
+    });
+}
+
+
+function CreateReport(table, year, vat, month) {
     $("#" + table + " thead tr").empty();
     $("#" + table + " tbody tr").empty();
 
@@ -25,6 +81,7 @@ function CreateReport(table, year, vat) {
         url: "ajax/create_table.php",
         data: {
             vat: vat,
+            month: month,
             year: year
         },
         success: function(result) {
@@ -32,144 +89,121 @@ function CreateReport(table, year, vat) {
 
 
             $('#' + table + ' thead').append(
-                '<tr bgcolor="#BEBEBE"><td align="center" height="35" width="100">Description</td><td align="center" width="60"><a href="month?year=' +
-                ($("#select_year").val() - 543) + '&month=01&vat=' + $("#vat").val() +
-                '" target="_blank">Jan</a></td><td align="center" width="60"><a href="month?year=' +
-                ($("#select_year").val() - 543) + '&month=02&vat=' + $("#vat").val() +
-                '" target="_blank">Feb</a></td><td align="center" width="60"><a href="month?year=' +
-                ($("#select_year").val() - 543) + '&month=03&vat=' + $("#vat").val() +
-                '" target="_blank">Mar</a></td><td align="center" width="60"><a href="month?year=' +
-                ($("#select_year").val() - 543) + '&month=04&vat=' + $("#vat").val() +
-                '" target="_blank">Apr</a></td><td align="center" width="60"><a href="month?year=' +
-                ($("#select_year").val() - 543) + '&month=05&vat=' + $("#vat").val() +
-                '" target="_blank">May</a></td><td align="center" width="60"><a href="month?year=' +
-                ($("#select_year").val() - 543) + '&month=06&vat=' + $("#vat").val() +
-                '" target="_blank">Jun</a></td><td align="center" width="60"><a href="month?year=' +
-                ($("#select_year").val() - 543) + '&month=07&vat=' + $("#vat").val() +
-                '" target="_blank">Jul</a></td><td align="center" width="60"><a href="month?year=' +
-                ($("#select_year").val() - 543) + '&month=08&vat=' + $("#vat").val() +
-                '" target="_blank">Aug</a></td><td align="center" width="60"><a href="month?year=' +
-                ($("#select_year").val() - 543) + '&month=09&vat=' + $("#vat").val() +
-                '" target="_blank">Sep</a></td><td align="center" width="60"><a href="month?year=' +
-                ($("#select_year").val() - 543) + '&month=10&vat=' + $("#vat").val() +
-                '" target="_blank">Oct</a></td><td align="center" width="60"><a href="month?year=' +
-                ($("#select_year").val() - 543) + '&month=11&vat=' + $("#vat").val() +
-                '" target="_blank">Nov</a></td><td align="center" width="60"><a href="month?year=' +
-                ($("#select_year").val() - 543) + '&month=12&vat=' + $("#vat").val() +
-                '" target="_blank">Dec</a></td></tr>'
+                '<tr bgcolor="#BEBEBE"><td align="center" height="35" width="100">รหัสพัสดุ</td><td align="center" width="60">' +
+                result.data[0] + '</td><td align="center" width="60">' + result.data[1] +
+                '</td><td align="center" width="60">' + result.data[2] +
+                '</td><td align="center" width="60">' + result.data[3] +
+                '</td><td align="center" width="60">' + result.data[4] +
+                '</td><td align="center" width="60">' + result.data[5] +
+                '</td><td align="center" width="60">' + result.data[6] +
+                '</td><td align="center" width="60">' + result.data[7] +
+                '</td><td align="center" width="60">' + result.data[8] +
+                '</td><td align="center" width="60">' + result.data[9] +
+                '</td><td align="center" width="60">' + result.data[10] + '</td></tr>'
             );
 
 
             if ($("#vat").val() === 'Y') {
                 $('#' + table + ' tbody').append(
-                    '<tr><td align="center" height="30">มูลค่า</td><td align="right" >' +
-                    formatMoney(result.total_Jan - (((result.total_Jan * 100) / 107) * 7 / 100), 2) +
-                    '</td><td align="right">' +
-                    formatMoney(result.total_Feb - (((result.total_Feb * 100) / 107) * 7 / 100), 2) +
-                    '</td><td align="right">' +
-                    formatMoney(result.total_Mar - (((result.total_Mar * 100) / 107) * 7 / 100), 2) +
-                    '</td><td align="right">' +
-                    formatMoney(result.total_Apr - (((result.total_Apr * 100) / 107) * 7 / 100), 2) +
-                    '</td><td align="right">' +
-                    formatMoney(result.total_May - (((result.total_May * 100) / 107) * 7 / 100), 2) +
-                    '</td><td align="right">' +
-                    formatMoney(result.total_Jun - (((result.total_Jun * 100) / 107) * 7 / 100), 2) +
-                    '</td><td align="right">' +
-                    formatMoney(result.total_Jul - (((result.total_Jul * 100) / 107) * 7 / 100), 2) +
-                    '</td><td align="right">' +
-                    formatMoney(result.total_Aug - (((result.total_Aug * 100) / 107) * 7 / 100), 2) +
-                    '</td><td align="right">' +
-                    formatMoney(result.total_Sep - (((result.total_Sep * 100) / 107) * 7 / 100), 2) +
-                    '</td><td align="right">' +
-                    formatMoney(result.total_Oct - (((result.total_Oct * 100) / 107) * 7 / 100), 2) +
-                    '</td><td align="right">' +
-                    formatMoney(result.total_Nov - (((result.total_Nov * 100) / 107) * 7 / 100), 2) +
-                    '</td><td align="right">' +
-                    formatMoney(result.total_Dec - (((result.total_Dec * 100) / 107) * 7 / 100), 2) +
-                    '</td></tr><tr><td align="center" height="30">ภาษี</td><td align="right" >' +
-                    formatMoney(((result.total_Jan * 100) / 107) * 7 / 100, 2) +
-                    '</td><td align="right">' +
-                    formatMoney(((result.total_Feb * 100) / 107) * 7 / 100, 2) +
-                    '</td><td align="right">' +
-                    formatMoney(((result.total_Mar * 100) / 107) * 7 / 100, 2) +
-                    '</td><td align="right">' +
-                    formatMoney(((result.total_Apr * 100) / 107) * 7 / 100, 2) +
-                    '</td><td align="right">' +
-                    formatMoney(((result.total_May * 100) / 107) * 7 / 100, 2) +
-                    '</td><td align="right">' +
-                    formatMoney(((result.total_Jun * 100) / 107) * 7 / 100, 2) +
-                    '</td><td align="right">' +
-                    formatMoney(((result.total_Jul * 100) / 107) * 7 / 100, 2) +
-                    '</td><td align="right">' +
-                    formatMoney(((result.total_Aug * 100) / 107) * 7 / 100, 2) +
-                    '</td><td align="right">' +
-                    formatMoney(((result.total_Sep * 100) / 107) * 7 / 100, 2) +
-                    '</td><td align="right">' +
-                    formatMoney(((result.total_Oct * 100) / 107) * 7 / 100, 2) +
-                    '</td><td align="right">' +
-                    formatMoney(((result.total_Nov * 100) / 107) * 7 / 100, 2) +
-                    '</td><td align="right">' +
-                    formatMoney(((result.total_Dec * 100) / 107) * 7 / 100, 2) +
-
-                    '</td></tr><tr><td align="center" height="30">รวมเงิน</td><td align="right" >' +
-                    formatMoney(result.total_Jan, 2) +
-                    '</td><td align="right">' +
-                    formatMoney(result.total_Feb, 2) +
-                    '</td><td align="right">' +
-                    formatMoney(result.total_Mar, 2) +
-                    '</td><td align="right">' +
-                    formatMoney(result.total_Apr, 2) +
-                    '</td><td align="right">' +
-                    formatMoney(result.total_May, 2) +
-                    '</td><td align="right">' +
-                    formatMoney(result.total_Jun, 2) +
-                    '</td><td align="right">' +
-                    formatMoney(result.total_Jul, 2) +
-                    '</td><td align="right">' +
-                    formatMoney(result.total_Aug, 2) +
-                    '</td><td align="right">' +
-                    formatMoney(result.total_Sep, 2) +
-                    '</td><td align="right">' +
-                    formatMoney(result.total_Oct, 2) +
-                    '</td><td align="right">' +
-                    formatMoney(result.total_Nov, 2) +
-                    '</td><td align="right">' +
-                    formatMoney(result.total_Dec, 2) +
+                    '<tr><td align="center" height="30">มูลค่า</td><td align="center" >' +
+                    formatMoney(result.total_1 - (((result.total_1 * 100) / 107) * 7 / 100), 2) +
+                    '</td><td align="center">' +
+                    formatMoney(result.total_2 - (((result.total_2 * 100) / 107) * 7 / 100), 2) +
+                    '</td><td align="center">' +
+                    formatMoney(result.total_3 - (((result.total_3 * 100) / 107) * 7 / 100), 2) +
+                    '</td><td align="center">' +
+                    formatMoney(result.total_4 - (((result.total_4 * 100) / 107) * 7 / 100), 2) +
+                    '</td><td align="center">' +
+                    formatMoney(result.total_5 - (((result.total_5 * 100) / 107) * 7 / 100), 2) +
+                    '</td><td align="center">' +
+                    formatMoney(result.total_6 - (((result.total_6 * 100) / 107) * 7 / 100), 2) +
+                    '</td><td align="center">' +
+                    formatMoney(result.total_7 - (((result.total_7 * 100) / 107) * 7 / 100), 2) +
+                    '</td><td align="center">' +
+                    formatMoney(result.total_8 - (((result.total_8 * 100) / 107) * 7 / 100), 2) +
+                    '</td><td align="center">' +
+                    formatMoney(result.total_9 - (((result.total_9 * 100) / 107) * 7 / 100), 2) +
+                    '</td><td align="center">' +
+                    formatMoney(result.total_10 - (((result.total_10 * 100) / 107) * 7 / 100), 2) +
+                    '</td><td align="center">' +
+                    formatMoney(result.total_11 - (((result.total_11 * 100) / 107) * 7 / 100), 2) +
+                    '</td></tr><tr><td align="center" height="30">ภาษี</td><td align="center" >' +
+                    formatMoney(((result.total_1 * 100) / 107) * 7 / 100, 2) +
+                    '</td><td align="center">' +
+                    formatMoney(((result.total_2 * 100) / 107) * 7 / 100, 2) +
+                    '</td><td align="center">' +
+                    formatMoney(((result.total_3 * 100) / 107) * 7 / 100, 2) +
+                    '</td><td align="center">' +
+                    formatMoney(((result.total_4 * 100) / 107) * 7 / 100, 2) +
+                    '</td><td align="center">' +
+                    formatMoney(((result.total_5 * 100) / 107) * 7 / 100, 2) +
+                    '</td><td align="center">' +
+                    formatMoney(((result.total_6 * 100) / 107) * 7 / 100, 2) +
+                    '</td><td align="center">' +
+                    formatMoney(((result.total_7 * 100) / 107) * 7 / 100, 2) +
+                    '</td><td align="center">' +
+                    formatMoney(((result.total_8 * 100) / 107) * 7 / 100, 2) +
+                    '</td><td align="center">' +
+                    formatMoney(((result.total_9 * 100) / 107) * 7 / 100, 2) +
+                    '</td><td align="center">' +
+                    formatMoney(((result.total_10 * 100) / 107) * 7 / 100, 2) +
+                    '</td><td align="center">' +
+                    formatMoney(((result.total_11 * 100) / 107) * 7 / 100, 2) +
+                    '</td></tr><tr><td align="center" height="30">รวมเงิน</td><td align="center" >' +
+                    formatMoney(result.total_1, 2) +
+                    '</td><td align="center">' +
+                    formatMoney(result.total_2, 2) +
+                    '</td><td align="center">' +
+                    formatMoney(result.total_3, 2) +
+                    '</td><td align="center">' +
+                    formatMoney(result.total_4, 2) +
+                    '</td><td align="center">' +
+                    formatMoney(result.total_5, 2) +
+                    '</td><td align="center">' +
+                    formatMoney(result.total_6, 2) +
+                    '</td><td align="center">' +
+                    formatMoney(result.total_7, 2) +
+                    '</td><td align="center">' +
+                    formatMoney(result.total_8, 2) +
+                    '</td><td align="center">' +
+                    formatMoney(result.total_9, 2) +
+                    '</td><td align="center">' +
+                    formatMoney(result.total_10, 2) +
+                    '</td><td align="center">' +
+                    formatMoney(result.total_11, 2) +
                     '</td></tr>');
             } else {
                 $('#' + table + ' tbody').append(
                     '<tr><td align="center" height="30">รวมเงิน</td><td align="right" >' +
-                    formatMoney(result.total_Jan, 2) +
-                    '</td><td align="right">' +
-                    formatMoney(result.total_Feb, 2) +
-                    '</td><td align="right">' +
-                    formatMoney(result.total_Mar, 2) +
-                    '</td><td align="right">' +
-                    formatMoney(result.total_Apr, 2) +
-                    '</td><td align="right">' +
-                    formatMoney(result.total_May, 2) +
-                    '</td><td align="right">' +
-                    formatMoney(result.total_Jun, 2) +
-                    '</td><td align="right">' +
-                    formatMoney(result.total_Jul, 2) +
-                    '</td><td align="right">' +
-                    formatMoney(result.total_Aug, 2) +
-                    '</td><td align="right">' +
-                    formatMoney(result.total_Sep, 2) +
-                    '</td><td align="right">' +
-                    formatMoney(result.total_Oct, 2) +
-                    '</td><td align="right">' +
-                    formatMoney(result.total_Nov, 2) +
-                    '</td><td align="right">' +
-                    formatMoney(result.total_Dec, 2) +
+                    formatMoney(result.total_1, 2) +
+                    '</td><td align="center">' +
+                    formatMoney(result.total_2, 2) +
+                    '</td><td align="center">' +
+                    formatMoney(result.total_3, 2) +
+                    '</td><td align="center">' +
+                    formatMoney(result.total_4, 2) +
+                    '</td><td align="center">' +
+                    formatMoney(result.total_5, 2) +
+                    '</td><td align="center">' +
+                    formatMoney(result.total_6, 2) +
+                    '</td><td align="center">' +
+                    formatMoney(result.total_7, 2) +
+                    '</td><td align="center">' +
+                    formatMoney(result.total_8, 2) +
+                    '</td><td align="center">' +
+                    formatMoney(result.total_9, 2) +
+                    '</td><td align="center">' +
+                    formatMoney(result.total_10, 2) +
+                    '</td><td align="center">' +
+                    formatMoney(result.total_11, 2) +
                     '</td></tr>');
             }
 
             var caption;
             if (vat == 'Y')
-                caption = "กราฟแสดงใบกำกับภาษีขาย";
+                caption = "กราฟยอดขายตามพัสดุ";
             else
-                caption = "กราฟแสดงใบขายสินค้า";
+                caption = "กราฟยอดขายตามพัสดุ";
 
             if ($("#vat").val() === 'Y') {
                 $('#chart-container').insertFusionCharts({
@@ -182,53 +216,48 @@ function CreateReport(table, year, vat) {
                         "chart": {
                             "caption": caption,
                             "subCaption": "ปี " + (year + 543),
-                            "xAxisName": "Month",
-                            "yAxisName": "Baht",
+                            "xAxisName": "รหัสพัสดุ",
+                            "yAxisName": "บาท",
                             "theme": "fusion",
                         },
                         // Chart Data
                         "data": [{
-                            "label": "Jan",
-                            "value": result.total_Jan
+                            "label": result.data[0],
+                            "value": result.total_1
                         }, {
-                            "label": "Feb",
-                            "value": result.total_Feb
+                            "label": result.data[1],
+                            "value": result.total_2
                         }, {
-                            "label": "Mar",
-                            "value": result.total_Mar
+                            "label": result.data[2],
+                            "value": result.total_3
                         }, {
-                            "label": "Apr",
-                            "value": result.total_Apr
+                            "label": result.data[3],
+                            "value": result.total_4
                         }, {
-                            "label": "May",
-                            "value": result.total_May
+                            "label": result.data[4],
+                            "value": result.total_5
                         }, {
-                            "label": "Jun",
-                            "value": result.total_Jun
+                            "label": result.data[5],
+                            "value": result.total_6
                         }, {
-                            "label": "Jul",
-                            "value": result.total_Jul
+                            "label": result.data[6],
+                            "value": result.total_7
                         }, {
-                            "label": "Aug",
-                            "value": result.total_Aug
+                            "label": result.data[7],
+                            "value": result.total_8
                         }, {
-                            "label": "Sep",
-                            "value": result.total_Sep
+                            "label": result.data[8],
+                            "value": result.total_9
                         }, {
-                            "label": "Oct",
-                            "value": result.total_Oct
+                            "label": result.data[9],
+                            "value": result.total_10
                         }, {
-                            "label": "Nov",
-                            "value": result.total_Nov
-                        }, {
-                            "label": "Dec",
-                            "value": result.total_Dec
+                            "label": result.data[10],
+                            "value": result.total_11
                         }]
                     }
                 });
-            }
-            else
-            {
+            } else {
                 $('#chart-container').insertFusionCharts({
                     type: "column3d",
                     width: "900",
@@ -239,47 +268,55 @@ function CreateReport(table, year, vat) {
                         "chart": {
                             "caption": caption,
                             "subCaption": "ปี " + (year + 543),
-                            "xAxisName": "Month",
-                            "yAxisName": "Baht",
+                            "xAxisName": "รหัสพัสดุ",
+                            "yAxisName": "บาท",
                             "theme": "fusion",
                         },
                         // Chart Data
                         "data": [{
-                            "label": "Jan",
-                            "value": result.total_Jan - (((result.total_Jan * 100) / 107) * 7 / 100)
+                            "label": result.data[0],
+                            "value": result.total_1 - (((result.total_1 * 100) / 107) *
+                                7 / 100)
                         }, {
-                            "label": "Feb",
-                            "value": result.total_Feb - (((result.total_Feb * 100) / 107) * 7 / 100)
+                            "label": result.data[1],
+                            "value": result.total_2 - (((result.total_2 * 100) / 107) *
+                                7 / 100)
                         }, {
-                            "label": "Mar",
-                            "value": result.total_Mar - (((result.total_Mar * 100) / 107) * 7 / 100)
+                            "label": result.data[2],
+                            "value": result.total_3 - (((result.total_3 * 100) / 107) *
+                                7 / 100)
                         }, {
-                            "label": "Apr",
-                            "value": result.total_Apr - (((result.total_Apr * 100) / 107) * 7 / 100)
+                            "label": result.data[3],
+                            "value": result.total_4 - (((result.total_4 * 100) / 107) *
+                                7 / 100)
                         }, {
-                            "label": "May",
-                            "value": result.total_May - (((result.total_May * 100) / 107) * 7 / 100)
+                            "label": result.data[4],
+                            "value": result.total_5 - (((result.total_5 * 100) / 107) *
+                                7 / 100)
                         }, {
-                            "label": "Jun",
-                            "value": result.total_Jun - (((result.total_Jun * 100) / 107) * 7 / 100)
+                            "label": result.data[5],
+                            "value": result.total_6 - (((result.total_6 * 100) / 107) *
+                                7 / 100)
                         }, {
-                            "label": "Jul",
-                            "value": result.total_Jul - (((result.total_Jul * 100) / 107) * 7 / 100)
+                            "label": result.data[6],
+                            "value": result.total_7 - (((result.total_7 * 100) / 107) *
+                                7 / 100)
                         }, {
-                            "label": "Aug",
-                            "value": result.total_Aug - (((result.total_Aug * 100) / 107) * 7 / 100)
+                            "label": result.data[7],
+                            "value": result.total_8 - (((result.total_8 * 100) / 107) *
+                                7 / 100)
                         }, {
-                            "label": "Sep",
-                            "value": result.total_Sep - (((result.total_Sep * 100) / 107) * 7 / 100)
+                            "label": result.data[8],
+                            "value": result.total_9 - (((result.total_9 * 100) / 107) *
+                                7 / 100)
                         }, {
-                            "label": "Oct",
-                            "value": result.total_Oct - (((result.total_Oct * 100) / 107) * 7 / 100)
+                            "label": result.data[9],
+                            "value": result.total_10 - (((result.total_10 * 100) / 107) *
+                                7 / 100)
                         }, {
-                            "label": "Nov",
-                            "value": result.total_Nov - (((result.total_Nov * 100) / 107) * 7 / 100)
-                        }, {
-                            "label": "Dec",
-                            "value": result.total_Dec - (((result.total_Dec * 100) / 107) * 7 / 100)
+                            "label": result.data[10],
+                            "value": result.total_11 - (((result.total_11 * 100) / 107) *
+                                7 / 100)
                         }]
                     }
                 });
