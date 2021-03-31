@@ -38,7 +38,7 @@ if (!isset($_SESSION['loggedin'])) {
                     <small>Report</small>
                 </h1>
                 <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-bar-chart"></i> Report</a></li>
+                    <li><a href="#"><i class="fa fa-bar-chart"></i> Report</a></li>
                 </ol>
             </section>
 
@@ -76,20 +76,33 @@ if (!isset($_SESSION['loggedin'])) {
 
                                 </form>
 
-                            
+
                                 <br>
                                 <!-- Tab panes -->
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active"><a href="#sum_year" aria-controls="home"
+                                            role="tab" data-toggle="tab">ยอดขาย 11 พัสดุ รายปี </a></li>
+                                    <li role="presentation"><a href="#one_code" aria-controls="profile" role="tab"
+                                            data-toggle="tab">ยอดขาย 1 พัสดุ ใน 1 ปี</a></li>
+                                </ul>
+
+                                <!-- Tab panes -->
                                 <div class="tab-content" style="text-align:center">
-                                    <table id="table_saleyear" class="table table-hover" >
-                                        <thead>
+                                    <div role="tabpanel" class="tab-pane active" id="sum_year">
+                                        <table id="table_saleyear" class="table table-hover">
+                                            <thead>
 
-                                        </thead>
-                                        <tbody>
+                                            </thead>
+                                            <tbody>
 
-                                        </tbody>
-                                    </table>
-                                    <div id="chart-container">กรุณารอ กำลังประมวลผลกราฟ</div>
+                                            </tbody>
+                                        </table>
+                                        <div id="chart-container">กรุณารอ กำลังประมวลผลกราฟ</div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="one_code">...</div>
                                 </div>
+
 
                             </div>
                             <!-- /.box-body -->

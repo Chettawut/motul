@@ -50,7 +50,7 @@
     $strSQL .= "from ";
 
 	$strSQL .= "(SELECT a.socode,b.invdate,a.amount,";
-	$strSQL .= "case when a.stcode = '".$json_result['data'][0]."' THEN sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))   end as total_1,";
+	$strSQL .= "case when a.stcode = '".$json_result['data'][0]."' then sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))   end as total_1,";
 	$strSQL .= "case when a.stcode = '".$json_result['data'][1]."' then sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))  end as total_2,";
 	$strSQL .= "case when a.stcode = '".$json_result['data'][2]."' then sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))  end as total_3,";
 	$strSQL .= "case when a.stcode = '".$json_result['data'][3]."' then sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))  end as total_4,";

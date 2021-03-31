@@ -3,9 +3,9 @@
 	include('../../../conn.php');
 
 	if($_POST["type"]=='Sales')
-	$sql = "SELECT * FROM `customer` where salecode = '".$_POST["salecode"]."' and status != 'N' ";
+	$sql = "SELECT * FROM `customer` where salecode = '".$_POST["salecode"]."'  ";
 	else
-	$sql = "SELECT * FROM `customer` where status != 'N' ";
+	$sql = "SELECT * FROM `customer`  ";
 
 	$query = mysqli_query($conn,$sql);
 

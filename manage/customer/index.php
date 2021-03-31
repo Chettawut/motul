@@ -61,29 +61,53 @@ if (!isset($_SESSION['loggedin'])) {
                                         เพิ่มลูกค้า</button>
                                     <button type="button" id="btnRefresh" class="btn btn-primary"><i
                                             class="fa fa-refresh" aria-hidden="true"></i> Refresh</button>
+                                    <button type="button" id="btnShowALL"
+                                        class="btn btn-warning pull-right"><i class="fa fa-eye" aria-hidden="true"></i>
+                                        โชว์ลูกค้าทั้งหมด</button>
+                                    <button type="button" id="btnShow"
+                                        class="btn btn-warning pull-right" style="display:none;"><i class="fa fa-eye" aria-hidden="true"></i>
+                                        โชว์ลูกค้าเฉพาะที่เปิดใช้งาน</button>
                                 </div>
 
 
 
-                                <div style="border: 1px solid #FAEBD7;" width="100%">
-                                    <div id="mainCustomer">
-                                        <table name="tableCustomer" id="tableCustomer"
-                                            class="table table-bordered table-striped">
-                                            <thead style=" background-color:#D6EAF8;">
-                                                <tr>
-                                                    <th width="15%">รหัสลูกค้า</th>
-                                                    <th width="38%">ชื่อลูกค้า</th>
-                                                    <th width="12%" style="text-align:center">จังหวัด</th>
-                                                    <th width="20%" style="text-align:center">ที่อยู่</th>
-                                                    <th width="15%" style="text-align:center">สถานะใช้งาน</th>
+                                <div id="mainCustomer" style="border: 1px solid #FAEBD7;" width="100%">
+                                    <table name="tableCustomer" id="tableCustomer"
+                                        class="table table-bordered table-striped">
+                                        <thead style=" background-color:#D6EAF8;">
+                                            <tr>
+                                                <th width="15%">รหัสลูกค้า</th>
+                                                <th width="38%">ชื่อลูกค้า</th>
+                                                <th width="12%" style="text-align:center">จังหวัด</th>
+                                                <th width="20%" style="text-align:center">ที่อยู่</th>
+                                                <th width="15%" style="text-align:center">สถานะใช้งาน</th>
 
-                                                </tr>
-                                            </thead>
-                                            <tbody>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
 
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div id="mainAllCustomer" style="border: 1px solid #FAEBD7;display:none;" width="100%">
+
+                                    <table name="tableAllCustomer" id="tableAllCustomer"
+                                        class="table table-bordered table-striped">
+                                        <thead style=" background-color:#D6EAF8;">
+                                            <tr>
+                                                <th width="15%">รหัสลูกค้า</th>
+                                                <th width="38%">ชื่อลูกค้า</th>
+                                                <th width="12%" style="text-align:center">จังหวัด</th>
+                                                <th width="20%" style="text-align:center">ที่อยู่</th>
+                                                <th width="15%" style="text-align:center">สถานะใช้งาน</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
                                 </div>
 
 
@@ -287,8 +311,9 @@ if (!isset($_SESSION['loggedin'])) {
 
                                 <div class="input-group">
                                     <span class="input-group-btn">
-                                        <button class="btn btn-default" 
-                                            type="button" ><span class="fa fa-eye" onclick="window.open($('#editmap').val(),'_blank');"> View</span></button>
+                                        <button class="btn btn-default" type="button"><span class="fa fa-eye"
+                                                onclick="window.open($('#editmap').val(),'_blank');">
+                                                View</span></button>
                                     </span>
                                     <input type="text" class="form-control" name="editmap" id="editmap">
 

@@ -78,7 +78,7 @@ include_once('config.php');
             </li>
             <?php 
                 }
-                if($_SESSION['type']=='Admin'||$_SESSION['type']=='Sales'||$_SESSION['type']=='Sales Leader')
+                if($_SESSION['type']=='Admin'||$_SESSION['type']=='Sales'||$_SESSION['type']=='Sales Leader'||$_SESSION['type']=='Manager')
                 {
                 ?>
             <li class="treeview">

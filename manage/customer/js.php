@@ -1,6 +1,60 @@
 <script type="text/javascript">
 $(function() {
 
+    getCustomer();
+    getAllCustomer();
+    $.ajax({
+        type: "POST",
+        url: "ajax/get_province.php",
+
+        success: function(result) {
+
+            for (count = 0; count < result.code.length; count++) {
+
+                $('#table_id tbody').append(
+                    '<tr data-toggle="modal" data-dismiss="modal"  id="' + result
+                    .shortname[
+                        count] + '" onClick="onClick_tr(this.id,\'' + result.name[count] +
+                    '\');"><td>' + result.code[count] + '</td><td>' +
+                    result.name[count] + '</td><td>' +
+                    result.shortname[count] + '</td></tr>');
+
+
+            }
+
+            $('#table_id').DataTable({
+                "dom": '<"pull-left"f>rt<"bottom"p><"clear">',
+                "ordering": true
+            });
+
+
+            $(".dataTables_filter input[type='search']").attr({
+                size: 40,
+                maxlength: 40
+            });
+        }
+    });
+
+})
+
+$("#btnShowALL").click(function(){
+    $(this).hide();
+    $("#btnShow").show();
+    $("#mainAllCustomer").show();
+    $("#mainCustomer").hide();
+});
+
+$("#btnShow").click(function(){
+    $(this).hide();
+    $("#btnShowALL").show();
+    $("#mainAllCustomer").hide();
+    $("#mainCustomer").show();
+});
+
+
+function getCustomer() {
+
+    $("#tableCustomer tbody tr").empty();
     $.ajax({
         type: "POST",
         url: "ajax/get_customer.php",
@@ -40,40 +94,51 @@ $(function() {
 
         }
     });
+}
 
-    $.ajax({
-        type: "POST",
-        url: "ajax/get_province.php",
+function getAllCustomer() {
 
-        success: function(result) {
+$("#tableAllCustomer tbody tr").empty();
+$.ajax({
+    type: "POST",
+    url: "ajax/get_all_customer.php",
+    data: "&type=" + '<?php echo $_SESSION['type'];?>' +
+        "&salecode=" + '<?php echo $_SESSION['salecode'];?>',
+    success: function(result) {
+        var type;
+        for (count = 0; count < result.cuscode.length; count++) {
 
-            for (count = 0; count < result.code.length; count++) {
+            var status = '';
+            if (result.status[count] == 'Y')
+                status = 'เปิดใช้งาน'
+            else
+                status = 'ปิดใช้งาน'
 
-                $('#table_id tbody').append(
-                    '<tr data-toggle="modal" data-dismiss="modal"  id="' + result
-                    .shortname[
-                        count] + '" onClick="onClick_tr(this.id,\'' + result.name[count] +
-                    '\');"><td>' + result.code[count] + '</td><td>' +
-                    result.name[count] + '</td><td>' +
-                    result.shortname[count] + '</td></tr>');
-
-
-            }
-
-            $('#table_id').DataTable({
-                "dom": '<"pull-left"f>rt<"bottom"p><"clear">',
-                "ordering": true
-            });
-
-
-            $(".dataTables_filter input[type='search']").attr({
-                size: 40,
-                maxlength: 40
-            });
+            $('#tableAllCustomer').append(
+                '<tr data-toggle="modal" data-target="#modelCustomerEdit" id="' + result
+                .cuscode[
+                    count] + '" data-whatever="' + result.code[
+                    count] + '">.<td>' + result.cuscode[count] + '</td><td>' +
+                result.cusname[count] + '</td><td style="text-align:center">' +
+                result.province[count] + '</td><td style="text-align:left">' +
+                result.idno[count] + '</td><td  style="text-align:center">' + status +
+                '</td></tr>');
         }
-    });
 
-})
+        var table = $('#tableAllCustomer').DataTable({
+            "dom": '<"pull-right"f>rt<"bottom"p><"clear">',
+            "pageLength": 12
+        });
+
+        $(".dataTables_filter input[type='search']").attr({
+            size: 60,
+            maxlength: 60
+        });
+
+
+    }
+});
+}
 
 
 function onClick_tr(id, name) {
@@ -142,7 +207,7 @@ $("#btnRefresh").click(function() {
     window.location.reload();
 });
 
-//ส่งใบแจ้ง
+//เพิ่มลูกค้า
 $("#frmAddCustomer").submit(function(e) {
     e.preventDefault();
     $(':disabled').each(function(e) {
