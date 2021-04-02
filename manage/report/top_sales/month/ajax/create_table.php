@@ -62,7 +62,12 @@
     $strSQL .= "case when a.stcode = '".$json_result['data'][9]."' then sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))  end as total_10,";
     $strSQL .= "case when a.stcode = '".$json_result['data'][10]."' then sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))  end as total_11";    
     $strSQL .= " FROM sodetail as a inner join somaster as b on (a.socode=b.socode)";
-    $strSQL .= " where b.vat = '".$vat."' and SUBSTRING(b.invdate,1,4)='".$year."' and SUBSTRING(b.invdate,6,2)='".$month."' and (a.supstatus = '03' or a.supstatus = '04') ";
+    $strSQL .= " where (a.supstatus = '03' or a.supstatus = '04')";
+    if($vat != 'A') 
+    $strSQL .= " and b.vat = '".$vat."' ";
+    if($month != '00') 
+    $strSQL .= " and SUBSTRING(b.invdate,6,2)='".$month."' ";
+    $strSQL .= " and SUBSTRING(b.invdate,1,4)='".$year."' and (a.supstatus = '03' or a.supstatus = '04') ";
     $strSQL .= " GROUP by socode) as c";    
     
     

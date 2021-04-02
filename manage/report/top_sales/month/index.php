@@ -74,6 +74,10 @@ if (!isset($_SESSION['loggedin'])) {
                                     <div class="form-group">
                                         <select class="form-control" id="vat" name="vat" style="width: 100%;">
                                             <?php
+                                        if($_GET['vat']=='A')
+                                        echo"<option value='A' selected>ทั้งหมด</option>";                                                        
+                                        else
+                                        echo"<option value='A'>ทั้งหมด</option>";
                                         if($_GET['vat']=='Y')
                                         echo"<option value='Y' selected>มี VAT</option>";                                                        
                                         else

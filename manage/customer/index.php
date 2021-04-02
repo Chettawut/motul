@@ -63,10 +63,10 @@ if (!isset($_SESSION['loggedin'])) {
                                             class="fa fa-refresh" aria-hidden="true"></i> Refresh</button>
                                     <button type="button" id="btnShowALL"
                                         class="btn btn-warning pull-right"><i class="fa fa-eye" aria-hidden="true"></i>
-                                        โชว์ลูกค้าทั้งหมด</button>
+                                        ดูลูกค้าทั้งหมด</button>
                                     <button type="button" id="btnShow"
                                         class="btn btn-warning pull-right" style="display:none;"><i class="fa fa-eye" aria-hidden="true"></i>
-                                        โชว์ลูกค้าเฉพาะที่เปิดใช้งาน</button>
+                                        ดูลูกค้าเฉพาะที่เปิดใช้งาน</button>
                                 </div>
 
 
