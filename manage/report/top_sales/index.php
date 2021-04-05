@@ -96,7 +96,7 @@ if (!isset($_SESSION['loggedin'])) {
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <select class="form-control" id="stcode" name="stcode" style="width: 100%;">                                            
+                                        <select class="form-control" id="stcode" name="stcode" style="width: 100%;display:none;">                                            
                                         </select>
                                     </div>
                                     <button type="button" data-toggle="modal" data-target="#modal_one"
@@ -111,9 +111,9 @@ if (!isset($_SESSION['loggedin'])) {
                                 <!-- Tab panes -->
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs" role="tablist">
-                                    <li role="presentation" class="active"><a href="#sum_year" aria-controls="home"
+                                    <li role="presentation" class="active"><a href="#sum_year" id="tap_sum_year" aria-controls="home"
                                             role="tab" data-toggle="tab">ยอดขาย 11 พัสดุ รายปี </a></li>
-                                    <li role="presentation"><a href="#one_code" aria-controls="profile" role="tab"
+                                    <li role="presentation"><a href="#one_code" id="tap_one_code" aria-controls="profile" role="tab"
                                             data-toggle="tab">ยอดขาย 1 พัสดุ ใน 1 ปี</a></li>
                                 </ul>
 
