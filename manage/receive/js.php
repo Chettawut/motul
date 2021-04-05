@@ -481,7 +481,7 @@ $(function() {
     })
 
 
-    // กดยืนยันเพิ่ม PO
+    // กดยืนยันเพิ่ม RR
     $("#frmRR").submit(function(event) {
         event.preventDefault();
 
@@ -574,59 +574,6 @@ $(function() {
         } else {
             alert('กรุณาเพิ่มรายการ');
         }
-    });
-
-    // กดยืนยันแก้ไข PO
-    $("#frmEditPO").submit(function(event) {
-        event.preventDefault();
-
-        var amount = [];
-        var stcode = [];
-        var unit = [];
-        var price = [];
-        var discount = [];
-
-        $(':disabled').each(function(event) {
-            $(this).removeAttr('disabled');
-        });
-
-
-        $('#tableEditPoDetail tbody tr').each(function() {
-            stcode.push($(this).attr("id"));
-        });
-        $('#tableEditPoDetail tbody tr').each(function(key) {
-            amount.push($(this).find("td #amount" + (++key)).val());
-        });
-        $('#tableEditPoDetail tbody tr').each(function(key) {
-            unit.push($(this).find("td #unit" + (++key)).val());
-        });
-        $('#tableEditPoDetail tbody tr').each(function(key) {
-            price.push($(this).find("td #price" + (++key)).val());
-        });
-        $('#tableEditPoDetail tbody tr').each(function(key) {
-            discount.push($(this).find("td #discount" + (++key)).val());
-        });
-
-
-        $.ajax({
-            type: "POST",
-            url: "ajax/edit_po.php",
-            data: $("#frmEditPO").serialize() + "&amount=" + amount + "&stcode=" + stcode +
-                "&unit=" + unit +
-                "&price=" + price +
-                "&discount=" + discount,
-            success: function(result) {
-                if (result.status == 1) {
-                    alert(result.message);
-                    window.location.reload();
-                    // console.log(result.sql);
-                } else {
-                    alert(StrSQL);
-                    console.log(result.message);
-                }
-            }
-        });
-
     });
 
     // เพิ่ม po detail เมื่อเลือกสต๊อก

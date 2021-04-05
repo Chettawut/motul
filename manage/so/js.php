@@ -240,21 +240,6 @@ function onClick_unit2(unit, target) {
 
     $('#unit2' + row).val(unit);
 
-    // $.ajax({
-    //     type: "POST",
-    //     url: "ajax/cal_stock.php",
-    //     data: "idcode=" + stcode,
-    //     success: function(result) {
-
-    //         $('#unit1' + row).val(unit);
-    //         if(unit=='ลัง')
-    //         $('#price1' + row).val(result.ratio*result.sellprice);
-    //         else
-    //         $('#price1' + row).val(result.sellprice);
-
-    //     }
-    // });
-
 }
 
 function previewSOcode() {

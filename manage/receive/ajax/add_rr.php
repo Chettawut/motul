@@ -22,6 +22,7 @@
     $code;
     $rrcode;
     $yearrrcode;
+    
     $sql = "SELECT * FROM options order by year desc LIMIT 1";
 	$query = mysqli_query($conn,$sql);
 
@@ -60,16 +61,24 @@
                 else 
                 $checkstatus='03';
             }
-           
+
+            $radio=1;
+            if($unit[$key]=='ลัง')
+            {
+                $sql = "SELECT ratio FROM `stock` as a INNER join storage_unit as b on (a.storage_id=b.storage_id) ";
+                $sql .= " WHERE a.stcode = '". $stcode[$key] ."' ";
+                $query = mysqli_query($conn,$sql);
+                $row2 = $query->fetch_assoc();
+                $radio=$row2["ratio"];
+            }
 
             $strSQL = "UPDATE options SET ";
             $strSQL .= "maxrrcode='".($code+1)."' ";
             $strSQL .= "WHERE year= ".$yearrrcode." ";
             $query = mysqli_query($conn,$strSQL); 
 
-
             $strSQL2 = "UPDATE stock_level SET ";
-            $strSQL2 .= "price= price + '".(($price[$key]*$recamount[$key])-(($price[$key]*$recamount[$key])*$discount[$key]/100) )."',amount= amount+'".$recamount[$key]."',amtprice= price/amount ";
+            $strSQL2 .= "price= price + '".(($price[$key]*$recamount[$key])-(($price[$key]*$recamount[$key])*$discount[$key]/100) )."',amount= amount+'".$recamount[$key]*$radio."',amtprice= price/amount ";
             $strSQL2 .= "WHERE stcode = '".$stcode[$key]."' and places = '".$places[$key]."' ";
             $query2 = mysqli_query($conn,$strSQL2);
 
@@ -93,8 +102,18 @@
             foreach ($stcode2 as $key2=> $value2) {
                 if($stcode2[$key2]!='')
                 {
+                $radio=1;
+                if($unit2[$key2]=='ลัง')
+                {
+                    $sql = "SELECT ratio FROM `stock` as a INNER join storage_unit as b on (a.storage_id=b.storage_id) ";
+                    $sql .= " WHERE a.stcode = '". $stcode2[$key2] ."' ";
+                    $query = mysqli_query($conn,$sql);
+                    $row2 = $query->fetch_assoc();
+                    $radio=$row2["ratio"];
+                }
+
                 $strSQL2 = "UPDATE stock_level SET ";
-                $strSQL2 .= "price= price + '".($price2[$key2]*$amount2[$key2])."',amount= amount+'".$amount2[$key2]."',amtprice= price/amount ";
+                $strSQL2 .= "price= price + '".($price2[$key2]*$amount2[$key2])."',amount= amount+'".$amount2[$key2]*$radio."',amtprice= price/amount ";
                 $strSQL2 .= "WHERE stcode = '".$stcode2[$key2]."' and places = '".$places2[$key2]."' ";
                 $query2 = mysqli_query($conn,$strSQL2);
 
