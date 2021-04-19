@@ -30,7 +30,7 @@
 
         
         //ตัดสต๊อก
-        $sql = "UPDATE stock_level SET amount = amount - 1 ,price = price-".$row2["sellprice"].",amtprice= price/amount ";
+        $sql = "UPDATE stock_level SET amount = amount - 1 ,amtprice= price/amount ";
         $sql .= " WHERE stcode = '". $_POST['stcode'] ."' and places = '3' ";
         $query = mysqli_query($conn,$sql);
 

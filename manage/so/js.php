@@ -982,7 +982,6 @@ $(function() {
             $(this).removeAttr('disabled');
         });
 
-
         $('#tableEditSODetail tbody tr').each(function() {
             stcode.push($(this).attr("id"));
         });
@@ -1030,7 +1029,7 @@ $(function() {
                 if (result.status == 1) {
                     alert(result.message);
                     window.location.reload();
-                    // console.log(result.sql);
+                    console.log(result.sql);
                 } else {
                     alert(result.message);
                     $("#editsocode").prop("disabled", true);

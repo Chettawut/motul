@@ -15,13 +15,15 @@
     $unit2 = explode(',', $_POST['unit2']);
     $places2 = explode(',', $_POST['places2']);
     
-    $StrSQL = "UPDATE somaster SET date = '".date("Y-m-d")."', time='".date("H:i:s")."' ";
-    $StrSQL .= ",deldate='".$_POST["editdeldate"]."' ,sodate='".$_POST["editsodate"]."',payment='".$_POST["editpayment"]."' ,paydate='".$_POST["editpaydate"]."',currency='".$_POST["editcurrency"]."' ,vat='".$_POST["editvat"]."',remark='".$_POST["editremark"]."' ";
-    $StrSQL .= "WHERE socode='".$_POST["editsocode"]."' ";
-    $query = mysqli_query($conn,$StrSQL);
+    $editplaces = 0;
+    
+    if($_POST["editvat"]=='Y')
+         $editplaces = 1;    
+    else if($_POST["editvat"]=='N')
+         $editplaces = 2;
+     
 
     $check=1;
-    if($query) {
         //แก้ไขสต๊อกของขาย
         foreach ($stcode as $key=> $value) {
 
@@ -38,7 +40,7 @@
                     $radio_old=1;                    
 
                     $sql = "SELECT ratio,amount,price,amtprice FROM `stock` as a INNER join storage_unit as b on (a.storage_id=b.storage_id) INNER join stock_level as c on (a.stcode=c.stcode) ";
-                    $sql .= " WHERE a.stcode = '". $stcode[$key] ."' and c.places = '". $places[$key] ."'";
+                    $sql .= " WHERE a.stcode = '". $stcode[$key] ."' and c.places = '".$editplaces."'";
                     $query = mysqli_query($conn,$sql);
                     $row2 = $query->fetch_assoc();
 
@@ -53,31 +55,49 @@
 
                 if(($amount_stock-$amount_dif)>=0)
                 {
+                    $current_amount=$amount[$key]*$radio;
 
-                    $current_amount=$row2["amount"]-($amount_dif) ;
-                    
                     if($current_amount!=0)
                     {
-                        $current_price=$row2["price"]+($row2["amtprice"]*($amount_dif*$radio));                
-                        $current_amtprice=$current_price/$current_amount;
+                        $current_price=$price[$key]*$radio;               
                     }
                     else
                     {
                         $current_price=0;
                         $current_amtprice=0;
-                    }                
-                    
-                
+                    }    
 
-                    $sql = "UPDATE stock_level SET amount = ".$current_amount." ,price = ".$current_price.",amtprice= ".$current_amtprice." ";
-                    $sql .= " WHERE stcode = '". $stcode[$key] ."' and places = '". $places[$key] ."' ";
-                    $query = mysqli_query($conn,$sql);
-
-                    if(!$query) 
+                    if($editplaces!=$places[$key])
                     {
-                        $code .= $stcode[$key].' error';
-                        $check = 0;
+                        if($current_amount<$amount_stock)
+                        {                        
+                        $sql = "UPDATE stock_level SET amount = amount+".$current_amount." ,price = price+".($current_price).",amtprice= price/amount ";
+                        $sql .= " WHERE stcode = '". $stcode[$key] ."' and places = '". $places[$key] ."' ";
+                        $query = mysqli_query($conn,$sql);
+                        
+                        $sql = "UPDATE stock_level SET amount = amount-".$current_amount." ,price = price-".$current_price.",amtprice= price/amount ";
+                        $sql .= " WHERE stcode = '". $stcode[$key] ."' and places = '". $editplaces ."' ";
+                        $query = mysqli_query($conn,$sql);
+                        }
+                        else
+                        {
+                            $error = 'ยอดสต๊อก'.$stcode[$key].'ไม่เพียงพอ ไม่สามารถย้ายคลัง Vat ได้';
+                            $check = 0;
+                        }   
+                    } 
+                    else  
+                    {                        
+                        $current_price=$row2["price"]+($row2["amtprice"]*($amount_dif*$radio)); 
+
+                        $sql = "UPDATE stock_level SET amount = amount-".$amount_dif." ,price = ".$current_price.",amtprice= price/amount ";
+                        $sql .= " WHERE stcode = '". $stcode[$key] ."' and places = '". $places[$key] ."' ";
+                        $query = mysqli_query($conn,$sql);
                     }
+                        if(!$query) 
+                        {
+                            $code .= $stcode[$key].' error';
+                            $check = 0;
+                        }
                 }
                 else
                 {
@@ -88,14 +108,16 @@
                 
             if($check) 
                 {
-                    $StrSQL = "UPDATE sodetail SET stcode='". $stcode[$key] ."' ,price ='". $price[$key] ."', unit ='". $unit[$key] ."', amount ='". $amount[$key] ."', discount = '". $discount[$key] ."' ";
+
+                    $StrSQL = "UPDATE sodetail SET places ='". $editplaces ."', price ='". $price[$key] ."', unit ='". $unit[$key] ."', amount ='". $amount[$key] ."', discount = '". $discount[$key] ."' ";
                     $StrSQL .= "WHERE socode='".$_POST["editsocode"]."' and sono= '". ++$key ."' and giveaway = '0' ";
                     
-                    $query = mysqli_query($conn,$StrSQL);
+                    $query = mysqli_query($conn,$StrSQL);                             
+                    
+                    
                 }
                 
         }
-    }
 
     if($check) 
     {
@@ -169,6 +191,9 @@
                     $StrSQL = "UPDATE sodetail SET stcode='". $stcode2[$key2] ."' , unit ='". $unit2[$key2] ."', amount ='". $amount2[$key2] ."' ";
                     $StrSQL .= "WHERE socode='".$_POST["editsocode"]."' and sono= '". ++$key2 ."' and giveaway = '1' ";
                     $query = mysqli_query($conn,$StrSQL);
+
+                    
+
                 }
             }
         }
@@ -176,6 +201,10 @@
 
     if($check)
     {
+        $StrSQL = "UPDATE somaster SET date = '".date("Y-m-d")."', time='".date("H:i:s")."' ";
+        $StrSQL .= ",deldate='".$_POST["editdeldate"]."' ,sodate='".$_POST["editsodate"]."',payment='".$_POST["editpayment"]."' ,paydate='".$_POST["editpaydate"]."',currency='".$_POST["editcurrency"]."' ,vat='".$_POST["editvat"]."',remark='".$_POST["editremark"]."' ";
+        $StrSQL .= "WHERE socode='".$_POST["editsocode"]."' ";
+        $query = mysqli_query($conn,$StrSQL);
             if($query) {
                 echo json_encode(array('status' => '1','message'=> 'แก้ไขใบแจ้งซื้อเรียบร้อยแล้ว '. $_POST["editsocode"].' สำเร็จ','sql'=> $StrSQL));
             }
