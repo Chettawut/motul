@@ -63,17 +63,17 @@
     $strSQL .= "from ";
 
 	$strSQL .= "(SELECT a.socode,b.invdate,a.amount,";
-	$strSQL .= "case when a.stcode = '".$json_result['data'][0]."' then sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))   end as total_1,";
-	$strSQL .= "case when a.stcode = '".$json_result['data'][1]."' then sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))  end as total_2,";
-	$strSQL .= "case when a.stcode = '".$json_result['data'][2]."' then sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))  end as total_3,";
-	$strSQL .= "case when a.stcode = '".$json_result['data'][3]."' then sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))  end as total_4,";
-    $strSQL .= "case when a.stcode = '".$json_result['data'][4]."' then sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))  end as total_5,";
-    $strSQL .= "case when a.stcode = '".$json_result['data'][5]."' then sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))  end as total_6,";
-	$strSQL .= "case when a.stcode = '".$json_result['data'][6]."' then sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))  end as total_7,";
-	$strSQL .= "case when a.stcode = '".$json_result['data'][7]."' then sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))  end as total_8,";
-	$strSQL .= "case when a.stcode = '".$json_result['data'][8]."' then sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))  end as total_9,";
-    $strSQL .= "case when a.stcode = '".$json_result['data'][9]."' then sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))  end as total_10,";
-    $strSQL .= "case when a.stcode = '".$json_result['data'][10]."' then sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))  end as total_11";    
+	$strSQL .= "case when a.stcode = '".$json_result['data'][0]."' then sum(a.amount)   end as total_1,";
+	$strSQL .= "case when a.stcode = '".$json_result['data'][1]."' then sum(a.amount)  end as total_2,";
+	$strSQL .= "case when a.stcode = '".$json_result['data'][2]."' then sum(a.amount)  end as total_3,";
+	$strSQL .= "case when a.stcode = '".$json_result['data'][3]."' then sum(a.amount)  end as total_4,";
+    $strSQL .= "case when a.stcode = '".$json_result['data'][4]."' then sum(a.amount)  end as total_5,";
+    $strSQL .= "case when a.stcode = '".$json_result['data'][5]."' then sum(a.amount)  end as total_6,";
+	$strSQL .= "case when a.stcode = '".$json_result['data'][6]."' then sum(a.amount)  end as total_7,";
+	$strSQL .= "case when a.stcode = '".$json_result['data'][7]."' then sum(a.amount)  end as total_8,";
+	$strSQL .= "case when a.stcode = '".$json_result['data'][8]."' then sum(a.amount)  end as total_9,";
+    $strSQL .= "case when a.stcode = '".$json_result['data'][9]."' then sum(a.amount)  end as total_10,";
+    $strSQL .= "case when a.stcode = '".$json_result['data'][10]."' then sum(a.amount)  end as total_11";    
     $strSQL .= " FROM sodetail as a inner join somaster as b on (a.socode=b.socode)";
     $strSQL .= " where (a.supstatus = '03' or a.supstatus = '04')";
     if($vat != 'A') 
@@ -112,18 +112,18 @@
         $strSQL .= "from ";
     
         $strSQL .= "(SELECT a.socode,b.invdate,a.amount,";
-        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = '01' THEN sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))   end as total_Jan,";
-        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = '02' then sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))  end as total_Feb,";
-        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = '03' then sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))  end as total_Mar,";
-        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = '04' then sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))  end as total_Apr,";
-        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = '05' then sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))  end as total_May,";
-        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = '06' then sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))  end as total_Jun,";
-        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = '07' then sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))  end as total_Jul,";
-        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = '08' then sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))  end as total_Aug,";
-        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = '09' then sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))  end as total_Sep,";
-        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = '10' then sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))  end as total_Oct,";
-        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = 11 then sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))  end as total_Nov,";
-        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = '12' then sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))  end as total_Dec";	
+        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = '01' THEN sum(a.amount)  end as total_Jan,";
+        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = '02' then sum(a.amount)  end as total_Feb,";
+        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = '03' then sum(a.amount)  end as total_Mar,";
+        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = '04' then sum(a.amount)  end as total_Apr,";
+        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = '05' then sum(a.amount)  end as total_May,";
+        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = '06' then sum(a.amount)  end as total_Jun,";
+        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = '07' then sum(a.amount)  end as total_Jul,";
+        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = '08' then sum(a.amount)  end as total_Aug,";
+        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = '09' then sum(a.amount)  end as total_Sep,";
+        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = '10' then sum(a.amount)  end as total_Oct,";
+        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = 11 then sum(a.amount)  end as total_Nov,";
+        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = '12' then sum(a.amount)  end as total_Dec";	
         $strSQL .= " FROM sodetail as a inner join somaster as b on (a.socode=b.socode)";
         $strSQL .= " where (a.supstatus = '03' or a.supstatus = '04') ";
         if($vat != 'A') 

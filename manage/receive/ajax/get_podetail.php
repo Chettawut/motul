@@ -4,7 +4,7 @@
 
 	$sql = "SELECT b.pocode,d.podate,d.deldate,a.supname,d.payment,b.pono,c.stcode,c.stname1,b.amount,b.recamount,b.unit,b.price,b.discount,b.supstatus ";
 	$sql .= " FROM supplier as a inner join pomaster as d on (a.supcode=d.supcode) inner join podetail as b on (d.pocode=b.pocode) inner join stock as c on (c.stcode=b.stcode)";
-	$sql .= "where a.supcode = '".$_POST['idcode']."' and b.supstatus !='03' order by d.podate desc ";
+	$sql .= "where a.supcode = '".$_POST['idcode']."' and (b.supstatus !='03' and b.supstatus !='C') order by d.podate desc ";
 	
 	// echo $sql;
 	$query = mysqli_query($conn,$sql);

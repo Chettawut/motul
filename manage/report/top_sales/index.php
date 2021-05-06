@@ -12,7 +12,7 @@ if (!isset($_SESSION['loggedin'])) {
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>รายงานยอดขายสูงสุดตามพัสดุ</title>
+    <title>รายงานปริมาณการขายตามพัสดุ</title>
     <?php include('css.php'); 
     include_once('../../config.php');
     include_once ROOT .'/func.php';
@@ -50,7 +50,7 @@ if (!isset($_SESSION['loggedin'])) {
                         <div class="box" style="background-color:#EAEDED">
                             <div class="box-header">
                                 <i class="fa fa-cube"></i>
-                                <h3 class="box-title">รายงานยอดขายสูงสุดตามพัสดุ</h3>
+                                <h3 class="box-title">รายงานปริมาณการขายตามพัสดุ</h3>
                             </div>
                             <!-- /.box-header -->
                             <div class="box-body">
@@ -112,9 +112,9 @@ if (!isset($_SESSION['loggedin'])) {
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs" role="tablist">
                                     <li role="presentation" class="active"><a href="#sum_year" id="tap_sum_year" aria-controls="home"
-                                            role="tab" data-toggle="tab">ยอดขาย 11 พัสดุ รายปี </a></li>
+                                            role="tab" data-toggle="tab">ปริมาณการขาย 11 พัสดุ รายปี </a></li>
                                     <li role="presentation"><a href="#one_code" id="tap_one_code" aria-controls="profile" role="tab"
-                                            data-toggle="tab">ยอดขาย 1 พัสดุ ใน 1 ปี</a></li>
+                                            data-toggle="tab">ปริมาณการขาย 1 พัสดุ ใน 1 ปี</a></li>
                                 </ul>
 
                                 <!-- Tab panes -->

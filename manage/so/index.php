@@ -53,29 +53,36 @@ if (!isset($_SESSION['loggedin'])) {
                             </div>
                             <!-- /.box-header -->
                             <div class="box-body">
-                                <form action="invoice-print.php" target="_blank" method="post">
-                                    <div class="btn-group" id="btnAddSO" role="group" aria-label="Basic example">
-                                        <button type="button" class="btn btn-success"><i class="fa fa fa-tags"
-                                                aria-hidden="true"></i>
-                                            เพิ่มใบสั่งขาย</button>
-                                    </div>
-                                    <div class="btn-group" id="btnBack" style="display:none;" role="group"
-                                        aria-label="Basic example">
-                                        <button type="button" class="btn btn-success"><i class="fa fa fa-tags"
-                                                aria-hidden="true"></i>
-                                            ย้อนกลับ</button>
-                                    </div>
-                                    <button type="button" id="btnRefresh" class="btn btn-primary"><i
-                                            class="fa fa-refresh" aria-hidden="true"></i> </button>
-                                    <button type="button" id="btnCancle" style="display:none;" class="btn btn-danger"><i
-                                            class="fa fa-check-circle" aria-hidden="true"></i>
-                                        ยกเลิกใบสั่งขาย</button>
-                                    <button type="submit" id="btnPrint" style="display:none;" class="btn btn-primary"><i
-                                            class="fa fa-print" aria-hidden="true"></i> Print </button>
-                                    <input type="hidden" id="printsocode" class="btn btn-default" name="printsocode"
-                                        value="John">
-                                    <input type="hidden" id="editsalecode" class="btn btn-default" value="John">
+                                <form data-ajax="false" target="_blank" method="post">
+                                    <div data-role="fieldcontain">
 
+                                        <div class="btn-group" id="btnAddSO" role="group" aria-label="Basic example">
+                                            <button type="button" class="btn btn-success"><i class="fa fa fa-tags"
+                                                    aria-hidden="true"></i>
+                                                เพิ่มใบสั่งขาย</button>
+                                        </div>
+                                        <div class="btn-group" id="btnBack" style="display:none;" role="group"
+                                            aria-label="Basic example">
+                                            <button type="button" class="btn btn-success"><i class="fa fa fa-tags"
+                                                    aria-hidden="true"></i>
+                                                ย้อนกลับ</button>
+                                        </div>
+                                        <button type="button" id="btnRefresh" class="btn btn-primary"><i
+                                                class="fa fa-refresh" aria-hidden="true"></i> </button>
+                                        <button type="button" id="btnCancle" style="display:none;"
+                                            class="btn btn-danger"><i class="fa fa-check-circle" aria-hidden="true"></i>
+                                            ยกเลิกใบสั่งขาย</button>
+                                        <button type="submit" formaction="invoice-print.php" id="btnPrint"
+                                            style="display:none;" class="btn btn-primary"><i class="fa fa-print"
+                                                aria-hidden="true"></i> Print ใบสั่งขาย </button>
+                                        <button type="submit" formaction="../so_approve/invoice-print.php" id="btnInvoice"
+                                            style="display:none;" class="btn btn-primary"><i class="fa fa-print"
+                                                aria-hidden="true"></i> Print ใบกำกับภาษี </button>
+                                        <input type="hidden" id="printsocode" class="btn btn-default" name="printsocode"
+                                            value="John">
+                                        <input type="hidden" id="editsalecode" class="btn btn-default" value="John">
+
+                                    </div>
                                 </form>
                             </div>
                             <div id="divtableSO" style="border: 1px solid #FAEBD7;">
@@ -175,7 +182,7 @@ if (!isset($_SESSION['loggedin'])) {
                                             <label for="recipient-name" class="col-form-label">ภาษี </label>
                                             <div class="radio">
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="vat" value="Y" > มี
+                                                    <input type="radio" name="vat" value="Y"> มี
                                                 </label>
                                                 <label class="radio-inline">
                                                     <input type="radio" name="vat" value="N"> ไม่มี
@@ -367,18 +374,18 @@ if (!isset($_SESSION['loggedin'])) {
                                 <br>
                                 <br>
                                 <div class="form-group col-md-12">
-                                        
-                                        <button type="button" id="btnAddSOdetail2" class="btn btn-success"
-                                            data-toggle="modal" data-target="#modal_stock2"><i class="fa fa fa-tags"
-                                                aria-hidden="true"></i>
-                                            เพิ่มรายการ</button>
 
-                                        <button type="button" id="btnAddSOGiveaway2" class="btn btn-info"
-                                            data-toggle="modal" data-target="#modal_giveaway2"><i class="fa fa fa-gift"
-                                                aria-hidden="true"></i>
-                                            เพิ่มของแถม</button>
+                                    <button type="button" id="btnAddSOdetail2" class="btn btn-success"
+                                        data-toggle="modal" data-target="#modal_stock2"><i class="fa fa fa-tags"
+                                            aria-hidden="true"></i>
+                                        เพิ่มรายการ</button>
 
-                                    </div>
+                                    <button type="button" id="btnAddSOGiveaway2" class="btn btn-info"
+                                        data-toggle="modal" data-target="#modal_giveaway2"><i class="fa fa fa-gift"
+                                            aria-hidden="true"></i>
+                                        เพิ่มของแถม</button>
+
+                                </div>
 
                                 <div style="border: 1px solid #FAEBD7;">
                                     <br>
@@ -631,7 +638,7 @@ if (!isset($_SESSION['loggedin'])) {
                                         class="table table-bordered table-striped">
                                         <thead style=" background-color:#D6EAF8;">
                                             <tr>
-                                            <th width="10%">รหัสพัสดุ</th>
+                                                <th width="10%">รหัสพัสดุ</th>
                                                 <th width="40%">ชื่อพัสดุ</th>
                                                 <th width="8%" style="text-align:center">ลัง A</th>
                                                 <th width="8%" style="text-align:center">เศษ A</th>
@@ -727,7 +734,7 @@ if (!isset($_SESSION['loggedin'])) {
                                         class="table table-bordered table-striped">
                                         <thead style=" background-color:#D6EAF8;">
                                             <tr>
-                                            <th width="10%">รหัสพัสดุ</th>
+                                                <th width="10%">รหัสพัสดุ</th>
                                                 <th width="40%">ชื่อพัสดุ</th>
                                                 <th width="8%" style="text-align:center">ลัง A</th>
                                                 <th width="8%" style="text-align:center">เศษ A</th>

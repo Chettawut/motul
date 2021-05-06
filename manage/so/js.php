@@ -319,8 +319,10 @@ function onSelectSO(socode) {
     $("#tableSODetail tbody").empty();
     $("#tableEditSODetail").show();
     $("#printsocode").val(socode);
-    
-    if ($("#" + socode + " td:eq(5)").text() == "รออนุมัติขาย") {
+
+    var status_so = $("#" + socode + " td:eq(5)").text();
+    // alert(status_so);
+    if (status_so == "รออนุมัติขาย") {
         // enabledSupSO(); 
         $("#btnEdit").show();
         $("#btnAddSOdetail2").show();
@@ -332,10 +334,16 @@ function onSelectSO(socode) {
         $("#btnAddSOGiveaway2").hide();
     }
 
-    if ($("#" + socode + " td:eq(5)").text() == "ยกเลิกการใช้งาน")
+    if (status_so == "ยกเลิกการใช้งาน")
         $("#btnPrint").hide();
     else
         $("#btnPrint").show();
+
+    if ((status_so != "ยกเลิกการใช้งาน") && (status_so != "รออนุมัติขาย") && (status_so != "รอออกใบกำกับภาษี")) 
+        $("#btnInvoice").show();
+    else 
+        $("#btnInvoice").hide();
+    
 
     $.ajax({
         type: "POST",

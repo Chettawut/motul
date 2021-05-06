@@ -131,7 +131,7 @@ include_once('config.php');
                     <li><a href="<?php echo PATH; ?>/report/debtor"><i class="fa fa-bar-chart"></i>
                             รายงานลูกหนี้รายตัว</a></li>
                     <li><a href="<?php echo PATH; ?>/report/top_sales"><i class="fa fa-bar-chart"></i>
-                    รายงานยอดขาย 11 พัสดุ</a></li>
+                    รายงานปริมาณการขายตามพัสดุ</a></li>
 
 
                 </ul>
