@@ -60,28 +60,28 @@
     $strSQL .= "sum(total_7) as total_7,sum(total_8) as total_8,";
     $strSQL .= "sum(total_9) as total_9,sum(total_10) as total_10,";
     $strSQL .= "sum(total_11) as total_11 ";
-    $strSQL .= "from ";
+    $strSQL .= "FROM ";
 
-	$strSQL .= "(SELECT a.socode,b.invdate,a.amount,";
-	$strSQL .= "case when a.stcode = '".$json_result['data'][0]."' then sum(a.amount)   end as total_1,";
-	$strSQL .= "case when a.stcode = '".$json_result['data'][1]."' then sum(a.amount)  end as total_2,";
-	$strSQL .= "case when a.stcode = '".$json_result['data'][2]."' then sum(a.amount)  end as total_3,";
-	$strSQL .= "case when a.stcode = '".$json_result['data'][3]."' then sum(a.amount)  end as total_4,";
-    $strSQL .= "case when a.stcode = '".$json_result['data'][4]."' then sum(a.amount)  end as total_5,";
-    $strSQL .= "case when a.stcode = '".$json_result['data'][5]."' then sum(a.amount)  end as total_6,";
-	$strSQL .= "case when a.stcode = '".$json_result['data'][6]."' then sum(a.amount)  end as total_7,";
-	$strSQL .= "case when a.stcode = '".$json_result['data'][7]."' then sum(a.amount)  end as total_8,";
-	$strSQL .= "case when a.stcode = '".$json_result['data'][8]."' then sum(a.amount)  end as total_9,";
-    $strSQL .= "case when a.stcode = '".$json_result['data'][9]."' then sum(a.amount)  end as total_10,";
-    $strSQL .= "case when a.stcode = '".$json_result['data'][10]."' then sum(a.amount)  end as total_11";    
-    $strSQL .= " FROM sodetail as a inner join somaster as b on (a.socode=b.socode)";
+	$strSQL .= "(SELECT ";
+	$strSQL .= "case when c.stcode = '".$json_result['data'][0]."' then sum(c.amount_gallon)   end as total_1,";
+	$strSQL .= "case when c.stcode = '".$json_result['data'][1]."' then sum(c.amount_gallon)  end as total_2,";
+	$strSQL .= "case when c.stcode = '".$json_result['data'][2]."' then sum(c.amount_gallon)  end as total_3,";
+	$strSQL .= "case when c.stcode = '".$json_result['data'][3]."' then sum(c.amount_gallon)  end as total_4,";
+    $strSQL .= "case when c.stcode = '".$json_result['data'][4]."' then sum(c.amount_gallon)  end as total_5,";
+    $strSQL .= "case when c.stcode = '".$json_result['data'][5]."' then sum(c.amount_gallon)  end as total_6,";
+	$strSQL .= "case when c.stcode = '".$json_result['data'][6]."' then sum(c.amount_gallon)  end as total_7,";
+	$strSQL .= "case when c.stcode = '".$json_result['data'][7]."' then sum(c.amount_gallon)  end as total_8,";
+	$strSQL .= "case when c.stcode = '".$json_result['data'][8]."' then sum(c.amount_gallon)  end as total_9,";
+    $strSQL .= "case when c.stcode = '".$json_result['data'][9]."' then sum(c.amount_gallon)  end as total_10,";
+    $strSQL .= "case when c.stcode = '".$json_result['data'][10]."' then sum(c.amount_gallon)  end as total_11";    
+    $strSQL .= " FROM (SELECT a.socode,a.stcode,CASE WHEN a.unit = 'ลัง' THEN a.amount*e.ratio ELSE a.amount END AS amount_gallon,a.unit,a.amount,a.giveaway FROM `sodetail` as a inner join somaster as b on (a.socode=b.socode) inner join stock as d on(a.stcode = d.stcode) inner join storage_unit as e on (d.storage_id = e.storage_id)";
     $strSQL .= " where (a.supstatus = '03' or a.supstatus = '04')";
     if($vat != 'A') 
     $strSQL .= " and b.vat = '".$vat."' ";
     if($month != '00') 
     $strSQL .= " and SUBSTRING(b.invdate,6,2)='".$month."' ";
     $strSQL .= " and SUBSTRING(b.invdate,1,4)='".$year."' ";
-    $strSQL .= " GROUP by socode) as c";    
+    $strSQL .= " GROUP by a.socode,a.stcode,a.giveaway) as c GROUP by c.socode,c.stcode,c.giveaway)as z";    
     
     
     // echo $strSQL;
