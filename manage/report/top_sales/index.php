@@ -120,7 +120,7 @@ if (!isset($_SESSION['loggedin'])) {
                                 <!-- Tab panes -->
                                 <div class="tab-content" style="text-align:center">
                                     <div role="tabpanel" class="tab-pane active" id="sum_year">
-                                        <table id="table_top_sales" class="table table-hover">
+                                        <table id="table_top_sales" class="table">
                                             <thead>
 
                                             </thead>
@@ -131,7 +131,7 @@ if (!isset($_SESSION['loggedin'])) {
                                         <div id="chart-container">กรุณารอ กำลังประมวลผลกราฟ</div>
                                     </div>
                                     <div role="tabpanel" class="tab-pane" id="one_code">
-                                    <table id="table_one_product" class="table table-hover">
+                                    <table id="table_one_product" class="table">
                                             <thead>
 
                                             </thead>

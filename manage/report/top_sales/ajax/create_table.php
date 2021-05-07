@@ -111,28 +111,26 @@
         $strSQL .= "sum(total_Nov) as total_Nov,sum(total_Dec) as total_Dec ";
         $strSQL .= "from ";
     
-        $strSQL .= "(SELECT a.socode,b.invdate,a.amount,";
-        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = '01' THEN sum(a.amount)  end as total_Jan,";
-        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = '02' then sum(a.amount)  end as total_Feb,";
-        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = '03' then sum(a.amount)  end as total_Mar,";
-        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = '04' then sum(a.amount)  end as total_Apr,";
-        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = '05' then sum(a.amount)  end as total_May,";
-        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = '06' then sum(a.amount)  end as total_Jun,";
-        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = '07' then sum(a.amount)  end as total_Jul,";
-        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = '08' then sum(a.amount)  end as total_Aug,";
-        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = '09' then sum(a.amount)  end as total_Sep,";
-        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = '10' then sum(a.amount)  end as total_Oct,";
-        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = 11 then sum(a.amount)  end as total_Nov,";
-        $strSQL .= "case when SUBSTRING(b.invdate,6,2) = '12' then sum(a.amount)  end as total_Dec";	
-        $strSQL .= " FROM sodetail as a inner join somaster as b on (a.socode=b.socode)";
+        $strSQL .= "(SELECT c.socode,c.invdate,c.amount,";
+        $strSQL .= "case when SUBSTRING(c.invdate,6,2) = '01' THEN sum(c.amount_gallon)  end as total_Jan,";
+        $strSQL .= "case when SUBSTRING(c.invdate,6,2) = '02' then sum(c.amount_gallon)  end as total_Feb,";
+        $strSQL .= "case when SUBSTRING(c.invdate,6,2) = '03' then sum(c.amount_gallon)  end as total_Mar,";
+        $strSQL .= "case when SUBSTRING(c.invdate,6,2) = '04' then sum(c.amount_gallon)  end as total_Apr,";
+        $strSQL .= "case when SUBSTRING(c.invdate,6,2) = '05' then sum(c.amount_gallon)  end as total_May,";
+        $strSQL .= "case when SUBSTRING(c.invdate,6,2) = '06' then sum(c.amount_gallon)  end as total_Jun,";
+        $strSQL .= "case when SUBSTRING(c.invdate,6,2) = '07' then sum(c.amount_gallon)  end as total_Jul,";
+        $strSQL .= "case when SUBSTRING(c.invdate,6,2) = '08' then sum(c.amount_gallon)  end as total_Aug,";
+        $strSQL .= "case when SUBSTRING(c.invdate,6,2) = '09' then sum(c.amount_gallon)  end as total_Sep,";
+        $strSQL .= "case when SUBSTRING(c.invdate,6,2) = '10' then sum(c.amount_gallon)  end as total_Oct,";
+        $strSQL .= "case when SUBSTRING(c.invdate,6,2) = '11' then sum(c.amount_gallon)  end as total_Nov,";
+        $strSQL .= "case when SUBSTRING(c.invdate,6,2) = '12' then sum(c.amount_gallon)  end as total_Dec";	
+        $strSQL .= " FROM (SELECT a.socode,a.stcode,CASE WHEN a.unit = 'ลัง' THEN a.amount*e.ratio ELSE a.amount END AS amount_gallon,a.unit,a.amount,a.giveaway,b.invdate FROM `sodetail` as a inner join somaster as b on (a.socode=b.socode) inner join stock as d on(a.stcode = d.stcode) inner join storage_unit as e on (d.storage_id = e.storage_id) ";
         $strSQL .= " where (a.supstatus = '03' or a.supstatus = '04') ";
         if($vat != 'A') 
         $strSQL .= " and b.vat = '".$vat."' ";
-        if($month != '00') 
-        $strSQL .= " and SUBSTRING(b.invdate,6,2)='".$month."' ";
         $strSQL .= " and SUBSTRING(b.invdate,1,4)='".$year."' ";
         $strSQL .= " and a.stcode ='".$stcode."' ";
-        $strSQL .= " GROUP by a.socode) as c";    
+        $strSQL .= " GROUP by a.socode,a.stcode,a.giveaway) as c GROUP by c.socode,c.stcode,c.giveaway)as z";    
         
         
         // echo $strSQL;
