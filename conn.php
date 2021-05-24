@@ -2,9 +2,9 @@
 session_start();
 
 $servername = "localhost";
-$username = "jaroon"; // jaroon
+$username = "jaroon1"; // jaroon
 $password = "Gxh.2411"; // Gxh.2411
-$dbname = "motul";
+$dbname = "motul1";
 
 // Create connection
 // $conn = mysqli_connect($servername,$username,$password,$dbname);
