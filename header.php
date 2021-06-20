@@ -17,6 +17,9 @@ include_once('config.php');
                         <a class="nav-link" href="<?php echo PATH; ?>">Home</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="<?php echo PATH; ?>/contact.php">ติดต่อเรา</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" data-toggle="modal" data-target="#exampleModalCenter">Login</a>
                     </li>
                     <!-- <li class="nav-item">
@@ -31,7 +34,7 @@ include_once('config.php');
     </nav>
 
     <!-- Page Header -->
-    <header class="masthead" style="background-image: url('<?php echo PATH; ?>/img/motor.jpg')">
+    <header class="masthead" style="background-image: url('<?php echo PATH; ?>/img/webbg.jpg')">
         <div class="overlay"></div>
         <div class="container">
             <div class="row">
