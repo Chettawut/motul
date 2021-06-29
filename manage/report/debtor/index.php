@@ -118,7 +118,7 @@ if (!isset($_SESSION['loggedin'])) {
                                                 <th style="text-align:center;">เลขที่บิล</th>
                                                 <th>ชื่อลูกหนี้</th>
                                                 <th style="text-align:right;">จำนวนเงิน</th>
-                                                <th style="text-align:center;">วันที่ออกใบเสร็จ</th>
+                                                <th style="text-align:center;">วันที่ชำระเงิน</th>
                                                 <th style="text-align:center;">เลขที่ใบเสร็จ</th>
                                             </tr>
                                         </thead>

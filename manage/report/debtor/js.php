@@ -79,13 +79,13 @@ function CreateReport(table,min,max,pay_status, cuscode) {
                     .invdate[count].substring(5, 7) + '-' + result
                     .invdate[count].substring(0, 4);
 
-                if (result.recedate[count] != '') {
-                    recedate = result
-                        .recedate[count].substring(8) + '-' + result
-                        .recedate[count].substring(5, 7) + '-' + result
-                        .recedate[count].substring(0, 4);
+                if (result.paycondate[count] != '') {
+                    paycondate = result
+                        .paycondate[count].substring(8) + '-' + result
+                        .paycondate[count].substring(5, 7) + '-' + result
+                        .paycondate[count].substring(0, 4);
                 } else
-                    recedate = '';
+                paycondate = '';
 
                 var paydate = result
                     .paydate[count].substring(8) + '-' + result
@@ -106,7 +106,7 @@ function CreateReport(table,min,max,pay_status, cuscode) {
                     '</td><td align="right">' +
                     formatMoney(result.total[count], 0) +
                     '</td><td align="center">' +
-                    recedate +
+                    paycondate +
                     '</td><td align="right">' +
                     result.delcode[count] +
                     '</td></tr>');
