@@ -330,8 +330,8 @@
             
             $query = mysqli_query($conn,$sql);
 
-            $sql1 = "SELECT b.socode,b.sono,c.stcode,c.stname1,c.sellprice,b.amount,b.unit,b.price,b.discount,b.supstatus ";
-            $sql1 .= "FROM sodetail as b inner join stock as c on (c.stcode=b.stcode) ";
+            $sql1 = "SELECT b.socode,b.sono,c.stcode,c.stname1,c.sellprice,b.amount,b.unit,d.ratio,b.price,b.discount,b.supstatus ";
+            $sql1 .= "FROM sodetail as b inner join stock as c on (c.stcode=b.stcode) inner join storage_unit as d on (c.storage_id=d.storage_id)  ";
             $sql1 .= "where b.socode = '".$_POST['printsocode']."' and b.giveaway = 1 order by b.sono ";
             
             $query1 = mysqli_query($conn,$sql1);
@@ -379,12 +379,16 @@
                             
 
                             while($row1 = $query1->fetch_assoc()) {
+                                $sellprice=0;
+                                if($row1["unit"]=='ลัง')
+                                $sellprice=($row1["sellprice"]*$row1["ratio"])*$row1["amount"];
+
                                 echo '<tr><td style="padding-top:0px;padding-bottom:0px;text-align:center;"></td>
                                 <td style="padding-top:0px;padding-bottom:0px;text-align:center;">'.$row1["stcode"].'</td>
                                 <td style="padding-top:0px;padding-bottom:0px;text-align:left;">'.$row1["stname1"].'</td>
                                 <td style="padding-top:0px;padding-bottom:0px;text-align:center;">'.$row1["amount"].'</td>
                                 <td style="padding-top:0px;padding-bottom:0px;text-align:center;">'.$row1["unit"].'</td>
-                                <td style="padding-top:0px;padding-bottom:0px;text-align:right;">'.$row1["sellprice"].'</td>
+                                <td style="padding-top:0px;padding-bottom:0px;text-align:right;">'.$sellprice.'</td>
                                 <td style="padding-top:0px;padding-bottom:0px;text-align:center;">แถมฟรี</td>
                                 <td style="padding-top:0px;padding-bottom:0px;text-align:right;"></td>
                                 <td style="padding-top:0px;padding-bottom:0px;text-align:right;"></td></tr>';

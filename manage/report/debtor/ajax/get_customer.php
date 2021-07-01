@@ -32,5 +32,4 @@
 
 
 
-		mysqli_close($conn);
 ?>

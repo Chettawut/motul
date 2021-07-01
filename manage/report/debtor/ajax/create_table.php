@@ -21,9 +21,9 @@
     else if($min!='')
     $sql .= " and b.paydate  >= '".$min."' ";    
     if($pay_status=='Y')
-    $sql .= " and b.recedate  != '' ";    
+    $sql .= " and b.paycondate  != '' ";    
     else if($pay_status=='N')
-    $sql .= " and b.recedate  = '' ";    
+    $sql .= " and b.paycondate  = '' ";    
 
     if($cuscode!='')
     $sql .= " and c.cuscode  = '".$cuscode."' ";    
