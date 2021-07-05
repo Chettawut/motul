@@ -59,29 +59,24 @@ if (!isset($_SESSION['loggedin'])) {
                                             class="fa fa-refresh" aria-hidden="true"></i> Refresh</button> -->
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <div class="form-group">
+                                            <div class="form-group" style="border-style: solid;border-color: #bbbbbb;">
                                                 <button type="button" class="btn btn-primary active" data-toggle="modal"
                                                     data-target="#modal_one">
                                                     <span class="fa fa-search"></span> ค้นหาลูกค้า</button>
 
                                             </div>
                                         </div>
-
-                                        <div class="col-md-3">
-                                            <div class="input-group">
-                                                <span class="input-group-addon" id="basic-addon1">ตั้งแต่</span>
-                                                <input name="min" id="min" class="form-control" type="text">
-
-                                            </div>
+                                        <div class="col-md-7" >
+                                            <select name="search_name" id="search_name" class="form-control">
+                                                <option value='paydate'>วันที่กำหนดชำระเงิน</option>
+                                                <option value='paycondate'>วันที่ชำระเงิน</option>
+                                            </select>
+                                            <input name="min" id="min" class="form-control" placeholder="ตั้งแต่"
+                                                type="text">
+                                                <input name="max" id="max" class="form-control" placeholder="จนถึง"
+                                                type="text">
                                         </div>
-                                        <div class="col-md-3">
-                                            <div class="input-group">
-                                                <span class="input-group-addon" id="basic-addon1">จนถึง</span>
-                                                <input name="max" id="max" class="form-control" type="text">
-
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3" >
                                             <div class="input-group">
                                                 <span class="input-group-addon"
                                                     id="basic-addon1">สถานะการจ่ายเงิน</span>
@@ -90,7 +85,7 @@ if (!isset($_SESSION['loggedin'])) {
                                                     <option value='Y'>จ่ายแล้ว</option>
                                                     <option value='N'>ยังไม่จ่าย</option>
                                                 </select>
-                                                <input type="hidden" id="cuscode" name="cuscode" >
+                                                <input type="hidden" id="cuscode" name="cuscode">
                                             </div>
                                         </div>
 

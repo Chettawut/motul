@@ -9,17 +9,18 @@
     $max = $_POST["max"];
     $pay_status = $_POST["pay_status"];
     $cuscode = $_POST["cuscode"];
-    // $year = '2020';
+    $search_name = $_POST["search_name"];
+    
 
     $sql = "SELECT a.socode,b.sodate,b.paydate,b.invoice,b.invdate,c.cusname,sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100))-sum(((((a.amount*a.price)-((a.amount*a.price)*a.discount/100))*100)/107)*7/100) as price,sum(((((a.amount*a.price)-((a.amount*a.price)*a.discount/100))*100)/107)*7/100) as vat,sum((a.amount*a.price)-((a.amount*a.price)*a.discount/100)) as total,recedate,delcode,paycondate ";        
     $sql .= " FROM sodetail as a inner join somaster as b on (a.socode=b.socode) inner join customer as c on (b.cuscode=c.cuscode) ";
     $sql .= " where a.supstatus !='C'";  
     if($min!=''&&$max!='')
-    $sql .= " and b.paydate  >= '".$min."' and b.paydate  <= '".$max."' ";          
+    $sql .= " and (b.".$search_name."  BETWEEN '".$min."' and '".$max."' ) ";          
     else if($max!='')
-    $sql .= " and b.paydate  <= '".$max."' ";    
+    $sql .= " and b.".$search_name."  <= '".$max."' ";    
     else if($min!='')
-    $sql .= " and b.paydate  >= '".$min."' ";    
+    $sql .= " and b.".$search_name."  >= '".$min."' ";    
     if($pay_status=='Y')
     $sql .= " and b.paycondate  != '' ";    
     else if($pay_status=='N')
@@ -29,7 +30,7 @@
     $sql .= " and c.cuscode  = '".$cuscode."' ";    
 
     if($min!=''||$max!='')
-    $sql .= " GROUP by a.socode order by b.paydate desc";  
+    $sql .= " GROUP by a.socode order by b.".$search_name.",a.socode desc";  
     else
     $sql .= " GROUP by a.socode order by a.socode desc";  
     

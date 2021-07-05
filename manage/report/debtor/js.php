@@ -9,12 +9,12 @@ $(function() {
     });
     // format: 'yyyy-mm-dd'
 
-    CreateReport('table_debtor', '','','','');
+    CreateReport('table_debtor', '','','','','');
 
 
 
     $('#min, #max,#pay_status').change(function() {
-        CreateReport('table_debtor', $('#min').val(),$('#max').val(),$('#pay_status').val(),$('#cuscode').val());
+        CreateReport('table_debtor', $('#min').val(),$('#max').val(),$('#pay_status').val(),$('#search_name').val(),$('#cuscode').val());
         // alert($('#cuscode').val());
     });
 
@@ -53,11 +53,11 @@ $(function() {
 
 function onClick_tr(id) {
     $('#cuscode').val(id);
-    CreateReport('table_debtor',$('#min').val(),$('#max').val(),$('#pay_status').val(), id);
+    CreateReport('table_debtor',$('#min').val(),$('#max').val(),$('#pay_status').val(),$('#search_name').val(), id);
 }
 
 
-function CreateReport(table,min,max,pay_status, cuscode) {
+function CreateReport(table,min,max,pay_status,search_name, cuscode) {
 
     $("#" + table + " tbody tr").empty();
 
@@ -68,6 +68,7 @@ function CreateReport(table,min,max,pay_status, cuscode) {
             min: min,
             max: max,
             pay_status: pay_status,
+            search_name: search_name,
             cuscode: cuscode
         },
         success: function(result) {
